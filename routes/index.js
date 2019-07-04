@@ -10,6 +10,9 @@ router.get('/chattingList', function(req, res) {
   res.render('chattingList');
 });
 
+router.get('/writepost', function(req, res) {
+  res.render('writepost');
+});
 module.exports = router;
 
 //지호
