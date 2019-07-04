@@ -6,6 +6,9 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/writepost', function(req, res) {
+  res.render('writepost');
+});
 module.exports = router;
 
 //지호
