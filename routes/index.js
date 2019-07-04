@@ -6,6 +6,10 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/chattingList', function(req, res) {
+  res.render('chattingList');
+});
+
 module.exports = router;
 
 //지호
