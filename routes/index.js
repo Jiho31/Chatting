@@ -11,6 +11,9 @@ router.get('/mainMenu', function(req, res) {
 });
 
 
+router.get('/writepost', function(req, res) {
+  res.render('writepost');
+});
 module.exports = router;
 
 //지호
