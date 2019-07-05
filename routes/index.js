@@ -10,6 +10,9 @@ router.get('/mainMenu', function(req, res) {
   res.render('mainMenu', { title: 'Express' });
 });
 
+router.get('/roomModal', function(req, res) {
+  res.render('roomModal', { title: 'Express' });
+});
 
 router.get('/writepost', function(req, res) {
   res.render('writepost');

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Comptible' content='IE=edge'>
+    <title>Page Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+    <script src="dist/semantic.js"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='/stylesheets/roomModal.css'>
+
+</head>
+
+<body>
+    <!-- Trigger/Open The Modal -->
+    <button id="room_btn">방 만들기</button>
+
+    <!-- The Modal -->
+    <div id="room_modal" class="r-modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="room-close">&times;</span>
+            <p>방 만들기</p>
+            <img class="game-image" src="images/discuss.png" width="30%" height="40%">
+            <img class="game-image" src='images/conversation.png' width="30%" height="40%">
+
+            <div class="ui form">
+                <div class="field">
+                    <label>방 제목</label>
+                    <input type="text" placeholder="방 제목">
+                </div>
+            </div>
+
+            <div class="field">
+                <label>카테고리</label>
+                <div class="ui selection dropdown">
+                    <input type="hidden" name="card[type]">
+                    <div class="default text">Type</div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <div class="item" data-value="visa">
+                            <i class="visa icon"></i>
+                            Visa
+                        </div>
+                        <div class="item" data-value="amex">
+                            <i class="amex icon"></i>
+                            American Express
+                        </div>
+                        <div class="item" data-value="discover">
+                            <i class="discover icon"></i>
+                            Discover
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</body>
+
+<script src='/javascripts/roomModal.js'></script>
+
+</html>
