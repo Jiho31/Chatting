@@ -6,6 +6,10 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/qna', function(req, res) {
+  res.render('qna_list');
+});
+
 router.get('/writepost', function(req, res) {
   res.render('writepost');
 });
