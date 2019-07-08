@@ -5,31 +5,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+    <script src="dist/semantic.js"></script>
+
     <link rel="stylesheet" href="/stylesheets/chattingList.css">
     <title>chattingList</title>
 </head>
 
 <body>
-
-    <div class="menubar">
+    <!--기존메뉴바 <div class="menubar">
         <ul>
-            <li ><a href="/free">free</a>
-              <div class = menubar-picture src = "date.png"></div>
+            <li><a href="/free">free</a>
+                <img onclick="document.location.href = '/free';" class=menubar-picture src="/images/free.png">
             </li>
-            <li><a href="/academic">academic</a></li>
-            <li><a href="/hobby">hobby</a></li>
-            <li><a href="/date">date</a></li>
-            <li><a href="/company">company</a></li>
-            <li><a href="/personal relationship">personal relationship</a></li>
-            <li><a href="/beauty&style">beauty&style</a></li>
-        </ul>
-        
-        <ul>
-            
-        </ul>
 
+            <li><a href="/academic">academic</a>
+                <img onclick="document.location.href = '/academic';" class=menubar-picture src="/images/academic.png">
+            </li>
+            <li><a href="/hobby">hobby</a>
+                <img onclick="document.location.href = '/hobby';" class=menubar-picture src="/images/hobby.png">
+            </li>
+            <li><a href="/date">date</a>
+                <img onclick="document.location.href = '/date';" class=menubar-picture src="/images/date.png">
+            </li>
+            <li><a href="/company">company</a>
+                <img onclick="document.location.href = '/company';" class=menubar-picture src="/images/company.png">
+            </li>
+            <li><a href="/relationship">relationship</a>
+                <img onclick="document.location.href = '/relationship';" class=menubar-picture
+                    src="/images/relationship.png">
+            </li>
+            <li><a href="/beauty&style">beauty&style</a>
+                <img onclick="document.location.href = '/beauty&style';" class=menubar-picture src="/images/beauty.png">
+            </li>
+        </ul>
+    </div> -->
+
+    
+    <!-- 최상단 메뉴바<div class="ui inverted secondary pointing menu">
+        <a class="active item">
+            Home
+        </a>
+        <a class="item">
+            Q&A
+        </a>
+        <a class="item">
+            About
+        </a>
+        <a class="right item">
+            <button class="ui inverted black basic button">
+                Account
+            </button>
+        </a>
+    </div> -->
+
+    <!-- 반응형 상단바<div class="ui top attached menu">
+        <div class="ui dropdown icon item">
+            <i class="wrench icon"></i>
+            <div class="menu">
+                <div class="item">
+                    <i class="dropdown icon" style="background-image: url(../images/menu.png);
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    height: 24px;
+                    width: 24px;"></i>
+                    <span class="text">Home</span>
+                    <div class="menu">
+                        <div class="item">free</div>
+                        <div class="item">academic</div>
+                        <div class="item">hobby</div>
+                        <div class="item">date</div>
+                        <div class="item">company</div>
+                        <div class="item">relationship</div>
+                        <div class="item">beauty&style</div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="item">
+                    Q&A
+                </div>
+                <div class="divider"></div>
+                <div class="item">
+                    About
+                </div>
+            </div>
+        </div>
+        <div class="right menu">
+            <div class="ui right aligned category search item">
+                <div class="ui transparent icon input">
+                    <input class="prompt" type="text" placeholder="Search animals...">
+                    <i class="search link icon"></i>
+                </div>
+                <div class="results"></div>
+            </div>
+        </div>
+    </div>
+    <div class="ui bottom attached segment">
+        <p></p>
+    </div> -->
+
+
+    <div class="ui labeled icon menu">
+        <a class="item" href="/free">
+            <i class="gamepad icon" style="background-image: url(../images/free.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 24px;
+            width: 24px;"></i>
+            free
+        </a>
+
+        <a class="item" href="/academic">
+            <i class="gamepad icon" style="background-image: url(../images/academic.png);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 24px;
+                width: 24px;"></i>
+            academic
+        </a>
+
+        <a class="item" href="/hobby">
+            <i class="gamepad icon" style="background-image: url(../images/hobby.png);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 24px;
+                width: 24px;"></i>
+            hobby
+        </a>
+
+        <a class="item" href="/date">
+            <i class="gamepad icon" style="background-image: url(../images/date.png);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 24px;
+                width: 24px;"></i>
+            date
+        </a>
+
+        <a class="item" href="/company">
+            <i class="gamepad icon" style="background-image: url(../images/company.png);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 24px;
+                width: 24px;"></i>
+            company
+        </a>
+        <a class="item" href="relationship">
+            <i class="gamepad icon" style="background-image: url(../images/relationship.png);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 24px;
+                width: 24px;"></i>
+            relationship
+        </a>
+        <a class="item" href="/beauty">
+            <i class="gamepad icon" style="background-image: url(../images/beauty.png);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 24px;
+                width: 24px;"></i>
+            beauty&style
+        </a>
+    </div>
+
+    <div>
+        <div id="body">
+            <div class="line1">
+                <div class="box1">
+                    <div style="margin: 51.5px auto 0 auto">
+                        <div class="room-info">
+                            <div class="category">[과제]</div>
+                            <div class="title">hw1</div>
+                        </div>
+                        <div class="grade">★★☆☆☆</div>
+                        <div class="mode">게시글/채팅</div>
+                    </div>
+                </div>
+                <div class="box2">
+
+                </div>
+            </div>
+
+            <div class="line2">
+                <div class="box1">
+
+                </div>
+
+                <div class="box2">
+
+                </div>
+            </div>
+
+
+            <div class="line3">
+                <div class="box1">
+
+                </div>
+
+                <div class="box2">
+
+                </div>
+            </div>
+
+            <div class=direction>
+                <img src="/images/left.png" height="30px" weight="30px;" onclick="">
+                <img src="/images/right.png" height="30px" weight="30px;" onclick="">
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/javascripts/chattingList.js"></script>
 </body>
 
-<script src="/javascripts/chattingList.js"></script>
+
 
 </html>
