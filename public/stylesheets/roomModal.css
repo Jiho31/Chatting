@@ -33,8 +33,32 @@
     text-decoration: none;
     cursor: pointer;
 }
-.game-image{
-    float: left;
-    margin: 5%;
+.game-icon{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+
 }
+
+.game-images{
+  display: flex; 
+   flex-direction: column;
+   margin:5%;
+}
+
+.game-choice{
+    padding-left: 32px;
+}
+.modal-content{
+    max-width: 620px;
+}
+
+/* img[Attributes Style] {
+    height: 96px;
+} */
+.game-image{
+    height: 128px;
+}
+
 
