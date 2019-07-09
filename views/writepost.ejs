@@ -6,11 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/writepost.css" />
     <script src="dist/semantic.js"></script>
+    <script src="javascripts/writepost.js"></script>
 </head>
 <body>
-    <button class="ui button">
-        Follow
-      </button>
+    <div style="margin-left: auto; margin-right: auto; margin-top: 20px; width: 60%">
+        <div class="ui form">
+            <div class="field">
+                <label>글 카테고리</label>
+                <div class="ui selection dropdown">
+                    <input type="hidden" name="category">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">분류</div>
+                    <div class="menu">
+                        <div class="item" data-value="1">이의 제기</div>
+                        <div class="item" data-value="0">궁금해요</div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>글 제목</label>
+                <input type="text">
+            </div>
+            <div class="field">
+                <label>내용</label>
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <button class="ui button">등록하기</button>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    $('.ui.dropdown').dropdown();
+</script>
 </html>

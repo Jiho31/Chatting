@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/qna_list.css" />
+    <script src="dist/semantic.js"></script>
+    <script src="javascripts/qna_list.js"></script>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; padding: 20px">
+        <div>
+            <h3 class="ui header">Q&A</h3>
+        </div>
+        <table id="qna_table" class="ui unstackable single line table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>제목</th>
+                    <th>날짜</th>
+                    <th>작성자</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2</td>
+                    <td>계정 정지 문의</td>
+                    <td>2019.07.07</td>
+                    <td>비공개</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>제 계정은 왜 정지 된거죠?</td>
+                    <td>2019.07.06</td>
+                    <td>비공개</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <button id="new_post_button" class="ui button">글쓰기</button>
+        </div>
+    </div>
+</body>
+</html>
