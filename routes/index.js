@@ -16,12 +16,23 @@ router.get('/mainMenu', function(req, res) {
 
 router.get('/roomModal', function(req, res) {
   res.render('roomModal', { title: 'Express' });
+});
 router.get('/qna', function(req, res) {
   res.render('qna_list');
 });
 
 router.get('/writepost', function(req, res) {
   res.render('writepost');
+});
+
+router.post('/new_qna', function(req, res){
+  var qnaTitle=req.body.qnaTitle;
+  var qnaCategory=req.body.qnaCategory;
+  var qnaContent=req.body.qnaContent;
+
+  console.log(qnaTitle);
+  console.log(qnaContent);
+  console.log(qnaCategory);
 });
 module.exports = router;
 

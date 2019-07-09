@@ -11,12 +11,31 @@
     <script src="javascripts/writepost.js"></script>
 </head>
 <body>
+    <div class="ui inverted segment">
+        <div class="ui inverted secondary pointing menu">
+            <a class="item">
+                Home
+            </a>
+            <a class="active item">
+                Q&A
+            </a>
+            <a class="item">
+                About
+            </a>
+            <a class="right item">
+                <button class="ui inverted black basic button">
+                    Account
+                </button>
+            </a>
+        </div>
+    </div>
     <div style="margin-left: auto; margin-right: auto; margin-top: 20px; width: 60%">
-        <div class="ui form">
+        <!-- <div class="ui form"> -->
+        <form action="/new_qna" method="post" class="ui form" enctype="multipart/form-data">
             <div class="field">
                 <label>글 카테고리</label>
                 <div class="ui selection dropdown">
-                    <input type="hidden" name="category">
+                    <input type="hidden" name="qnaCategory">
                     <i class="dropdown icon"></i>
                     <div class="default text">분류</div>
                     <div class="menu">
@@ -27,16 +46,26 @@
             </div>
             <div class="field">
                 <label>글 제목</label>
-                <input type="text">
+                <input type="text" name="qnaTitle">
             </div>
             <div class="field">
                 <label>내용</label>
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <textarea name="qnaContent" id="" cols="30" rows="10"></textarea>
             </div>
             <div>
-                <button class="ui button">등록하기</button>
+                <!-- <button class="ui button fluid" type="button" onclick="$('#select_file').trigger('click');">
+                    <i class="icon file alternate"></i>
+                    파일 첨부
+                </button>
+                <input id="select_file" type="file" value="파일 첨부" name="qnaFile" style="display: none"> -->
+                <input id="select_file" type="file" value="파일 첨부" name="qnaFile" class="ui button">
             </div>
-        </div>
+            <div>
+                <!-- <button class="ui button">등록하기</button> -->
+                <input class="ui button" type="submit" value="등록하기">
+            </div>
+        </form>
+        <!-- </div> -->
     </div>
 </body>
 <script>
