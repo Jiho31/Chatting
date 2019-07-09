@@ -33,7 +33,7 @@
     text-decoration: none;
     cursor: pointer;
 }
-.game-icon{
+.room-icon{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -41,23 +41,22 @@
 
 }
 
-.game-images{
+.room-images{
   display: flex; 
    flex-direction: column;
-   margin:5%;
 }
 
-.game-choice{
-    padding-left: 32px;
+
+.room-choice{
+    padding-left: 6%;
+    padding-top:5%;
 }
 .modal-content{
     max-width: 620px;
 }
 
-/* img[Attributes Style] {
-    height: 96px;
-} */
-.game-image{
+
+.room-image{
     height: 128px;
 }
 
@@ -65,5 +64,32 @@
     padding-top: 5%;
     padding-left: 30%;
 
+}
+.field{
+    padding-top: 2%; 
+}
+
+/* 채팅 방식 아이콘 기본*/
+.button.selector {
+    margin: 4px;
+    background-color: white;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    outline: none;
+    transition: all .3s;
+    padding: 4%;
+}
+
+/* 채팅 방식 아이콘 호버 */
+.button.selector:hover {
+    border: 2px solid grey;
+    transition: all .3s;
+    
+}
+
+/* 채팅 방식 아이콘 선택 */
+.button.selector.selected {
+    border: 2px solid black;
+    color: #545454 !important;
 }
 

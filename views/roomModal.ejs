@@ -15,7 +15,11 @@
 
 <body>
     <!-- Trigger/Open The Modal -->
-    <button id="room_btn">Makes Room</button>
+
+    <button id="room_btn" class="ui basic button">
+            <i class="icon comments"></i>
+            Making Room
+          </button>
 
     <!-- The Modal -->
     <div id="room_modal" class="r-modal">
@@ -25,21 +29,27 @@
 
             <span class="room-close">&times;</span>
 
-            <p>Makes room </p>
+            <p>Making room </p>
 
-            <div class="game-icon">
-                <div class="game-images">
-                    <img class="game-image" src="images/conversation-1.png">
-                    <p class="game-choice">1대1 채팅</p>
-                </div>
+            <!-- 채팅 방식 선택하는 아이콘 -->
+            <div class="room-icon">
 
-                <div class="game-images">
-                    <img class="game-image" src='images/conversation.png'>
-                    <p class="game-choice">게시판 글</p>
+                <button class="button selector selected">
+                    <div class="room-images">
+                        <img class="room-image" src="images/conversation-1.png">
+                        <p class="room-choice">1대1 채팅</p>
+                    </div>
+                </button>
 
-                </div>
+                <button class="button selector">
+                    <div class="room-images">
+                        <img class="room-image" src='images/conversation.png'>
+                        <p class="room-choice">게시판 글</p>
+                    </div>
+                </button>
             </div>
 
+            <!-- 채팅방 제목 입력 박스-->
             <div class="ui form">
                 <div class="field">
                     <label>Title</label>
@@ -47,29 +57,33 @@
                 </div>
             </div>
 
-            <div class="two fields">
-                <div class="field">
-                    <label>Category</label>
-                    <select class="ui fluid dropdown">
-                        <option value="">Category</option>
+            <!-- 채팅방 카테고리 선택 박스-->
+            <div class="field">
+                <label>Category</label>
+                <select class="ui fluid dropdown">
+                    <option value="">Category</option>
 
-                        <option value="VA">세인</option>
-                        <option value="WA">지호</option>
-                        <option value="WV">선혜</option>
-                        <option value="WI">성희</option>
-                    </select>
-                </div>
-                <div class="sub-or-can">
-                    <div class="ui secondary submit button">Submit</div>
-                    <button class="ui button">
-                        Cancel
-                    </button>
-                </div>
+                    <option value="VA">세인</option>
+                    <option value="WA">지호</option>
+                    <option value="WV">선혜</option>
+                    <option value="WI">성희</option>
+                </select>
             </div>
 
+            <!-- 확인 또는 취소 버튼 -->
+            <div class="sub-or-can">
+                <button class="ui secondary submit button">
+                    Submit
+                </button>
 
+                <button class="ui grey button">
+                    Cancel
+                </button>
+            </div>
 
         </div>
+    </div>
+
 </body>
 
 <script src='/javascripts/roomModal.js'></script>
