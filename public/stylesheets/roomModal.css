@@ -53,6 +53,7 @@
 }
 .modal-content{
     max-width: 620px;
+    min-width: 350px;
 }
 
 

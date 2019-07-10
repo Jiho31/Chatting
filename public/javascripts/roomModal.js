@@ -7,10 +7,10 @@ var btn = document.getElementById("room_btn");
 var span = document.getElementsByClassName("room-close")[0];  
 
 //submit 버튼
-var submit_btn = document.getElementsByClassName("ui secondary submit button")[0];
+var submitBtn = document.getElementsByClassName("ui secondary submit button")[0];
 
 //cancel 버튼
-var cancel_btn = document.getElementsByClassName("ui grey button")[0];
+var cancelBtn = document.getElementsByClassName("ui grey button")[0];
 
 
 
@@ -44,12 +44,12 @@ $('.ui.dropdown')
 ;
 
 //submit 버튼 누르면 모달 닫힘
-submit_btn.onclick = function() {
+submitBtn.onclick = function() {
     modal.style.display = "none";
 }
 
 //cancel 버튼 누르면 모달 닫힘
-cancel_btn.onclick = function() {
+cancelBtn.onclick = function() {
     modal.style.display = "none";
 }
 
