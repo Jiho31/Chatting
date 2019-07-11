@@ -20,17 +20,44 @@
             <a class="active item" a href = "/chattingList">
                 Home
             </a>
-            <a class="item" a href = "/writepost">
+            <a class="item" a href = "/qna">
                 Q&A
             </a>
             <a class="item" a href = "/about">
                 About
             </a>
-            <a class="right item">
-                <button class="ui inverted red basic button">
-                    Account
+            <a class="right item ignored">
+                <button id="account_Btn" class="ui inverted black basic button">
+                  Account
                 </button>
-            </a>
+              </a>
+
+              <div id="account_Modal" class="account-modal">
+
+                <!-- Modal content -->
+                <div class="account-modal-content">
+        
+                  <span class="account-close">&times;</span>
+        
+                  <div class="ui tag label">
+                    <a class="my-email">abc123@gmail.com</a>
+                    </div>
+        
+                  <div class="account-button">
+                    <button class="ui basic button">
+                      <i class="icon user"></i>
+                      My page
+                    </button>
+        
+                    <button class="ui basic button">
+                      <i class="icon sign-out"></i>
+                      Logout
+                    </button>
+                  </div>
+        
+                </div>
+        
+              </div>
         </div>
     </div>
 
@@ -128,6 +155,15 @@
                 <div class="item">
                     About
                 </div>
+                <div class="divider"></div>
+                <div class="item">
+                    <i class="dropdown icon"></i>
+                    <span class="text">Account</span>
+                    <div class="menu">
+                        <div class="item">My page</div>
+                        <div class="item">Logout</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -135,8 +171,72 @@
     </div> 
 
     <div id = "btns">
-        <button id = "btn1">바로 입장</button>
-        <button id = "btn2">방 만들기</button>
+        <button class = "btn1">바로 입장</button>
+        <button id="room_btn" class = "btn2">방 만들기</button>
+        <div id="room_modal" class="r-modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+    
+                <span class="room-close">&times;</span>
+    
+                <p>Making room </p>
+    
+                <!-- 채팅 방식 선택하는 아이콘 -->
+                <div class="room-icon">
+    
+                    <button class="button selector selected">
+                        <div class="room-images">
+                            <img class="room-image" src="images/conversation-1.png">
+                            <p class="room-choice">1대1 채팅</p>
+                        </div>
+                    </button>
+    
+                    <button class="button selector">
+                        <div class="room-images">
+                            <img class="room-image" src='images/conversation.png'>
+                            <p class="room-choice">게시판 글</p>
+                        </div>
+                    </button>
+                </div>
+    
+                <!-- 채팅방 제목 입력 박스-->
+                <div class="ui form">
+                    <div class="field">
+                        <label>Title</label>
+                        <input type="text" placeholder="Title">
+                    </div>
+                </div>
+    
+                <!-- 채팅방 카테고리 선택 박스-->
+                <div class="field">
+                    <label>Category</label>
+                    <select class="ui fluid dropdown">
+                        <option value="">Category</option>
+    
+                        <option value="VA">세인</option>
+                        <option value="WA">지호</option>
+                        <option value="WV">선혜</option>
+                        <option value="WI">성희</option>
+                    </select>
+                </div>
+    
+                <!-- 확인 또는 취소 버튼 -->
+                <div class="sub-or-can">
+                    <button class="ui secondary submit button">
+                        Submit
+                    </button>
+    
+                    <button class="ui grey button">
+                        Cancel
+                    </button>
+                </div>
+    
+            </div>
+        </div>
+
+
+        
     </div>
 
     <div>

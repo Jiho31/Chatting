@@ -1,6 +1,6 @@
 var express = require('express');
 var session = require('express-session');
-var mysql = require('mysql');
+// var mysql = require('sync-mysql');
 var router = express.Router();
 
 router.use(session({
@@ -9,14 +9,14 @@ router.use(session({
   saveUninitialized: true
 }));
 
-var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'nodejs',
-  password: 'seonhye6166',
-  database: 'chatting'
-});
+// var connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'nodejs',
+//   password: 'seonhye6166',
+//   database: 'chatting'
+// });
 
-connection.connect();
+// connection.connect();
 
 /* GET home page. */
 router.get('/', function(req, res) {
