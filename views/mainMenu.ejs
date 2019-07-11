@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Comptible' content='IE=edge'>
+  <title>Page Title</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+  <script src="dist/semantic.js"></script>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' href='/stylesheets/mainMenu.css'>
+
+</head>
+
+<body>
+  <div class="ui inverted segment">
+    <div class="ui inverted secondary pointing menu">
+      <a class="active item">
+        Home
+      </a>
+      <a class="item">
+        Q&A
+      </a>
+      <a class="item">
+        About
+      </a>
+      <!-- 계정 버튼//여기부터 새로 바뀐 부분 -->
+      <a class="right item ignored">
+        <button id="account_Btn" class="ui inverted black basic button">
+          Account
+        </button>
+      </a>
+      <!-- 계정 페이지 모달 -->
+      <div id="account_Modal" class="account-modal">
+
+        <!-- Modal content -->
+        <div class="account-modal-content">
+
+          <span class="account-close">&times;</span>
+
+          <div class="ui big tag label">
+            <a class="my-email">abc123@gmail.com</a>
+            </div>
+
+          <div class="account-button">
+            <button class="ui basic button">
+              <i class="icon user"></i>
+              My page
+            </button>
+
+            <button class="ui basic button">
+              <i class="icon sign-out"></i>
+              Logout
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+
+</body>
+
+<script src='/javascripts/mainMenu.js'></script>
+
+</html>
