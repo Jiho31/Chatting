@@ -1,9 +1,31 @@
 var express = require('express');
+var session = require('express-session');
+var mysql = require('mysql');
 var router = express.Router();
+
+router.use(session({
+  secret: '1234DSFS@!',
+  resave: false,
+  saveUninitialized: true
+}));
+
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'nodejs',
+  password: 'seonhye6166',
+  database: 'chatting'
+});
+
+connection.connect();
 
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
+});
+
+/*데이터베이스 테이블 생성*/
+router.get('/maketable', function(req, res) {
+  
 });
 
 router.get('/chattingList', function(req, res) {

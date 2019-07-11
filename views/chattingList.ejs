@@ -15,99 +15,26 @@
 </head>
 
 <body>
-    <!--기존메뉴바 <div class="menubar">
-        <ul>
-            <li><a href="/free">free</a>
-                <img onclick="document.location.href = '/free';" class=menubar-picture src="/images/free.png">
-            </li>
-
-            <li><a href="/academic">academic</a>
-                <img onclick="document.location.href = '/academic';" class=menubar-picture src="/images/academic.png">
-            </li>
-            <li><a href="/hobby">hobby</a>
-                <img onclick="document.location.href = '/hobby';" class=menubar-picture src="/images/hobby.png">
-            </li>
-            <li><a href="/date">date</a>
-                <img onclick="document.location.href = '/date';" class=menubar-picture src="/images/date.png">
-            </li>
-            <li><a href="/company">company</a>
-                <img onclick="document.location.href = '/company';" class=menubar-picture src="/images/company.png">
-            </li>
-            <li><a href="/relationship">relationship</a>
-                <img onclick="document.location.href = '/relationship';" class=menubar-picture
-                    src="/images/relationship.png">
-            </li>
-            <li><a href="/beauty&style">beauty&style</a>
-                <img onclick="document.location.href = '/beauty&style';" class=menubar-picture src="/images/beauty.png">
-            </li>
-        </ul>
-    </div> -->
-
-    
-    <!-- 최상단 메뉴바<div class="ui inverted secondary pointing menu">
-        <a class="active item">
-            Home
-        </a>
-        <a class="item">
-            Q&A
-        </a>
-        <a class="item">
-            About
-        </a>
-        <a class="right item">
-            <button class="ui inverted black basic button">
-                Account
-            </button>
-        </a>
-    </div> -->
-
-    <!-- 반응형 상단바<div class="ui top attached menu">
-        <div class="ui dropdown icon item">
-            <i class="wrench icon"></i>
-            <div class="menu">
-                <div class="item">
-                    <i class="dropdown icon" style="background-image: url(../images/menu.png);
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    height: 24px;
-                    width: 24px;"></i>
-                    <span class="text">Home</span>
-                    <div class="menu">
-                        <div class="item">free</div>
-                        <div class="item">academic</div>
-                        <div class="item">hobby</div>
-                        <div class="item">date</div>
-                        <div class="item">company</div>
-                        <div class="item">relationship</div>
-                        <div class="item">beauty&style</div>
-                    </div>
-                </div>
-                <div class="divider"></div>
-                <div class="item">
-                    Q&A
-                </div>
-                <div class="divider"></div>
-                <div class="item">
-                    About
-                </div>
-            </div>
-        </div>
-        <div class="right menu">
-            <div class="ui right aligned category search item">
-                <div class="ui transparent icon input">
-                    <input class="prompt" type="text" placeholder="Search animals...">
-                    <i class="search link icon"></i>
-                </div>
-                <div class="results"></div>
-            </div>
+    <div class="ui inverted segment" id = "top_menu">
+        <div class="ui inverted secondary pointing menu">
+            <a class="active item" a href = "/chattingList">
+                Home
+            </a>
+            <a class="item" a href = "/writepost">
+                Q&A
+            </a>
+            <a class="item" a href = "/about">
+                About
+            </a>
+            <a class="right item">
+                <button class="ui inverted red basic button">
+                    Account
+                </button>
+            </a>
         </div>
     </div>
-    <div class="ui bottom attached segment">
-        <p></p>
-    </div> -->
 
-
-    <div class="ui labeled icon menu">
+    <div class="ui labeled icon menu" id = "icon_menu" style="width: fit-content; margin-left: auto; margin-right: auto;">
         <a class="item" href="/free">
             <i class="gamepad icon" style="background-image: url(../images/free.png);
             background-size: cover;
@@ -168,6 +95,48 @@
                 width: 24px;"></i>
             beauty&style
         </a>
+    </div>
+
+     
+    <div class="ui top attached menu" id = "sidebar">
+        <div class="ui dropdown icon item" style="background-image: url(../images/menu.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 32px;
+        width: 24px;
+        margin: 3px 0px 3px 5px">
+            <i class="wrench icon"></i>
+            <div class="menu" style="margin: 3px 0px 0px -6px;">
+                <div class="item">
+                    <i class="dropdown icon"></i>
+                    <span class="text">Home</span>
+                    <div class="menu">
+                        <div class="item">free</div>
+                        <div class="item">academic</div>
+                        <div class="item">hobby</div>
+                        <div class="item">date</div>
+                        <div class="item">company</div>
+                        <div class="item">relationship</div>
+                        <div class="item">beauty&style</div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="item">
+                    Q&A
+                </div>
+                <div class="divider"></div>
+                <div class="item">
+                    About
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui bottom attached segment" id = bottom_line>
+    </div> 
+
+    <div id = "btns">
+        <button id = "btn1">바로 입장</button>
+        <button id = "btn2">방 만들기</button>
     </div>
 
     <div>
