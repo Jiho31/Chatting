@@ -13,10 +13,10 @@
 <body>
     <div class="ui inverted segment">
         <div class="ui inverted secondary pointing menu">
-            <a class="item">
+            <a href="/chattingList" class="item">
                 Home
             </a>
-            <a class="active item">
+            <a href="/qna" class="active item">
                 Q&A
             </a>
             <a class="item">
@@ -31,7 +31,7 @@
     </div>
     <div style="margin-left: auto; margin-right: auto; margin-top: 20px; width: 60%">
         <!-- <div class="ui form"> -->
-        <form action="/new_qna" method="post" class="ui form" enctype="multipart/form-data">
+        <form id="qna_form1" action="/new_qna1" method="post" class="ui form">
             <div class="field">
                 <label>글 카테고리</label>
                 <div class="ui selection dropdown">
@@ -46,23 +46,50 @@
             </div>
             <div class="field">
                 <label>글 제목</label>
-                <input type="text" name="qnaTitle">
+                <input type="text" name="qnaTitle" placeholder="제목을 입력하세요">
             </div>
             <div class="field">
                 <label>내용</label>
                 <textarea name="qnaContent" id="" cols="30" rows="10"></textarea>
             </div>
+            <div style="display: none">
+                <input class="ui button" type="submit" value="등록하기">
+            </div>
+        </form>
+        <form id="qna_form2" action="/new_qna2" method="post" enctype="multipart/form-data" class="ui form">
             <div>
                 <!-- <button class="ui button fluid" type="button" onclick="$('#select_file').trigger('click');">
                     <i class="icon file alternate"></i>
                     파일 첨부
                 </button>
                 <input id="select_file" type="file" value="파일 첨부" name="qnaFile" style="display: none"> -->
-                <input id="select_file" type="file" value="파일 첨부" name="qnaFile" class="ui button">
+                <table class="ui definition table">
+                    <tbody style="font-size: 12px">
+                    <tr>
+                        <td class="two wide column">첨부파일1</td>
+                        <td style="padding: 5px"><input id="select_file1" type="file" value="파일 첨부" name="qnaFile1" class="ui button"></td>
+                    </tr>
+                    <tr>
+                        <td>첨부파일2</td>
+                        <td style="padding: 5px"><input id="select_file2" type="file" value="파일 첨부" name="qnaFile2" class="ui button"></td>
+                    </tr>
+                    <tr>
+                        <td>첨부파일3</td>
+                        <td style="padding: 5px"><input id="select_file3" type="file" value="파일 첨부" name="qnaFile3" class="ui button"></td>
+                    </tr>
+                    <tr>
+                        <td>첨부파일4</td>
+                        <td style="padding: 5px"><input id="select_file4" type="file" value="파일 첨부" name="qnaFile4" class="ui button"></td>
+                    </tr>
+                    <tr>
+                        <td>첨부파일5</td>
+                        <td style="padding: 5px"><input id="select_file5" type="file" value="파일 첨부" name="qnaFile5" class="ui button"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <div>
-                <!-- <button class="ui button">등록하기</button> -->
-                <input class="ui button" type="submit" value="등록하기">
+            <div style="display: flex; justify-content: center;">
+                <input class="ui button" type="submit" value="등록하기" style="margin: 15px">
             </div>
         </form>
         <!-- </div> -->
