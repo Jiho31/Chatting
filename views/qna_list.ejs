@@ -11,6 +11,24 @@
     <script src="javascripts/qna_list.js"></script>
 </head>
 <body>
+    <div class="ui inverted segment">
+        <div class="ui inverted secondary pointing menu">
+            <a href="/chattingList" class="item">
+                Home
+            </a>
+            <a href="/qna" class="active item">
+                Q&A
+            </a>
+            <a class="item">
+                About
+            </a>
+            <a class="right item">
+                <button class="ui inverted black basic button">
+                    Account
+                </button>
+            </a>
+        </div>
+    </div>
     <div style="display: flex; flex-direction: column; padding: 20px">
         <div>
             <h3 class="ui header">Q&A</h3>
@@ -40,7 +58,7 @@
             </tbody>
         </table>
         <div>
-            <button id="new_post_button" class="ui button">글쓰기</button>
+            <input class="ui button" type="button" value="글쓰기" onClick="location.href='/writepost';">
         </div>
     </div>
 </body>
