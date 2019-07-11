@@ -3,88 +3,10 @@ html,body{
     margin: 0px 0px;
 }
 
-.menubar{
-    height: 170px;
-    border:none;
-    border:0px;
-    margin:0px;
-    padding:0px;
-    font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
-    font-size:14px;
-    font-weight:bold;
-    }
-    
-.menubar ul{
-    background: lightgray;
-    height:50px;
-    list-style:none;
-    margin:0;
-    padding:0;
-    display: flex;
-    }
-    
-.menubar li{
-    padding:0px;
-    margin-left: auto;
-    margin-right: auto;
-    }
-    
-.menubar li a{
-    background:lightgray;
-    color:white;
-    display:block;
-    font-weight:normal;
-    line-height:50px;
-    margin:0px;
-    padding:0px 25px;
-    text-align:center;
-    text-decoration:none;
-    }
-    
-.menubar li a:hover, .menubar ul li:hover a{
-    color:black;
-    text-decoration:none;
-    }
-       
-/* .menubar li li {
-    background:pink;
-    display:block;
-    float:none;
-    margin:0px;
-    padding:0px;
-    width:200px;
-    } */
-    
-/* .menubar li:hover li a{
-    background:none;
-} */
-    
-/* .menubar li ul a{
-    display:block;
-    height:50px;
-    font-size:12px;
-    font-style:normal;
-    margin:0px;
-    padding:0px 10px 0px 15px;
-    text-align:left;
-    } */
-    
-.menubar li ul a:hover a{
-    background: lightgray;
-    border:0px;
-    color:black;
-    text-decoration:none;
-    }
-
-.menubar-picture{   
-    height: 90px;
-    margin-top: 10px;
-}
-
 #body{
     border: 0.5px solid;
     height: 100%;
-    margin: 0px 50px 50px 50px;
+    margin: 14px 50px 50px 50px;
 }
 
 .line1{
@@ -107,7 +29,7 @@ html,body{
 }
 
 .box1{
-    border: 0.5px solid;
+    border: 2px solid;
     height: 200px;
     width: 500px;
     display: flex;
@@ -116,11 +38,11 @@ html,body{
 }
 
 .box2{
-    border: 0.5px solid;
+    border: 2px solid;
     height: 200px;
     width: 500px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .direction{
@@ -135,8 +57,59 @@ i.icon::before { /* semantic 이미지 삭제 */
 .room-info{
     display: flex; 
     margin-bottom: 20px;
+
 }
 
 .grade{
     margin-bottom: 20px;
+}
+
+#btns{
+    display: flex;
+    justify-content: center;
+}
+
+#btn1{
+    width: 150px;
+    height: 50px;
+    background-color: black;
+    outline: none;
+    color: white;
+    font-weight: bolder;
+    margin-right: 30px;
+}
+
+#btn2{
+    width: 150px;
+    height: 50px;
+    background-color: black;
+    outline: none;
+    color: white;
+    font-weight: bolder;
+}
+
+#bottom_line{
+    padding: 0px;
+}
+
+@media only screen and (min-width: 769px){
+    #sidebar{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px){
+   .room-info{
+        display: flex;
+        flex-direction: column;
+   }
+   #top_menu{
+       display: none;
+   }
+   #icon_menu{
+       display: none;
+   }
+   #sidebar{
+       display: block;
+   }
 }
