@@ -1,5 +1,6 @@
 $('.ui.dropdown').dropdown('');
 
+/*상단바 왼쪽*/
 $(document).ready(function () {
     $('.ui .item').on('click', function() {
         // ignored 클래스 가지면 무시
