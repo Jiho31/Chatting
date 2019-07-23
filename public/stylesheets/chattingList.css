@@ -69,7 +69,7 @@ i.icon::before { /* semantic 이미지 삭제 */
     justify-content: center;
 }
 
-#btn1{
+.btn1{
     width: 150px;
     height: 50px;
     background-color: black;
@@ -79,7 +79,7 @@ i.icon::before { /* semantic 이미지 삭제 */
     margin-right: 30px;
 }
 
-#btn2{
+.btn2{
     width: 150px;
     height: 50px;
     background-color: black;
@@ -90,6 +90,102 @@ i.icon::before { /* semantic 이미지 삭제 */
 
 #bottom_line{
     padding: 0px;
+}
+
+/* The Modal (background) */
+.r-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */                          
+}
+/* The Close Button */
+.room-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.room-close:hover,
+.room-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.room-icon{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+
+}
+
+.room-images{
+  display: flex; 
+   flex-direction: column;
+}
+
+
+.room-choice{
+    padding-left: 6%;
+    padding-top:5%;
+}
+.modal-content{
+    max-width: 620px;
+    min-width: 350px;
+}
+
+
+.room-image{
+    height: 128px;
+}
+
+.sub-or-can{
+    padding-top: 5%;
+    padding-left: 30%;
+
+}
+.field{
+    padding-top: 2%; 
+}
+
+/* 채팅 방식 아이콘 기본*/
+.button.selector {
+    margin: 4px;
+    background-color: white;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    outline: none;
+    transition: all .3s;
+    padding: 4%;
+}
+
+/* 채팅 방식 아이콘 호버 */
+.button.selector:hover {
+    border: 2px solid grey;
+    transition: all .3s;
+    
+}
+
+/* 채팅 방식 아이콘 선택 */
+.button.selector.selected {
+    border: 2px solid black;
+    color: #545454 !important;
 }
 
 @media only screen and (min-width: 769px){
@@ -113,3 +209,75 @@ i.icon::before { /* semantic 이미지 삭제 */
        display: block;
    }
 }
+
+/* The Modal (background) */
+.account-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    /* background-color: rgb(0,0,0); Fallback color
+    background-color: rgba(0,0,0,0.4); Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .account-modal-content {
+    background-color: #fefefe;
+    margin-top:78px;
+    margin-left:auto; 
+    
+    padding: 20px;
+    border: 1px solid #888;
+    width: 360px;                         
+  }
+
+  /* The Close Button */
+  .account-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .account-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  
+  }
+
+  .ui.basic.button{
+    margin: 4%;
+  }
+  
+  .ui.tag.label{
+    margin:2% auto;
+    margin-left: 7%;
+  }
+
+  .account-modal-content{
+    min-width: 250px;
+  }
+  
+  @media screen and (max-width: 414px){
+    .account-modal-content {
+      margin: 21% auto ;
+      width: 240px;
+    }
+  
+    .ui.tag.label{
+      justify-content: center;
+    }
+  
+  }

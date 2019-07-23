@@ -1,0 +1,10 @@
+html,body{
+    height: 100%;
+    margin: 0px 0px;
+}
+
+#body{
+    border: 0.5px solid;
+    height: 100px;
+    width: 50px;
+}
