@@ -39,8 +39,8 @@
                     <i class="dropdown icon"></i>
                     <div class="default text">분류</div>
                     <div class="menu">
-                        <div class="item" data-value="1">이의 제기</div>
-                        <div class="item" data-value="0">궁금해요</div>
+                        <div class="item" data-value="이의 제기">이의 제기</div>
+                        <div class="item" data-value="궁금해요">궁금해요</div>
                     </div>
                 </div>
             </div>
@@ -66,6 +66,10 @@
                 <table class="ui definition table">
                     <tbody style="font-size: 12px">
                     <tr>
+                        <td class="two wide column">첨부파일</td>
+                        <td style="padding: 5px"><input id="select_file" type="file" value="파일 첨부" name="img" class="ui button" multiple></td>
+                    </tr>
+                    <!-- <tr>
                         <td class="two wide column">첨부파일1</td>
                         <td style="padding: 5px"><input id="select_file1" type="file" value="파일 첨부" name="qnaFile1" class="ui button"></td>
                     </tr>
@@ -84,18 +88,41 @@
                     <tr>
                         <td>첨부파일5</td>
                         <td style="padding: 5px"><input id="select_file5" type="file" value="파일 첨부" name="qnaFile5" class="ui button"></td>
-                    </tr>
+                    </tr> -->
                     </tbody>
                 </table>
             </div>
-            <div style="display: flex; justify-content: center;">
-                <input class="ui button" type="submit" value="등록하기" style="margin: 15px">
+            <div class="ui checkbox" id="secret_checkbox">
+                <input type="checkbox" name="qnaSecret" value="checked">
+                <label for="">비공개</label>
+            </div>
+            <div style="display: flex;">
+                <input id="form_submit" class="ui button" type="button" value="등록하기" style="margin: 0">
             </div>
         </form>
-        <!-- </div> -->
     </div>
 </body>
 <script>
     $('.ui.dropdown').dropdown();
+    $('#form_submit').click(function () {
+        //e.preventDefault();
+        var fileform = document.getElementById('qna_form2');
+        var formdata = new FormData(fileform);
+
+        $.ajax({
+            cache: false,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            url: "/new_qna2",
+            data: formdata
+        }).done(function (data) {
+            console.log(data);
+            if (data == true)
+                $('#qna_form1').submit();
+            else
+                console.log("Error");
+        });
+    });
 </script>
 </html>
