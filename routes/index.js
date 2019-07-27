@@ -44,6 +44,8 @@ var upload = multer({
   });
 
 var connectDB = new mysql(dbinfo.getDBInfo());
+var resultQNA = null; // q&a 글 내용 전역변수
+var resultPostNum = null;
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -71,7 +73,7 @@ router.get('/qna', function(req, res) {
 });
 
 router.get('/writepost', function(req, res) {
-  connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(`index` INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date TEXT, PRIMARY KEY(`index`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+  connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date TEXT, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
   res.render('writepost');
 });
@@ -82,11 +84,10 @@ router.post('/new_qna1', function(req, res){
   var qnaContent=req.body.qnaContent;
   //var qnaSecret=req.body.qnaSecret;
   var qnaSecret;
-  var num=1;
 
   //userId 로그인 기능 추가하고 나중에 테이블에 저장
   // secretOrNot 보류
-  var addPost = "UPDATE QNALIST SET category='"+qnaCategory+"', title='"+qnaTitle+"', content='"+qnaContent+"' WHERE QNALIST.index="+num+";";
+  var addPost = "UPDATE QNALIST SET category='"+qnaCategory+"', title='"+qnaTitle+"', content='"+qnaContent+"' WHERE postIndex="+resultPostNum+";";
   connectDB.query(addPost);
 
   // console.log(qnaTitle);
@@ -139,10 +140,15 @@ router.post('/new_qna2', upload.array('img', 5), function(req, res){
     }
   }
   
-  var addPost = "INSERT INTO QNALIST(filePaths, date)";
-  addPost = addPost + "VALUES('"+ filePaths+"', '"+postDate+"');";
+  // var addPost = "INSERT INTO QNALIST(filePaths, date)";
+  var addPost = "INSERT INTO QNALIST(filePaths, date) VALUES('"+ filePaths+"', '"+postDate+"')";
   connectDB.query(addPost);
   
+  resultQNA = connectDB.query('SELECT COUNT(*) FROM QNALIST;')[0];
+  var key1 = 'COUNT(*)';
+  console.log(resultQNA[key1]);
+  resultPostNum = resultQNA[key1];
+    
   res.send(true);
 })
 module.exports = router;
