@@ -72,7 +72,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <!-- <tr>
                     <td>2</td>
                     <td>계정 정지 문의</td>
                     <td>2019.07.07</td>
@@ -83,7 +83,15 @@
                     <td>제 계정은 왜 정지 된거죠?</td>
                     <td>2019.07.06</td>
                     <td>비공개</td>
-                </tr>
+                </tr> -->
+                <% for(var i = qnaData.length-1; i>=0; i--){ %>
+                    <tr>
+                        <td><%= qnaData[i].postIndex %></td>
+                        <td>[<%= qnaData[i].category%>] <%= qnaData[i].title %></td>
+                        <td><%=qnaData[i].date.substring(4,15)%></td>
+                        <td>비공개</td>
+                    </tr>
+                <% } %>
             </tbody>
         </table>
         <div>

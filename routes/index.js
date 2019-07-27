@@ -69,7 +69,12 @@ router.get('/roomModal', function(req, res) {
   res.render('roomModal', { title: 'Express' });
 });
 router.get('/qna', function(req, res) {
-  res.render('qna_list');
+
+  resultQNA = connectDB.query("SELECT * FROM QNALIST");
+  //console.log(resultQNA);
+  res.render('qna_list', {
+    qnaData: resultQNA
+  });
 });
 
 router.get('/writepost', function(req, res) {
@@ -146,7 +151,7 @@ router.post('/new_qna2', upload.array('img', 5), function(req, res){
   
   resultQNA = connectDB.query('SELECT COUNT(*) FROM QNALIST;')[0];
   var key1 = 'COUNT(*)';
-  console.log(resultQNA[key1]);
+  // console.log(resultQNA[key1]);
   resultPostNum = resultQNA[key1];
     
   res.send(true);
