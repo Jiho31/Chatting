@@ -31,7 +31,7 @@
     </div>
     <div style="margin-left: auto; margin-right: auto; margin-top: 20px; width: 60%">
         <!-- <div class="ui form"> -->
-        <form id="qna_form1" action="/new_qna1" method="post" class="ui form">
+        <form id="qna_form1" action="/new_qna1" method="post" class="ui form" name="form1">
             <div class="field">
                 <label>글 카테고리</label>
                 <div class="ui selection dropdown">
@@ -93,7 +93,7 @@
                 </table>
             </div>
             <div class="ui checkbox" id="secret_checkbox">
-                <input type="checkbox" name="qnaSecret" value="checked">
+                <input type="checkbox" name="qnaSecret" value="checked" form="qna_form1">
                 <label for="">비공개</label>
             </div>
             <div style="display: flex;">

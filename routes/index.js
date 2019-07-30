@@ -68,14 +68,26 @@ router.get('/mainMenu', function(req, res) {
 router.get('/roomModal', function(req, res) {
   res.render('roomModal', { title: 'Express' });
 });
+
 router.get('/qna', function(req, res) {
+
+  var sqlQuery = "SELECT * FROM QNALIST LIMIT 10 OFFSET 0";
+  resultQNA = connectDB.query('SELECT COUNT(*) FROM QNALIST;')[0];
+  var key1 = 'COUNT(*)';
+  resultPostNum = resultQNA[key1] % 10;
 
   resultQNA = connectDB.query("SELECT * FROM QNALIST");
   //console.log(resultQNA);
+  console.log(req.file);
+
+  console.log(req);
   res.render('qna_list', {
-    qnaData: resultQNA
+    qnaData: resultQNA,
+    pageNum: resultPostNum
   });
 });
+
+
 
 router.get('/writepost', function(req, res) {
   connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date TEXT, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
@@ -87,8 +99,8 @@ router.post('/new_qna1', function(req, res){
   var qnaTitle=req.body.qnaTitle;
   var qnaCategory=req.body.qnaCategory;
   var qnaContent=req.body.qnaContent;
-  //var qnaSecret=req.body.qnaSecret;
-  var qnaSecret;
+  var qnaSecret=req.body.qnaSecret;
+  
 
   //userId 로그인 기능 추가하고 나중에 테이블에 저장
   // secretOrNot 보류
@@ -98,7 +110,7 @@ router.post('/new_qna1', function(req, res){
   // console.log(qnaTitle);
   // console.log(qnaContent);
   // console.log(qnaCategory);
-  //console.log(qnaSecret);
+  console.log(qnaSecret);
 
   res.redirect('/qna');
 });

@@ -6,8 +6,36 @@ $(document).ready(function () {
         }
         $('.ui .item').removeClass('active');
         $(this).addClass('active');
-    });          
+    });         
+    
+    $('.page-num').click(function(){
+        console.log(this.innerHTML);
+        var params = this.innerHTML;
+
+        $.ajax({
+            url: '/qna',
+            type: "POST",
+            data: {pageNo: params},
+            dataType: "json",
+            success: eventSuccess,
+            error: eventError
+        });
+    });
+
+    function eventSuccess(json){
+        console.log(json);
+    }
+
+    function eventError(){
+        alert('Error!');
+    }
 });
+
+var getWritePost = function(pageNum) {
+    // ajax post로 페이지 번호 넘겨서 데이터 받아오기
+
+    // 받아온 데이터로 글 목록 만들기
+}
 
     // Get the modal
     var accountModal = document.getElementById('account_Modal');

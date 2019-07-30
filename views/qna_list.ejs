@@ -94,6 +94,14 @@
                 <% } %>
             </tbody>
         </table>
+
+        <div class="ui pagination">
+            <% for(var i = 1; i<=pageNum; i++){ %>
+                <a class="item page-num">
+                    <%=i%>
+                </a>
+            <% } %>
+        </div>
         <div>
             <input id="new_post_button" class="ui button" type="button" value="글쓰기" onClick="location.href='/writepost';">
         </div>
