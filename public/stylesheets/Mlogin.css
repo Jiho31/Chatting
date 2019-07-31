@@ -1,0 +1,38 @@
+#login{
+    margin: 200px auto 0px auto;
+}
+
+#user{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+#manager_login{
+    background-color: rosybrown;
+}
+
+#manager{
+    margin-top: 236px;
+}
+
+@media only screen and (min-width: 769px){
+    #vertical{
+        display: block;
+    }
+    #manager{
+        width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    #vertical{
+        display: none;
+    }
+    #manager{
+        margin-top: 0px;
+        height: 800px;
+    }
+}

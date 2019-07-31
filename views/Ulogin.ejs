@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+    <script src="dist/semantic.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/Ulogin.css">
+
+    <title>Login</title>
+</head>
+
+<body>
+    <form class="ui placeholder segment" action="/Ulogin" method="POST" id="user">
+        <div class="ui two column very relaxed stackable grid">
+            <div class="column">
+                <div class="ui form">
+                    <div class="field">
+                        <label>Username</label>
+                        <div class="ui left icon input">
+                            <input type="text" id="Uid" name="Uid" placeholder="ID" onblur="checkId()">
+                            <i class="user icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <div class="ui left icon input">
+                            <input type="password" id="Upw" name="Upw" placeholder="password" onblur="checkPw()">
+                            <i class="lock icon"></i>
+                        </div>
+                    </div>
+                    <div class="ui blue submit button" id = "user_login" onclick="userlogin()">Login</div>
+                </div>
+            </div>
+            <div class="middle aligned column">
+                <div class="ui big button" onclick="location.href = '/Usignup'">
+                    <i class="signup icon"></i>
+                    Sign Up
+                </div>
+                <div id = "manager">
+                    <a href="/Mlogin"> 관리자 로그인 </a>
+                </div>
+            </div>
+        </div>
+        <div class="ui vertical divider" id = "vertical">
+            Or
+        </div>
+    </form>
+</body>
+<script src="/javascripts/Ulogin.js"></script>
+
+</html>

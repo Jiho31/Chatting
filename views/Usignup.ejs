@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/Usignup.css">
+
+    <title>Sign up</title>
+</head>
+
+<body>
+    <div class="body">
+        <!-- body-main/footer -->
+        <div class="main1">
+            <!-- main-left/right -->
+            <form class="content" action="/Usignup" method="POST" id="user">
+                <div class="top">
+                    <div id="titleWrap">
+                        <div id="title">
+                            <bold>User signup</bold>
+                        </div>
+                    </div>
+                    <div id="partitionWrap">
+                        <div class="partition"></div>
+                        <div id="partitionWord">Input</div>
+                        <div class="partition"></div>
+                    </div>
+                    <div id="inputUserInfo">
+                        <input class="Info" id="Uid" name="Uid" placeholder="ID" onblur="checkId()">
+                        <input class="Info" id="Uname" name="Uname" placeholder="Name" onblur="checkName()">
+                        <input class="Info" id="Unum" name="Unum" placeholder="phone-number" onblur="checkPhoneNumber()">
+                        <input class="Info" id="Upw" name="Upw" placeholder="PW" onblur="checkPw()">
+                    </div>
+                    <div class="joinBtnWrap">
+                        <button id="UjoinBtn" class="joinBtn" type="button"
+                            onclick="userjoin()"><strong>Join</strong></button>
+                    </div>
+                    <div id="notice">
+                        When you <strong>join</strong>, you <strong>agree</strong> to terms and conditions, data
+                        policies, and cookie policies.
+                    </div>
+                </div><!-- 윗부분 -->
+
+                <div class="middleWrap">
+                    <p class="middle">If you have account  <a href = "/Ulogin">login</a></p>
+                </div><!-- 중간부분 -->
+
+                <div class="bottomWrap"></div><!-- 밑부분 -->
+
+            </form><!-- 오른쪽부분 -->
+            
+
+        <script src="/javascripts/Usignup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+*{
+    margin: 0; padding: 0;
+    font-family: -apple-system;
+}
+
+body {
+    background-color: #FAFAFA;
+    overflow-y: scroll;
+}
+
+input:focus {
+    outline: none;
+}
+
+input::placeholder{
+    text-align: center;
+}
+
+.body{
+    width: 933.333px; height:790.333px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.main1 {
+    width: 933.333px; 
+    height: 716.333px;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    margin:auto 10% auto auto;
+    width: 350px;
+    height: 513px;
+    float: right;
+    /*border: 1px solid;*/
+    border-bottom: 10px;
+    
+}
+
+.top {
+    width: 348px; height: 541px;
+    margin-bottom: 10px; padding: 10px 0;
+    background-color: #FFFFFF;
+    border:solid 1px rgb(230, 230, 230);
+}
+
+#titleWrap {
+    width: 175px; height: 51px;
+    margin: 22px auto 20px;
+    text-align: center;
+}
+
+#title{
+    font-size: 26px;
+}
+
+#partitionWrap{
+    margin: 10px 40px 18px 40px;
+    height: 14.67px;
+}
+
+.partition{
+    height: 1px;
+    width: 103px;
+    margin-top: 8px;
+    background-color: #EFEFEF;
+    display: inline-block;
+    flex-direction: center;
+    float: left;
+}
+
+#partitionWord{
+    color: #999999;
+    font-size: 13px;
+    width: 26px;
+    margin: 0px 18px;
+    text-align: center;
+    display: inline-block;
+    float: left;
+}
+
+
+#inputUserInfo{
+
+    font-size: 16px;
+    width: 270px;
+    margin-right: auto;
+    /*border: solid 1px ;*/
+    height: 184px;
+    display: inline-block;
+   
+}
+
+
+.Info{
+    width: 266px;
+    height: 36px;
+    border: solid 1px #e6e6e6;
+    margin-left:41px;
+    margin-bottom: 5px;
+    display: inline-block;
+    flex-direction: center;
+    font-size: 16px;
+    background-color:#FAFAFA;
+}
+
+.joinBtnWrap{
+    height: 46px;
+    margin: 22px 51px 0px;
+
+}
+
+.joinBtn{
+    padding: 5px 9px 5px 9px;
+    background-color: rosybrown;
+    border:1px solid rosybrown;
+    border-radius: 4px;
+    text-align: center;
+    width: 248px;
+    height: 30px;
+    color:white;
+}
+
+#notice{
+    margin:10px 60px;
+    width: 228px;
+    height: 54px;
+    text-align: center;
+    color : #999999;
+}
+
+.middleWrap{
+    width: 348px; height: 48px;
+    margin-bottom: 10px; padding: 10px 0;
+    background-color: #FFFFFF;
+    border:solid 1px rgb(230, 230, 230);
+
+}
+
+.middle{
+    width:318px; height: 18px;
+    margin: 15px;
+    font-size:14px;
+    text-align: center;
+}
+
+.bottomWrap{
+    width:350px; height: 101.333px;
+}
+
+.bottom_upper{
+    width:310px; height:18px;
+    margin: 10px 20px 10px 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.botto_lower{
+    width:350px; height: 43.333px;
+    margin: 10px 0px 10px 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+.companyInform{
+    border: 0.5px solid;
+    border-collapse: #e6e6e6;
+    width: 348px;
+    height: 300px;
+    margin-left: 929px;
+}
+
+#appStore{
+    width: 110px; height: 40px;
+}
+
+#googlePlay{
+    width: 110px; height: 40px;
+}
+
+#microSoft{
+    width: 110px; height: 40px;
+}
+
+.footer{
+    width: 899.333px;
+    height: 28px;
+    padding: 38px 0px 38px 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+.inventory{
+    /*width:109.938px;
+    height:28px;*/
+    color:#999999;
+    margin-left: 414px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid rosybrown;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid rosybrown;
+    padding: 10px;
+  }

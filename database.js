@@ -1,8 +1,7 @@
 exports.getDBInfo = function() {
     var data = {
-        host:'localhost',
-        user:'jiho',
-        password:'12345678',
+        user:'nodejs',
+        password:'seonhye6166',
         database:'chatproject',
         multipleStatements:true
     }
