@@ -1,39 +1,53 @@
 .ui.header{
-  margin: 10px;
+    margin: 10px;
 }
-#qna_table{
-   table-layout: fixed;
-}
-.pagination{
-  display: flex;
-  justify-content: center;
-  margin: 8px;
-}
-.page-num{
-  padding: 2px;
-  margin: 3px;
-  cursor: pointer;
-  color: black;
-}
-#new_post_button{
-    margin: 5px;
-}
-#table1{
-  display: flex; 
-  flex-direction: column; 
-  padding: 20px; 
-  max-width: 960px;
+
+#post{
+  font-family: 'Nanum Gothic', sans-serif;
   margin-left: auto;
   margin-right: auto;
-}
-#table_box{
+  width: 700px;
+  border: 1.5px solid black;
   padding: 20px;
-  font-family: 'Nanum Gothic', sans-serif;
+  border-radius: 5px;
 }
-@media(max-width: 460px){
-  #table1, #table_box{
-    padding: 0;
-  }
+#post:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid black;
+  border-top: 10px solid black;
+  border-bottom: 10px solid transparent;
+  left: 170px;
+  top: 280px;
+}
+
+#post:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 8px solid transparent;
+  border-right: 8px solid #fff;
+  border-top: 8px solid #fff;
+  border-bottom: 8px solid transparent;
+  left: 175px;
+  top: 282px;
+}
+#post_cat, #post_id, #post_title, #post_cont, #post_date{
+  margin: 18px;
+}
+#post_id{
+  font-size: 12px;
+  float: right;
+}
+#post_title{
+  font-size: 18px;
+}
+#post_date{
+  font-size: 12px;
 }
 
 /* The Modal (background) */
