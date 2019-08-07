@@ -86,7 +86,9 @@ var resultQNA = null; // q&a 글 내용 전역변수
 var resultPostNum = null;
 
 /* GET home page. */
-router.get('/', function (req, res) {
+router.get('/', function(req, res) {
+  connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date DATETIME, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+
   res.render('index', { title: 'Express' });
 });
 
@@ -205,7 +207,7 @@ router.get('/Mlogin', function (req, res) {
     res.send('<script>document.location.href="/chattingList"</script>');
   }
 
-})
+});
 
 router.post('/logout', function (req, res) {
   delete req.session.Uid;
@@ -250,39 +252,49 @@ router.post('/getroomInfo',function(req, res){
 
   var result = connectDB.query(sql);
   res.send(result);
-})
+});
 
-router.get('/qna', function (req, res) {
+router.get('/qna', function(req, res) {
 
-  resultQNA = connectDB.query("SELECT * FROM QNALIST");
-  //console.log(resultQNA);
+  resultQNA = connectDB.query('SELECT COUNT(*) FROM QNALIST;')[0];
+  var key1 = 'COUNT(*)';
+  resultPostNum = resultQNA[key1] / 2 + 1;
+
   res.render('qna_list', {
-    qnaData: resultQNA
+    pageNum: resultPostNum
   });
 });
 
 router.get('/writepost', function (req, res) {
   connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date TEXT, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
   res.render('writepost');
 });
 
-router.post('/new_qna1', function (req, res) {
+router.post('/qna_data', function(req, res){
+
+  var pageNum = req.body.pageNo;
+  pageNum = (pageNum-1)*2;
+  resultQNA = connectDB.query("SELECT * FROM QNALIST ORDER BY date DESC LIMIT 2 OFFSET " + pageNum);
+
+  res.send(resultQNA);
+});
+
+router.post('/new_qna1', function(req, res){
   var qnaTitle = req.body.qnaTitle;
   var qnaCategory = req.body.qnaCategory;
   var qnaContent = req.body.qnaContent;
-  //var qnaSecret=req.body.qnaSecret;
-  var qnaSecret;
-
+  var qnaSecret = req.body.qnaSecret;
+  
+  if (qnaSecret == undefined)
+    qnaSecret = 'unchecked';
   //userId 로그인 기능 추가하고 나중에 테이블에 저장
-  // secretOrNot 보류
-  var addPost = "UPDATE QNALIST SET category='" + qnaCategory + "', title='" + qnaTitle + "', content='" + qnaContent + "' WHERE postIndex=" + resultPostNum + ";";
+  var addPost = "UPDATE QNALIST SET category='"+qnaCategory+"', title='"+qnaTitle+"', content='"+qnaContent+"', secretOrNot='"+qnaSecret+"' WHERE postIndex="+resultPostNum+";";
   connectDB.query(addPost);
 
   // console.log(qnaTitle);
   // console.log(qnaContent);
   // console.log(qnaCategory);
-  //console.log(qnaSecret);
+  // console.log(qnaSecret);
 
   res.redirect('/qna');
 });
@@ -290,7 +302,6 @@ router.post('/new_qna1', function (req, res) {
 router.get('/mainMenu', function (req, res) {
   res.render('mainMenu', { title: 'Express' });
 });
-
 
 router.get('/qna', function (req, res) {
   res.render('qna_list');
@@ -361,8 +372,11 @@ router.get('/maketable', function (req, res) {
   res.redirect('/');
 });
 
-router.post('/new_qna2', upload.array('img', 5), function (req, res) {
+router.post('/new_qna2', upload.array('img', 5), function(req, res){
+  require('date-utils');
   var postDate = new Date();
+  postDate = postDate.toFormat('YYYY-MM-DD HH24:MI:SS');
+  // console.log(postDate);
   var len = req.files.length; // 등록한 첨부 파일 갯수
   var filePaths;
   if (len > 0) {
@@ -383,5 +397,7 @@ router.post('/new_qna2', upload.array('img', 5), function (req, res) {
 
   res.send(true);
 });
-
+router.get('/showpost', function(req, res){
+  res.render('showpost');
+});
 module.exports = router;

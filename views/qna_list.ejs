@@ -8,8 +8,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="dist/semantic.css">
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/qna_list.css" />
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1|Nanum+Gothic|Nanum+Myeongjo&display=swap" rel="stylesheet">
     <script src="dist/semantic.js"></script>
-    
+
 </head>
 
 <body>
@@ -58,44 +59,48 @@
     </div>
 
 
-    <div style="display: flex; flex-direction: column; padding: 20px">
+    <div id="table1">
         <div>
             <h3 class="ui header">Q&A</h3>
         </div>
-        <table id="qna_table" class="ui unstackable single line table">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>제목</th>
-                    <th>날짜</th>
-                    <th>작성자</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- <tr>
-                    <td>2</td>
-                    <td>계정 정지 문의</td>
-                    <td>2019.07.07</td>
-                    <td>비공개</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>제 계정은 왜 정지 된거죠?</td>
-                    <td>2019.07.06</td>
-                    <td>비공개</td>
-                </tr> -->
-                <% for(var i = qnaData.length-1; i>=0; i--){ %>
+
+        <div id="table_box">
+            <table id="qna_table" class="ui unstackable single line table">
+                <thead>
                     <tr>
-                        <td><%= qnaData[i].postIndex %></td>
-                        <td>[<%= qnaData[i].category%>] <%= qnaData[i].title %></td>
-                        <td><%=qnaData[i].date.substring(4,15)%></td>
+                        <th colspan="1">No.</th>
+                        <th colspan="4" style="">제목</th>
+                        <th colspan="2">날짜</th>
+                        <th colspan="2">작성자</th>
+                    </tr>
+                </thead>
+                <tbody id="qna_ajax">
+                    <tr>
+                        <td>2</td>
+                        <td>계정 정지 문의</td>
+                        <td>2019.07.07</td>
                         <td>비공개</td>
                     </tr>
-                <% } %>
-            </tbody>
-        </table>
-        <div>
-            <input id="new_post_button" class="ui button" type="button" value="글쓰기" onClick="location.href='/writepost';">
+                    <tr>
+                        <td>1</td>
+                        <td>제 계정은 왜 정지 된거죠?</td>
+                        <td>2019.07.06</td>
+                        <td>비공개</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ui pagination">
+            <a id="left_page"><i class="caret left black icon" id="left-icon"></i></a>
+            <script>window.qnaPageNum = parseFloat('<%=pageNum %>');</script>
+            <div id="pagination_id"></div>
+            <a id="right_page"><i class="caret right black icon" id="right-icon"></i></a>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 95%;">
+            <input id="new_post_button" class="ui button" type="button" value="글쓰기"
+                onClick="location.href='/writepost';">
         </div>
     </div>
 </body>
