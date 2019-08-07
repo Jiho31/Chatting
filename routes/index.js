@@ -79,7 +79,7 @@ var upload = multer({
       cb(null, new Date().valueOf() + file.originalname); // 타임스탬프 + 원래파일명으로 저장 (파일명이 중복되는 경우를 위해)
     }
   }),
-  });
+});
 
 var connectDB = new mysql(dbinfo.getDBInfo());
 var resultQNA = null; // q&a 글 내용 전역변수
@@ -125,17 +125,17 @@ router.get('/Msignup', function (req, res) {
   res.render('Msignup');
 });
 
-router.post('/Msignup',function(req, res){
+router.post('/Msignup', function (req, res) {
 
   var id = req.body.Mid;
   var name = req.body.Mname;
   var pw = req.body.Mpw;
   var phone = req.body.Mnum;
 
-  console.log(id,name,pw,phone);
+  console.log(id, name, pw, phone);
 
   var checkId = `SELECT COUNT(*) FROM manager WHERE id = '${id}';`
-  var insertInfo = `INSERT INTO manager(id, name, pw, phone) VALUES('${id}','${name}','${pw}','${phone}')` 
+  var insertInfo = `INSERT INTO manager(id, name, pw, phone) VALUES('${id}','${name}','${pw}','${phone}')`
 
   var Uid = connectDB.query(checkId)
 
@@ -143,24 +143,24 @@ router.post('/Msignup',function(req, res){
   console.log(length);
 
   if (length < 1) {
-    var Uinfo= connectDB.query(insertInfo)
+    var Uinfo = connectDB.query(insertInfo)
     //console.log(Uinfo);
     res.send(`<script>alert('Sign up is completed! Please, login.'); document.location.href='/Mlogin';</script>`);
   }
-  else{
+  else {
     res.send('<script>alert("Your id is duplicated! Please change it."); document.location.href="/Msignup"</script>');
   }
 });
 
 router.get('/Ulogin', function (req, res) {
   res.render('Ulogin');
-})
+});
 
-router.post('/Ulogin',function(req, res){
+router.post('/Ulogin', function (req, res) {
   var id = req.body.Uid;
   var pw = req.body.Upw;
 
-  console.log(id,pw);
+  console.log(id, pw);
 
   var checkId = `SELECT COUNT(*) FROM user WHERE id = '${id}' and pw = '${pw}';`;
 
@@ -168,7 +168,7 @@ router.post('/Ulogin',function(req, res){
 
   var length = Uid[0]['COUNT(*)'];
 
-  if(length < 1){
+  if (length < 1) {
     res.send('<script>alert("Your information does not exist! Please sign up."); document.location.href="/Usignup"</script>')
   }
   else {
@@ -178,13 +178,13 @@ router.post('/Ulogin',function(req, res){
     }
     res.send('<script>document.location.href="/chattingList"</script>');
   }
-})
+});
 
 router.get('/Mlogin', function (req, res) {
   res.render('Mlogin');
-})
+});
 
-router.get('/Mlogin',function(req, res){
+router.get('/Mlogin', function (req, res) {
   var id = req.body.Mid;
   var pw = req.body.Mpw;
 
@@ -194,7 +194,7 @@ router.get('/Mlogin',function(req, res){
 
   var length = Uid[0]['COUNT(*)'];
 
-  if(length < 1){
+  if (length < 1) {
     res.send('<script>alert("Your information does not exist! Please sign up."); document.location.href="/Msignup"</script>')
   }
   else {
@@ -210,7 +210,7 @@ router.get('/Mlogin',function(req, res){
 router.post('/logout', function (req, res) {
   delete req.session.Uid;
   res.redirect('/login');
-})
+});
 
 router.get('/chattingList', function (req, res) {
   if (!req.session.userId) {
@@ -219,7 +219,40 @@ router.get('/chattingList', function (req, res) {
   else {
     res.render('chattingList');
   }
-router.get('/qna', function(req, res) {
+});
+
+router.post('/addroomInfo', function (req, res) {
+  var roomType = req.body.type;
+  var title = req.body.title;
+  var category = req.body.category;
+  
+  console.log(roomType, title, category);
+  
+  var sql = `INSERT INTO room (roomType, roomName, category, participationNo) VALUES('${roomType}','${title}','${category}', 1)`;
+  //var roomNo = req.body.roomNo;
+
+  var id = connectDB.query(sql)['insertId'];
+  
+  res.send({roomId: id});
+});
+
+router.post('/getroomInfo',function(req, res){
+  var roomNo = req.body.roomNo;
+  var sql;
+  if (roomNo === 'ALL') {
+    sql = `SELECT room.roomType, room.roomName, room.category from room`;
+  }
+  else {
+    sql = `SELECT room.roomType, room.roomName, room.category from room where roomNo=${roomNo}`;
+  }
+  
+/*sql의 별점은 추가*/ 
+
+  var result = connectDB.query(sql);
+  res.send(result);
+})
+
+router.get('/qna', function (req, res) {
 
   resultQNA = connectDB.query("SELECT * FROM QNALIST");
   //console.log(resultQNA);
@@ -228,22 +261,22 @@ router.get('/qna', function(req, res) {
   });
 });
 
-router.get('/writepost', function(req, res) {
+router.get('/writepost', function (req, res) {
   connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date TEXT, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
   res.render('writepost');
 });
 
-router.post('/new_qna1', function(req, res){
-  var qnaTitle=req.body.qnaTitle;
-  var qnaCategory=req.body.qnaCategory;
-  var qnaContent=req.body.qnaContent;
+router.post('/new_qna1', function (req, res) {
+  var qnaTitle = req.body.qnaTitle;
+  var qnaCategory = req.body.qnaCategory;
+  var qnaContent = req.body.qnaContent;
   //var qnaSecret=req.body.qnaSecret;
   var qnaSecret;
 
   //userId 로그인 기능 추가하고 나중에 테이블에 저장
   // secretOrNot 보류
-  var addPost = "UPDATE QNALIST SET category='"+qnaCategory+"', title='"+qnaTitle+"', content='"+qnaContent+"' WHERE postIndex="+resultPostNum+";";
+  var addPost = "UPDATE QNALIST SET category='" + qnaCategory + "', title='" + qnaTitle + "', content='" + qnaContent + "' WHERE postIndex=" + resultPostNum + ";";
   connectDB.query(addPost);
 
   // console.log(qnaTitle);
@@ -254,23 +287,11 @@ router.post('/new_qna1', function(req, res){
   res.redirect('/qna');
 });
 
-router.post('/getuserInfo', function (req, res) {
-
-
-})
-
-router.post('/getroomInfo', function (req, res) {
-  var sql = "select * from "
-
-})
-
 router.get('/mainMenu', function (req, res) {
   res.render('mainMenu', { title: 'Express' });
 });
 
-router.get('/roomModal', function (req, res) {
-  res.render('roomModal', { title: 'Express' });
-});
+
 router.get('/qna', function (req, res) {
   res.render('qna_list');
 });
@@ -315,46 +336,52 @@ router.get('/maketable', function (req, res) {
   `
 
   sql[2] = `
-    CREATE TABLE IF NOT EXISTS roomInfo(
-      roomNo INT NOT NULL,
+    CREATE TABLE IF NOT EXISTS room(
+      roomNo INT NOT NULL AUTO_INCREMENT,
       category VARCHAR(10), 
       roomName VARCHAR(10),
-      mode INT,
-      participationNo INT
+      roomType INT,
+      participationNo INT,
+      PRIMARY KEY(roomNo)
+    )
+  `
+
+  sql[3] = `
+    CREATE TABLE IF NOT EXISTS roomInfo(
+      roomNo INT,
+      userId VARCHAR(48)
     )
   `
 
   connectDB.query(sql[0]);
   connectDB.query(sql[1]);
   connectDB.query(sql[2]);
+  connectDB.query(sql[3]);
 
   res.redirect('/');
 });
 
-router.post('/new_qna2', upload.array('img', 5), function(req, res){
+router.post('/new_qna2', upload.array('img', 5), function (req, res) {
   var postDate = new Date();
   var len = req.files.length; // 등록한 첨부 파일 갯수
   var filePaths;
-  if(len>0){
-    filePaths = req.files[0].path; 
-    for(i=1; i<len; i++){
-      filePaths=filePaths+', '+req.files[i].path;
+  if (len > 0) {
+    filePaths = req.files[0].path;
+    for (i = 1; i < len; i++) {
+      filePaths = filePaths + ', ' + req.files[i].path;
     }
   }
-  
+
   // var addPost = "INSERT INTO QNALIST(filePaths, date)";
-  var addPost = "INSERT INTO QNALIST(filePaths, date) VALUES('"+ filePaths+"', '"+postDate+"')";
+  var addPost = "INSERT INTO QNALIST(filePaths, date) VALUES('" + filePaths + "', '" + postDate + "')";
   connectDB.query(addPost);
-  
+
   resultQNA = connectDB.query('SELECT COUNT(*) FROM QNALIST;')[0];
   var key1 = 'COUNT(*)';
   // console.log(resultQNA[key1]);
   resultPostNum = resultQNA[key1];
-    
-  res.send(true);
-})
-module.exports = router;
 
-//지호
-//문성희
-//이선혜
+  res.send(true);
+});
+
+module.exports = router;

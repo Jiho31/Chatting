@@ -15,53 +15,53 @@
 </head>
 
 <body>
-    <div class="ui inverted segment" id = "top_menu">
+    <div class="ui inverted segment" id="top_menu">
         <div class="ui inverted secondary pointing menu">
-            <a class="active item" a href = "/chattingList">
+            <a class="active item" a href="/chattingList">
                 Home
             </a>
-            <a class="item" a href = "/qna">
+            <a class="item" a href="/qna">
                 Q&A
             </a>
-            <a class="item" a href = "/about">
+            <a class="item" a href="/about">
                 About
             </a>
             <a class="right item ignored">
                 <button id="account_Btn" class="ui inverted black basic button">
-                  Account
+                    Account
                 </button>
-              </a>
+            </a>
 
-              <div id="account_Modal" class="account-modal">
+            <div id="account_Modal" class="account-modal">
 
                 <!-- Modal content -->
                 <div class="account-modal-content">
-        
-                  <span class="account-close">&times;</span>
-        
-                  <div class="ui tag label">
-                    <a class="my-email">abc123@gmail.com</a>
+
+                    <span class="account-close">&times;</span>
+
+                    <div class="ui tag label">
+                        <a class="my-email">abc123@gmail.com</a>
                     </div>
-        
-                  <div class="account-button">
-                    <button class="ui basic button">
-                      <i class="icon user"></i>
-                      My page
-                    </button>
-        
-                    <button class="ui basic button">
-                      <i class="icon sign-out"></i>
-                      Logout
-                    </button>
-                  </div>
-        
+
+                    <div class="account-button">
+                        <button class="ui basic button">
+                            <i class="icon user"></i>
+                            My page
+                        </button>
+
+                        <button class="ui basic button">
+                            <i class="icon sign-out"></i>
+                            Logout
+                        </button>
+                    </div>
+
                 </div>
-        
-              </div>
+
+            </div>
         </div>
     </div>
 
-    <div class="ui labeled icon menu" id = "icon_menu" style="width: fit-content; margin-left: auto; margin-right: auto;">
+    <div class="ui labeled icon menu" id="icon_menu" style="width: fit-content; margin-left: auto; margin-right: auto;">
         <a class="item" href="/free">
             <i class="gamepad icon" style="background-image: url(../images/free.png);
             background-size: cover;
@@ -124,8 +124,8 @@
         </a>
     </div>
 
-     
-    <div class="ui top attached menu" id = "sidebar">
+
+    <div class="ui top attached menu" id="sidebar">
         <div class="ui dropdown icon item" style="background-image: url(../images/menu.png);
         background-size: cover;
         background-repeat: no-repeat;
@@ -167,111 +167,110 @@
             </div>
         </div>
     </div>
-    <div class="ui bottom attached segment" id = bottom_line>
-    </div> 
+    <div class="ui bottom attached segment" id=bottom_line>
+    </div>
 
-    <div id = "btns">
-        <button class = "btn1">바로 입장</button>
-        <button id="room_btn" class = "btn2">방 만들기</button>
-        <div id="room_modal" class="r-modal">
-
+    <div id="btns">
+        <button class="btn1">바로 입장</button>
+        <button id="room_btn" class="btn2">방 만들기</button>
+        <form action="/addroomInfo" id="room_modal" class="r-modal" method = "POST">
+            <input id="roomType" type = "hidden" name = "room" value = "0">
             <!-- Modal content -->
             <div class="modal-content">
-    
+
                 <span class="room-close">&times;</span>
-    
+
                 <p>Making room </p>
-    
+
                 <!-- 채팅 방식 선택하는 아이콘 -->
                 <div class="room-icon">
-    
-                    <button class="button selector selected">
+
+                    <button type="button" class="button selector selected" onclick="roomMode(0)">
                         <div class="room-images">
                             <img class="room-image" src="images/conversation-1.png">
                             <p class="room-choice">1대1 채팅</p>
                         </div>
                     </button>
-    
-                    <button class="button selector">
+
+                    <button type="button" class ="button selector" onclick="roomMode(1)">
                         <div class="room-images">
                             <img class="room-image" src='images/conversation.png'>
                             <p class="room-choice">게시판 글</p>
                         </div>
                     </button>
                 </div>
-    
+
                 <!-- 채팅방 제목 입력 박스-->
                 <div class="ui form">
                     <div class="field">
                         <label>Title</label>
-                        <input type="text" placeholder="Title">
+                        <input type="text" id="title" placeholder="Title">
                     </div>
                 </div>
-    
+
                 <!-- 채팅방 카테고리 선택 박스-->
                 <div class="field">
                     <label>Category</label>
-                    <select class="ui fluid dropdown">
+                    <select class="ui fluid dropdown" id="category">
                         <option value="">Category</option>
-    
+
                         <option value="VA">세인</option>
                         <option value="WA">지호</option>
                         <option value="WV">선혜</option>
                         <option value="WI">성희</option>
                     </select>
                 </div>
-    
+
                 <!-- 확인 또는 취소 버튼 -->
                 <div class="sub-or-can">
-                    <button class="ui secondary submit button">
+                    <button type="button" class="ui secondary submit button">
                         Submit
-                    </button>
-    
+                    </button>                    
                     <button class="ui grey button">
                         Cancel
                     </button>
                 </div>
-    
+
             </div>
-        </div>
+        </form>
 
     </div>
 
     <div>
         <div id="body">
-            <div class="line1">
-                <div class="box1">
+            <div class="line" style="margin-top: 30px;">
+                <div class="box" style = "margin-right: 30px">
                     <div style="margin: 51.5px auto 0 auto">
                         <div class="room-info">
-                            <div class="category">[과제]</div>
-                            <div class="title">hw1</div>
+                            <div class="category" id="category1"></div>
+                            <div class="title" id="title1"></div>
                         </div>
-                        <div class="grade">★★☆☆☆</div>
-                        <div class="mode">게시글/채팅</div>
+                        <div class="grade" id="grade1">★★☆☆☆</div>
+                        <div class="mode" id="roomType1"></div>
                     </div>
                 </div>
-                <div class="box2">
+                <div class="box">
 
                 </div>
             </div>
 
-            <div class="line2">
-                <div class="box1">
+            <div class="line">
+                <div class="box" style = "margin-right: 30px">
 
                 </div>
 
-                <div class="box2">
+                <div class="box">
 
                 </div>
             </div>
 
 
-            <div class="line3">
-                <div class="box1">
+            <div class="line">
+                <div class="box" style = "margin-right: 30px">
 
                 </div>
 
-                <div class="box2">
+                <div class="box">
 
                 </div>
             </div>

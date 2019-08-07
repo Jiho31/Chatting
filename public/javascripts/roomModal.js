@@ -12,11 +12,28 @@ var submitBtn = document.getElementsByClassName("ui secondary submit button")[0]
 //cancel 버튼
 var cancelBtn = document.getElementsByClassName("ui grey button")[0];
 
+var mode;
 
+function roomMode(arg){
+    console.log(arg);
+    if(arg == 0){
+        mode = 0;
+    }
+    else{
+        mode = 1;
+    }
+    console.log(mode);
+}
 
 // When the user clicks on the button, open the modal 
 roomBtn.onclick = function() {
     roomModal.style.display = "block";
+    if(mode == 0){
+        alert('')
+    }
+    else{
+
+    }
 }
 
 // When the user clicks on <span> (x), close the modal
