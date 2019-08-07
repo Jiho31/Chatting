@@ -1,4 +1,4 @@
-$('.ui.dropdown').dropdown('');
+//$('.ui.dropdown').dropdown();
 
 $(document).ready(function () {
     $('.ui .item').on('click', function() {
