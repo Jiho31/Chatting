@@ -1,4 +1,4 @@
-$('.ui.dropdown').dropdown('');
+
 $('.ui.dropdown').dropdown();
 
 /*상단바 왼쪽*/

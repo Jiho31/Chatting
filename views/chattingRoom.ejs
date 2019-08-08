@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Chatting</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+    <script src="dist/semantic.js"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='/stylesheets/chattingRoom.css'>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="/socket.io/socket.io.js"></script>
+
+
+</head>
+
+<body>
+    <div class="ui massive menu">
+        <a class="item" class="title-font">
+            [고민] 성적이 너무 낮아요.
+            <a class="right item ignored">
+                    <button class="circular ui basic icon button" id="warning_button" data-tooltip="신고하기" data-position="bottom center" data-variation="large">
+                <i class="big icon frown outline"></i>
+            
+                </button>
+                <button class="ui right floated basic  button" id="exit_Button" data-tooltip="채팅 그만하기" data-position="bottom center" data-variation="large">
+                    <i class="icon user"></i>
+                    EXIT
+                </button>
+            </a>
+    </div>
+    <!-- exit modal-->
+
+    <div class="ui basic modal" id="exit_Modal">
+
+        <div class="ui icon header" id="star_img">
+            <i class="star icon"></i>
+            Star Rating
+        </div>
+        <div class="exit-content">
+            <div class="ui massive star rating" id="star_rating" data-rating="3"></div>
+            <p> 채팅방을 나가기 전에 상대방의 별점을 평가해주세요.</p>
+        </div>
+        <div class="actions">
+            <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i>
+                No
+            </div>
+            <div class="ui green ok inverted button" id="yes_btn">
+                <i class="checkmark icon"></i>
+                Yes
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 신고하기 모달 -->
+    <div class="ui tiny modal" id="frown_modal">
+        <i class="close icon"></i>
+        <div class="header">
+            신고하기
+        </div>
+        <div class="image content">
+            <div class="description">
+                <div class="ui header">We've auto-chosen a profile image for you.</div>
+                <p>We've grabbed the following image from the <a href="https://www.gravatar.com"
+                        target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+                <p>Is it okay to use this photo?</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+                Nope
+            </div>
+            <div class="ui positive right labeled icon button">
+                Yep, that's me
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <a class="chat-room" onfocus=blur()
+        href="javascript:void(window.open('http://52.79.233.145:3000/chattingRoom','win0','width=521,height=768,status=no,toolbar=no,scrollbars=no'))">채팅방</a>
+
+    <div class="chat-box">
+
+        <div class="chat-message">
+
+        </div>
+        <div class="chat-footer">
+
+            <table>
+                <tr>
+                    <td width="100%">
+                        <input id="message-input" class="form-control" type="text">
+                    </td>
+                    <td width="20%">
+                        <button id="message-button" class="btn btn-default" type="submit">SEND</button>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+
+    <script src='/javascripts/chattingRoom.js'></script>
+
+
+
+</body>
+
+</html>

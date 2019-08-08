@@ -11,6 +11,53 @@ var connectDB = new mysql(dbinfo.getDBInfo());
 
 var id = "";
 var userType = "";
+var socket_io = require('socket.io');
+var io = socket_io();
+router.io = io;
+
+//socket 통신 소스
+
+router.io.on('connection', socket => {
+
+    socket.emit('connection', {
+        type : 'connected'
+    });
+
+    socket.on('connection', data => {
+
+        if(data.type === 'join') {
+
+            socket.join(data.room);
+
+            // depracated
+            // socket.set('room', data.room);
+            socket.room = data.room;
+
+            socket.emit('system', {
+                message : 'welcome to chat room!'
+            });
+
+            socket.broadcast.to(data.room).emit('system', {
+                message : `${data.name} is connected`
+            });
+        }
+
+    });
+
+    socket.on('user', data => {
+
+        // depracated
+        // socket.get('room', (error, room) => {
+        // });
+
+        var room = socket.room;
+
+        if(room) {
+            socket.broadcast.to(room).emit('message', data);
+        }
+    });
+
+});
 
 router.use(session({
   secret: '1234DSFS@!',
@@ -311,10 +358,14 @@ router.get('/writepost', function (req, res) {
   res.render('writepost');
 });
 
-router.post('/new_qna', function (req, res) {
-  var qnaTitle = req.body.qnaTitle;
-  var qnaCategory = req.body.qnaCategory;
-  var qnaContent = req.body.qnaContent;
+router.get('/chattingRoom', function(req, res) {
+  res.render('chattingRoom');
+});
+
+router.post('/new_qna', function(req, res){
+  var qnaTitle=req.body.qnaTitle;
+  var qnaCategory=req.body.qnaCategory;
+  var qnaContent=req.body.qnaContent;
 
   console.log(qnaTitle);
   console.log(qnaContent);
@@ -401,3 +452,8 @@ router.get('/showpost', function(req, res){
   res.render('showpost');
 });
 module.exports = router;
+
+
+//지호
+//문성희
+//이선혜
