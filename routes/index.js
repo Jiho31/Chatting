@@ -457,12 +457,17 @@ router.get('/showpost', function(req, res){
   var postResult = connectDB.query("SELECT * FROM QNALIST WHERE postIndex="+pi);
   console.log(postResult);
   console.log(postResult[0].category);
+
+  var content = postResult[0].content;
+
+  content = content.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
+  console.log(content);
   
   res.render('showpost', {
     userId: postResult[0].userId,
     pCategory: postResult[0].category,
     pTitle: postResult[0].title,
-    pContent: postResult[0].content,
+    pContent: content,
     pDate: postResult[0].date,
     pSecret: postResult[0].secretOrNot
   });
