@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+        <div class="aritcleView">
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+                <div>1</div>
+                <div>2</div>
+                <div>3</div> 
+         </div>
+</body>
+<script>
+    function getroomInfo(cnt) {
+    $.post("/getroomInfo", {
+        step: cnt,
+    }, function (data) {
+        console.log(data);
+    }, 'json')
+        .done(function (data) {
+        })
+        .fail(function (data) {
+            alert("error");
+        })
+}
+$(document).ready(function () {
+    var i = 0;
+    getroomInfo(0);
+  $(document).scroll(function() {
+    var maxHeight = $(document).height();
+    var currentScroll = $(window).scrollTop() + $(window).height();
+    
+    if (maxHeight <= currentScroll + 100) {
+        i++;
+        getroomInfo(i);
+    }
+  })
+});
+</script>
+</html>
