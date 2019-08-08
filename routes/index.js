@@ -398,6 +398,19 @@ router.post('/new_qna2', upload.array('img', 5), function(req, res){
   res.send(true);
 });
 router.get('/showpost', function(req, res){
-  res.render('showpost');
+  var pi = req.query.postIndex;
+
+  var postResult = connectDB.query("SELECT * FROM QNALIST WHERE postIndex="+pi);
+  console.log(postResult);
+  console.log(postResult[0].category);
+  
+  res.render('showpost', {
+    userId: postResult[0].userId,
+    pCategory: postResult[0].category,
+    pTitle: postResult[0].title,
+    pContent: postResult[0].content,
+    pDate: postResult[0].date,
+    pSecret: postResult[0].secretOrNot
+  });
 });
 module.exports = router;
