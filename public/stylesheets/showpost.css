@@ -10,6 +10,7 @@
   border: 1.5px solid black;
   padding: 20px;
   border-radius: 5px;
+  position: relative;
 }
 #post:before {
   content: "";
@@ -20,8 +21,8 @@
   border-right: 10px solid black;
   border-top: 10px solid black;
   border-bottom: 10px solid transparent;
-  left: 170px;
-  top: 280px;
+  left: -20px;
+  top: 200px;
 }
 
 #post:after {
@@ -33,8 +34,8 @@
   border-right: 8px solid #fff;
   border-top: 8px solid #fff;
   border-bottom: 8px solid transparent;
-  left: 175px;
-  top: 282px;
+  left: -15.5px;
+  top: 201px;
 }
 #post_cat, #post_id, #post_title, #post_cont, #post_date{
   margin: 18px;
@@ -44,7 +45,7 @@
   float: right;
 }
 #post_title{
-  font-size: 18px;
+  font-size: 20px;
 }
 #post_date{
   font-size: 12px;
