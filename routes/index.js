@@ -139,6 +139,10 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/c',function(req, res){
+  res.render('c');
+});
+
 router.get('/Usignup', function (req, res) {
   res.render('Usignup');
 });
@@ -262,11 +266,13 @@ router.post('/logout', function (req, res) {
 });
 
 router.get('/chattingList', function (req, res) {
+ 
   if (!req.session.userId) {
     res.redirect('/Ulogin');
   }
   else {
-    res.render('chattingList');
+    res.render('chattingList'); 
+
   }
 });
 
@@ -286,14 +292,11 @@ router.post('/addroomInfo', function (req, res) {
 });
 
 router.post('/getroomInfo',function(req, res){
-  var roomNo = req.body.roomNo;
+  var step = req.body.step;
   var sql;
-  if (roomNo === 'ALL') {
-    sql = `SELECT room.roomType, room.roomName, room.category from room`;
-  }
-  else {
-    sql = `SELECT room.roomType, room.roomName, room.category from room where roomNo=${roomNo}`;
-  }
+  step = step*6;
+  sql = `SELECT room.roomType, room.roomName, room.category from room LIMIT 6 OFFSET ${step}`;
+
   
 /*sql의 별점은 추가*/ 
 
