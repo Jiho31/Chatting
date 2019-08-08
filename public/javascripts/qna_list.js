@@ -124,7 +124,7 @@ var getWritePost = function(pageNum) {
         for(var i = 0; i < data.length; i++) {
             html += `<tr>`;
             html += `<td colspan="1">${data[i].postIndex}</td>`;
-            html += `<td colspan="4" style="text-overflow: ellipsis; overflow: hidden;"><a href="/showpost">[${data[i].category}] ${data[i].title}</a></td>`;
+            html += `<td colspan="4" style="text-overflow: ellipsis; overflow: hidden;"><a href="/showpost?postIndex=${data[i].postIndex}">[${data[i].category}] ${data[i].title}</a></td>`;
             html += `<td colspan="2">${data[i].date.substring(0,10)}</td>`;
             html += `<td colspan="2" style="text-overflow: ellipsis; overflow: hidden;">비공개</td>`;
         }

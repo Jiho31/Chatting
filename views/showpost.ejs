@@ -57,19 +57,17 @@
     <div style="margin-top: 50px">
         <div id="post">
             <div id="post_cat">
-                카테고리
+                <%= pCategory %>
             </div>
-            <div id="post_id">작성자: 지호</div>
+            <div id="post_id">작성자: <%=userId%></div>
             <div id="post_title">
-                제목~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+                <%= pTitle %>
             </div>
             <div id="post_cont">
-                내용 어쩌고 저쩌고 블라블라 샬라 샬라라라라라랄ㄹ<br>
-                내용 ~!~울랄랄ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ<br>
-                내용<br>
+                <%= pContent %>
             </div>
             <div id="post_date">
-                게시일: 2019.08.07 오후 5:23
+                게시일: <%= pDate %>
             </div>
         </div>
     </div>
