@@ -260,9 +260,9 @@ router.get('/Mlogin', function (req, res) {
 
 });
 
-router.post('/logout', function (req, res) {
-  delete req.session.Uid;
-  res.redirect('/login');
+router.get('/logout', function (req, res) {
+  delete req.session.userId;
+  res.redirect('/Ulogin');
 });
 
 router.get('/chattingList', function (req, res) {
@@ -306,13 +306,17 @@ router.post('/getroomInfo',function(req, res){
 
 router.get('/qna', function(req, res) {
 
-  resultQNA = connectDB.query('SELECT COUNT(*) FROM QNALIST;')[0];
-  var key1 = 'COUNT(*)';
-  resultPostNum = resultQNA[key1] / 2 + 1;
+  if (!req.session.userId)
+    res.redirect('/Ulogin');
+  else{
+    resultQNA = connectDB.query('SELECT COUNT(*) FROM QNALIST;')[0];
+    var key1 = 'COUNT(*)';
+    resultPostNum = Math.ceil(resultQNA[key1] / 10);
 
-  res.render('qna_list', {
-    pageNum: resultPostNum
-  });
+    res.render('qna_list', {
+      pageNum: resultPostNum
+    });
+  }
 });
 
 router.get('/writepost', function (req, res) {
@@ -323,8 +327,8 @@ router.get('/writepost', function (req, res) {
 router.post('/qna_data', function(req, res){
 
   var pageNum = req.body.pageNo;
-  pageNum = (pageNum-1)*2;
-  resultQNA = connectDB.query("SELECT * FROM QNALIST ORDER BY date DESC LIMIT 2 OFFSET " + pageNum);
+  pageNum = (pageNum-1)*10;
+  resultQNA = connectDB.query("SELECT * FROM QNALIST ORDER BY date DESC LIMIT 10 OFFSET " + pageNum);
 
   res.send(resultQNA);
 });

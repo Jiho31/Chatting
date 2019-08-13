@@ -240,32 +240,3 @@ submitBtn.onclick = function () {
 cancelBtn.onclick = function () {
     roomModal.style.display = "none";
 }
-
-// Get the modal
-var accountModal = document.getElementById('account_Modal');
-
-// Get the button that opens the modal
-var accountBtn = document.getElementById("account_Btn");
-
-// Get the <span> element that closes the modal
-var accountSpan = document.getElementsByClassName("account-close")[0];
-
-// When the user clicks on the button, open the modal 
-accountBtn.onclick = function () {
-    accountModal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-accountSpan.onclick = function () {
-    accountModal.style.display = "none";
-}
-
-// 
-window.onclick = function (event) {
-    if (event.target == accountModal) {
-        accountModal.style.display = "none";
-    }
-    else if (event.target == roomModal) {
-        roomModal.style.display = "none";
-    }
-}
