@@ -14,20 +14,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="/socket.io/socket.io.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css?family=Do+Hyeon|Gothic+A1|Jua|Nanum+Gothic|Noto+Serif+KR|Sunflower:300&display=swap"
+        rel="stylesheet">
 
 
 </head>
 
 <body>
-    <div class="ui massive menu">
-        <a class="item" class="title-font">
-            [고민] 성적이 너무 낮아요.
+    <div class="ui grey inverted massive menu">
+        <a class="item" id="title_font">
+            [일상] 지금 너무 배가 고파요.
             <a class="right item ignored">
-                    <button class="circular ui basic icon button" id="warning_button" data-tooltip="신고하기" data-position="bottom center" data-variation="large">
-                <i class="big icon frown outline"></i>
-            
+                <button class="circular ui basic icon button" id="warning_button" data-content="신고하기"
+                    data-position="bottom center" data-variation="huge">
+                    <i class="big icon frown outline"></i>
+
                 </button>
-                <button class="ui right floated basic  button" id="exit_Button" data-tooltip="채팅 그만하기" data-position="bottom center" data-variation="large">
+                <button class="ui right floated basic  button" id="exit_Button" data-content="채팅 그만하기"
+                    data-position="bottom center" data-variation="huge">
                     <i class="icon user"></i>
                     EXIT
                 </button>
@@ -46,13 +51,14 @@
             <p> 채팅방을 나가기 전에 상대방의 별점을 평가해주세요.</p>
         </div>
         <div class="actions">
-            <div class="ui red basic cancel inverted button">
+            <div class="ui red basic cancel inverted button" id="exit_no_btn" style="font-size:12px;">
                 <i class="remove icon"></i>
-                No
+                더 있을게요.
             </div>
-            <div class="ui green ok inverted button" id="yes_btn">
+            <div class="ui green ok inverted button" id="exit_yes_btn"  style="font-size:12px;" onclick="self.close()"> 
                 <i class="checkmark icon"></i>
-                Yes
+               
+                나갈게요.
             </div>
         </div>
 
@@ -66,18 +72,21 @@
         </div>
         <div class="image content">
             <div class="description">
-                <div class="ui header">We've auto-chosen a profile image for you.</div>
-                <p>We've grabbed the following image from the <a href="https://www.gravatar.com"
-                        target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-                <p>Is it okay to use this photo?</p>
+                <div class="ui header" style="font-size:14px;" >상대방과의 채팅중에 정신적 피해 혹은 음란,불법 게시물을 발견하셨나요?</div>
+                <div class="ui form">
+                    <div class="field" id="warn_field">
+                        <label >신고 내용을 작성해 주세요. 신속한 조치를 진행하겠습니다:)</label>
+                        <textarea></textarea>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="actions">
-            <div class="ui black deny button">
-                Nope
+            <div class="ui black deny button" id="frown_no_btn">
+                No
             </div>
-            <div class="ui positive right labeled icon button">
-                Yep, that's me
+            <div class="ui positive right labeled icon button" id="frown_yes_btn">
+                Yes
                 <i class="checkmark icon"></i>
             </div>
         </div>
@@ -85,9 +94,12 @@
 
 
 
+    <!-- <div style="border:1px solid; margin:10px; bottom-margin:10px; border-color: gray; border-radius: 8px;"> -->
+     <a class="chat-room" onfocus=blur()
+        href="javascript:void(window.open('http://52.79.233.145:3000/chattingRoom','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))">채팅룸</a>
 
-    <a class="chat-room" onfocus=blur()
-        href="javascript:void(window.open('http://52.79.233.145:3000/chattingRoom','win0','width=521,height=768,status=no,toolbar=no,scrollbars=no'))">채팅방</a>
+
+
 
     <div class="chat-box">
 
@@ -109,6 +121,7 @@
 
         </div>
     </div>
+    <!-- </div> -->
 
 
     <script src='/javascripts/chattingRoom.js'></script>
