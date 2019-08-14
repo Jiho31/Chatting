@@ -1,13 +1,11 @@
 
 var socket = io();
+var roomId = parseInt(window.location.search.replace('?roomId=', ''));
 
 socket.on('news', function (data) {
     console.log(data);
     socket.emit('my oher event', {my: 'data'});
 });
-
-
-var serverURL = '52.79.233.145:3000';
 
 var name = 'me';
 var room = '100';
@@ -101,13 +99,16 @@ function sender(text) {
 
 $(document).ready(function() {
 
+  //ajax로 이전 채팅 내용 불러들이기(방 번호 전달해서)
+
+  // 연결
     socket.on('connection', function(data) {
         console.log('connect');
         if(data.type === 'connected') {
             socket.emit('connection', {
                 type : 'join',
                 name : name,
-                room : room
+                room : roomId
 
 
             });

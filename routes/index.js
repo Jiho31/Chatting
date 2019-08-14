@@ -105,8 +105,6 @@ router.use(session({
 // }));
 
 // connection.connect();
-var mysql = require('sync-mysql');
-var dbinfo = require('../database.js');
 var multer = require('multer');
 var path = require('path');
 var upload = multer({
@@ -128,7 +126,6 @@ var upload = multer({
   }),
 });
 
-var connectDB = new mysql(dbinfo.getDBInfo());
 var resultQNA = null; // q&a 글 내용 전역변수
 var resultPostNum = null;
 
@@ -289,10 +286,10 @@ router.post('/getroomInfo',function(req, res){
   var roomNo = req.body.roomNo;
   var sql;
   if (roomNo === 'ALL') {
-    sql = `SELECT room.roomType, room.roomName, room.category from room`;
+    sql = `SELECT * from room`;
   }
   else {
-    sql = `SELECT room.roomType, room.roomName, room.category from room where roomNo=${roomNo}`;
+    sql = `SELECT * from room where roomNo=${roomNo}`;
   }
   
 /*sql의 별점은 추가*/ 

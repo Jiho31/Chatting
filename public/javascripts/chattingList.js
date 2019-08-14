@@ -1,4 +1,3 @@
-
 $('.ui.dropdown').dropdown();
 
 /*상단바 왼쪽*/
@@ -11,6 +10,7 @@ $(document).ready(function () {
         $('.ui .item').removeClass('active');
         $(this).addClass('active');
     });
+    getroomInfo('ALL');
 });
 
 var roomModal = document.getElementById('room_modal');
@@ -53,7 +53,8 @@ function submit() {
             else {
                 //closeModal();
                 roomId = JSON.parse(xhr.responseText).roomId;
-                /* 대화방 */
+                /* 대화방 열기*/
+                document.location.href=`javascript:void(window.open('http://52.79.233.145:3000/chattingRoom?roomId=${roomId}','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))`;
                 //document.location.href = "/roomChatting";
                 getroomInfo('ALL');
             }
@@ -88,15 +89,17 @@ function getroomInfo(no) {
 function makeChatRoomList(data) {
     console.log(data);
     for (var i = 0; i < data.length; i++) {
+        var roomId = data[i].roomNo;
         var category = data[i].category;
         var title = data[i].roomName;
         var roomType = data[i].roomType;
 
         var html = "";
         var bodyWrap = 'body';
+        var method = `javascript:void(window.open('http://52.79.233.145:3000/chattingRoom?roomId=${roomId}','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))`;
 
         $('.box').eq(i).html(
-            `<div class="box1">
+            `<div class="box1" onclick="${method}">
                     <div style="margin: 51.5px auto 0 auto">
                         <div class="room-info">
                             <div class="title" id="title1"><span>[${category}]</span>${title}</div>
