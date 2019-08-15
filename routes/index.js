@@ -320,7 +320,7 @@ router.get('/qna', function(req, res) {
 });
 
 router.get('/writepost', function (req, res) {
-  connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date TEXT, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+  connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date TEXT, response TEXT, repFlage INT, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
   res.render('writepost');
 });
 
@@ -342,7 +342,7 @@ router.post('/new_qna1', function(req, res){
   if (qnaSecret == undefined)
     qnaSecret = 'unchecked';
   //userId 로그인 기능 추가하고 나중에 테이블에 저장
-  var addPost = "UPDATE QNALIST SET category='"+qnaCategory+"', title='"+qnaTitle+"', content='"+qnaContent+"', secretOrNot='"+qnaSecret+"' WHERE postIndex="+resultPostNum+";";
+  var addPost = "UPDATE QNALIST SET category='"+qnaCategory+"', title='"+qnaTitle+"', content='"+qnaContent+"', secretOrNot='"+qnaSecret+"', userId='"+req.session.userId+"' WHERE postIndex="+resultPostNum+";";
   connectDB.query(addPost);
 
   // console.log(qnaTitle);
@@ -367,16 +367,6 @@ router.get('/writepost', function (req, res) {
 
 router.get('/chattingRoom', function(req, res) {
   res.render('chattingRoom');
-});
-
-router.post('/new_qna', function(req, res){
-  var qnaTitle=req.body.qnaTitle;
-  var qnaCategory=req.body.qnaCategory;
-  var qnaContent=req.body.qnaContent;
-
-  console.log(qnaTitle);
-  console.log(qnaContent);
-  console.log(qnaCategory);
 });
 
 router.get('/maketable', function (req, res) {
@@ -459,13 +449,14 @@ router.get('/showpost', function(req, res){
   var pi = req.query.postIndex;
 
   var postResult = connectDB.query("SELECT * FROM QNALIST WHERE postIndex="+pi);
-  console.log(postResult);
-  console.log(postResult[0].category);
+  // console.log(postResult);
 
   var content = postResult[0].content;
+  var reply = postResult[0].response;
 
   content = content.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
-  console.log(content);
+  if (reply != null)
+    reply = reply.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
   
   res.render('showpost', {
     userId: postResult[0].userId,
@@ -473,9 +464,22 @@ router.get('/showpost', function(req, res){
     pTitle: postResult[0].title,
     pContent: content,
     pDate: postResult[0].date,
-    pSecret: postResult[0].secretOrNot
+    pSecret: postResult[0].secretOrNot,
+    pReply: reply,
+    pFlag: postResult[0].repFlag
   });
 });
+router.post('/reply_qna', function(req, res){
+  var replyContent = req.body.replyContent;
+  var pi = req.body.postIndex;
+  var flag=1;
+
+  var sql = "UPDATE QNALIST SET response='"+replyContent+"', repFlag='"+flag+"' WHERE postIndex="+pi+";";
+  connectDB.query(sql);
+
+  res.redirect('qna');
+});
+
 module.exports = router;
 
 

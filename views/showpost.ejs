@@ -31,7 +31,7 @@
             </a>
         </div>
     </div>
-    <div style="margin-top: 50px">
+    <div style="margin-top: 50px; margin-left: 200px; margin-right: 200px">
         <div id="post">
             <div id="post_cat">
                 [<%= pCategory %>]
@@ -48,6 +48,32 @@
             </div>
         </div>
     </div>
+    <% if (pFlag == 1) { %>
+        <div style="margin-left: 200px; margin-right: 200px">
+            <div class="box1 bubble">
+                <span style="">운영자 답변</br></span>
+                <%- pReply %>
+            </div>
+        </div>
+    <% } else { %>
+        <div id="reply_button">
+            <button class="ui button" onclick="replyButton()">답글 달기</button>
+        </div>
+        <div>
+            <form id="reply_form" action="/reply_qna" method="post" class="ui form" name="reply1">
+                <div class="field">
+                    <label>답글 내용</label>
+                    <textarea name="replyContent" cols="30" rows="10" id="qna_content"></textarea>
+                </div>
+                <div class="field" style="display: none">
+                    <input type="text" id="hidden_messenger" name="postIndex">
+                </div>
+                <div style="display: flex;">
+                    <input id="submit_reply" class="ui button" type="submit" value="등록하기" style="margin: 0">
+                </div>
+            </form>
+        </div>
+    <% } %>
 </body>
 <script src="/javascripts/showpost.js"></script>
 </html>
