@@ -15,8 +15,26 @@ var socket_io = require('socket.io');
 var io = socket_io();
 router.io = io;
 
-//socket 통신 소스
+router.use(session({
+  secret: '1234DSFS@!',
+  resave: false,
+  saveUninitialized: true
+}));
 
+router.post('/getCurrentUserId', function(req, res) {
+  var id = 'testIds';
+  if(req.session.userId) id = req.session.userId;
+  res.send(id);
+});
+
+router.post('/getChatHistory', function(req, res) {
+  var roomId = req.body.roomId;
+  var sql = `SELECT * from chatdata WHERE chatroomID=${roomId}`;
+  var result = connectDB.query(sql);
+  res.send(result);
+});
+
+//socket 통신 소스
 router.io.on('connection', socket => {
 
     socket.emit('connection', {
@@ -51,6 +69,12 @@ router.io.on('connection', socket => {
         // });
 
         var room = socket.room;
+        console.log(data);
+
+        var chatsql = `INSERT INTO chatdata(userID, chatroomId, chatcontent) VALUES('${data.name}', ${data.roomId}, '${data.message}')`;
+        var chatidx = connectDB.query(chatsql).insertId;
+
+        console.log(chatidx);
 
         if(room) {
             socket.broadcast.to(room).emit('message', data);
@@ -58,12 +82,6 @@ router.io.on('connection', socket => {
     });
 
 });
-
-router.use(session({
-  secret: '1234DSFS@!',
-  resave: false,
-  saveUninitialized: true
-}));
 
 // localhost:3000/login/kakao로 들어오면(get으로 들어오면) passport.authenticate를 실행(여기서는 임의로 login-kakao로 이름을 줌)
 // router.use(passport.initialize());
