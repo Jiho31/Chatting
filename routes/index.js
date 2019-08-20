@@ -1,6 +1,8 @@
 var express = require('express');
 var session = require('express-session');
 var router = express.Router();
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 //var passport = require('passport');
 //var KakaoStrategy = require('passport-kakao').Strategy;
 
@@ -147,17 +149,75 @@ router.get('/Usignup', function (req, res) {
   res.render('Usignup');
 });
 
-router.post('/Usignup', function (req, res) {
+router.post('/Usignup', async function (req, res) {
 
   var id = req.body.Uid;
   var name = req.body.Uname;
   var pw = req.body.Upw;
   var phone = req.body.Unum;
+  let email = req.body.Uemail;
+
+  async function mailer() {
+    let testAccount = await nodemailer.createTestAccount();
+
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "smtp.ethereal.email",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: testAccount.user, // generated ethereal user
+        pass: testAccount.pass // generated ethereal password
+      }
+    });
+
+    // send mail with defined transport object
+    let mailOptions = {
+      from: testAccount.user,    // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
+      to: email ,                     // 수신 메일 주소
+      subject: '안녕하세요, 응답하라 익명인입니다! 이메일 인증을 해주세요.',   // 제목
+      html: '<p>아래의 링크를 클릭해서 이메일 인증을 완료해주세요 !</p>' +
+      "<a href='http:/"+ req.get('host') +"/auth/?email="+ email +"&token=abcdefg'>이메일 인증하기</a>",  // 내용
+      amp: `<!doctype html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          </meta>
+        </head>
+        <body>
+          <p>아래의 링크를 클릭해주세요!</br></p>
+          <a href='http:/"` + req.get('host') +`/auth/?email=`+ email +`&token=abcdefg'>인증하기</a>
+        </body>
+      </html>`
+    };
+  
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      }
+      else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
+
+  mailer();
 
   console.log(id, name, pw, phone);
+  
+  // let transporter = nodemailer.createTransport({
+  //   service: 'Gmail',
+  //   port: 587,
+  //   auth: {
+  //     user: 'bok.jiho@gmail.com',  // gmail 계정 아이디를 입력
+  //     pass: ''          // gmail 계정의 비밀번호를 입력
+  //   }
+  // });
+
+  
 
   var checkId = `SELECT COUNT(*) FROM user WHERE id = '${id}';`
-  var insertInfo = `INSERT INTO user(id, name, pw, phone) VALUES('${id}','${name}','${pw}','${phone}')`
+  var insertInfo = `INSERT INTO user(id, name, pw, phone, email) VALUES('${id}','${name}','${pw}','${phone}', '${email}')`
 
   var Uid = connectDB.query(checkId)
 
@@ -172,6 +232,15 @@ router.post('/Usignup', function (req, res) {
   else {
     res.send('<script>alert("Your id is duplicated! Please change it."); document.location.href="/Usignup"</script>');
   }
+});
+
+router.get('/auth', function(req, res){
+  console.log(req.protocol+":/"+req.get('host'));
+  let email = req.body.email;
+  let token = req.body.token;
+  
+  console.log(email)
+  console.log(token);
 });
 
 router.get('/Msignup', function (req, res) {
@@ -381,6 +450,7 @@ router.get('/maketable', function (req, res) {
       grade INT, 
       report INT,
       list INT,
+      email VARCHAR(30),
       PRIMARY KEY(id)
     )
   `
