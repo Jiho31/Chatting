@@ -5,6 +5,8 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 //var passport = require('passport');
 //var KakaoStrategy = require('passport-kakao').Strategy;
+var bkfd2Password = require("pbkdf2-password");
+var hasher = bkfd2Password();
 
 var mysql = require('sync-mysql');
 var dbinfo = require('../database.js');
@@ -203,7 +205,7 @@ router.post('/Usignup', async function (req, res) {
 
   mailer();
 
-  console.log(id, name, pw, phone);
+  // console.log(id, name, pw, phone);
   
   // let transporter = nodemailer.createTransport({
   //   service: 'Gmail',
@@ -214,10 +216,11 @@ router.post('/Usignup', async function (req, res) {
   //   }
   // });
 
-  
+  var salt = crypto.randomBytes(64).toString('hex');
+  var hash = crypto.pbkdf2Sync(pw, salt, 129440, 64, 'sha512').toString('hex');
 
   var checkId = `SELECT COUNT(*) FROM user WHERE id = '${id}';`
-  var insertInfo = `INSERT INTO user(id, name, pw, phone, email) VALUES('${id}','${name}','${pw}','${phone}', '${email}')`
+  var insertInfo = `INSERT INTO user(id, name, pw, phone, email, pwSalt) VALUES('${id}','${name}','${hash}','${phone}', '${email}', '${salt}')`
 
   var Uid = connectDB.query(checkId)
 
@@ -282,24 +285,49 @@ router.post('/Ulogin', function (req, res) {
   var id = req.body.Uid;
   var pw = req.body.Upw;
 
-  console.log(id, pw);
+  var checkId = `SELECT id FROM user;`;
+  var sql1 = connectDB.query(checkId);
+  var idFlag = 0;
 
-  var checkId = `SELECT COUNT(*) FROM user WHERE id = '${id}' and pw = '${pw}';`;
-
-  var Uid = connectDB.query(checkId)
-
-  var length = Uid[0]['COUNT(*)'];
-
-  if (length < 1) {
-    res.send('<script>alert("Your information does not exist! Please sign up."); document.location.href="/Usignup"</script>')
+  for (i=0 ; i < sql1.length ; i++){
+    if (sql1[i].id === id) {
+      idFlag = 1;
+      break;
+    }
   }
-  else {
-    if (!req.session.userId || !req.session.userType) {
+
+  var checkPw = `SELECT pw, pwSalt FROM user WHERE id='${id}';`;
+  var sql2 = connectDB.query(checkPw);
+  if (idFlag){
+    if(sql2[0].pw === crypto.pbkdf2Sync(pw, sql2[0].pwSalt, 129440, 64, 'sha512').toString('hex')){
+      console.log('hiii');
       req.session.userId = id;
       req.session.userType = "user";
+      res.send('<script>document.location.href="/chattingList"</script>');
     }
-    res.send('<script>document.location.href="/chattingList"</script>');
+    else {
+      console.log('why');
+      res.send('<script>alert("비밀번호가 틀렸습니다. 다시 로그인하세요."); document.location.href="/Ulogin"</script>');
+    } 
   }
+  else {
+    res.send('<script>alert("존재하지 않는 아이디입니다!"); document.location.href="/Ulogin"</script>');
+  }
+
+  // var checkId = `SELECT COUNT(*) FROM user WHERE id = '${id}' and pw = '${pw}';`;
+  // var Uid = connectDB.query(checkId)
+  // var length = Uid[0]['COUNT(*)'];
+
+  // if (length < 1) {
+  //   res.send('<script>alert("Your information does not exist! Please sign up."); document.location.href="/Usignup"</script>')
+  // }
+  // else {
+  //   if (!req.session.userId || !req.session.userType) {
+  //     req.session.userId = id;
+  //     req.session.userType = "user";
+  //   }
+  //   res.send('<script>document.location.href="/chattingList"</script>');
+  // }
 });
 
 router.get('/Mlogin', function (req, res) {
