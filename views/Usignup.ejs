@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/stylesheets/Usignup.css">
+    <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+    <script src="dist/semantic.js"></script>
 
     <title>Sign up</title>
 </head>
@@ -28,24 +31,35 @@
                         <div class="partition"></div>
                     </div>
                     <div id="inputUserInfo">
-                        <input class="Info" id="Uid" name="Uid" placeholder="ID" onblur="checkId()">
-                        <input class="Info" id="Uname" name="Uname" placeholder="Name" onblur="checkName()">
-                        <input class="Info" id="Unum" name="Unum" placeholder="phone-number" onblur="checkPhoneNumber()">
-                        <input class="Info" id="Uemail" name="Uemail" placeholder="Email Address">
-                        <input class="Info" id="Upw" name="Upw" type="password" placeholder="PW" onblur="checkPw()">
+                        <div class="ui input Info" data-tooltip="아이디는 4-12자리 영문, 숫자, 특수문자 '_'로 입력하세요." data-position="bottom left">
+                            <input class="" id="Uid" name="Uid" placeholder="ID" onblur="checkId()">
+                        </div>
+                        <div class="ui input Info">
+                            <input class="" id="Uname" name="Uname" placeholder="Nickname" onblur="checkName()">
+                        </div>
+                        <!-- <input class="Info" id="Unum" name="Unum" placeholder="phone-number" onblur="checkPhoneNumber()"> -->
+                        <div class="ui input Info" data-tooltip="입력 예시) random_chat@email.com" data-position="bottom left">
+                            <input class="" id="Uemail" name="Uemail" placeholder="Email Address" onblur="checkEmail()">
+                        </div>
+                        <div class="ui input Info" data-tooltip="비밀번호는 6자리 이상 12자리 이하 영문 또는 숫자로 입력하세요." data-position="bottom left">
+                            <input class="" id="Upw" name="Upw" type="password" placeholder="Password" onblur="checkPw()">
+                        </div>
+                        <div class="ui input Info" id="pwcheck">
+                            <input class="" id="UpwCheck" name="UpwCheck" type="password" placeholder="Password Check" onblur="checkSamePw()">
+                        </div>
                     </div>
                     <div class="joinBtnWrap">
                         <button id="UjoinBtn" class="joinBtn" type="button"
                             onclick="userjoin()"><strong>Join</strong></button>
                     </div>
                     <div id="notice">
-                        When you <strong>join</strong>, you <strong>agree</strong> to terms and conditions, data
+                        When you <strong>join</strong>, you <strong>agree</strong> to the terms and conditions, data
                         policies, and cookie policies.
                     </div>
                 </div><!-- 윗부분 -->
 
                 <div class="middleWrap">
-                    <p class="middle">If you have account  <a href = "/Ulogin">login</a></p>
+                    <p class="middle">If you have an account  <a href = "/Ulogin">login</a></p>
                 </div><!-- 중간부분 -->
 
                 <div class="bottomWrap"></div><!-- 밑부분 -->

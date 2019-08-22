@@ -220,20 +220,24 @@ router.post('/Usignup', async function (req, res) {
   var hash = crypto.pbkdf2Sync(pw, salt, 129440, 64, 'sha512').toString('hex');
 
   var checkId = `SELECT COUNT(*) FROM user WHERE id = '${id}';`
+  var checkNickname = `SELECT COUNT(*) FROM user WHERE name = '${name}';`
   var insertInfo = `INSERT INTO user(id, name, pw, phone, email, pwSalt) VALUES('${id}','${name}','${hash}','${phone}', '${email}', '${salt}')`
 
-  var Uid = connectDB.query(checkId)
+  var Uid = connectDB.query(checkId);
+  var Unickname = connectDB.query(checkNickname);
 
-  var length = Uid[0]['COUNT(*)'];
-  console.log(length);
+  var id_length = Uid[0]['COUNT(*)'];
+  var nick_length = Unickname[0]['COUNT(*)'];
 
-  if (length < 1) {
-    var Uinfo = connectDB.query(insertInfo)
-    console.log(Uinfo);
-    res.send(`<script>alert('Sign up is completed! Please, login.'); document.location.href='/Ulogin';</script>`);
+  if (id_length >= 1) {
+    res.send('<script>alert("이미 사용중인 ID입니다. 다른 ID를 입력해주세요."); document.location.href="/Usignup"</script>');
+  }
+  else if (nick_length >= 1) {
+    res.send('<script>alert("이미 사용중인 닉네임입니다. 다른 닉네임을 입력해주세요."); document.location.href="/Usignup"</script>');
   }
   else {
-    res.send('<script>alert("Your id is duplicated! Please change it."); document.location.href="/Usignup"</script>');
+    var Uinfo = connectDB.query(insertInfo);
+    res.send(`<script>alert('회원가입이 완료되었습니다. 로그인 해주세요.'); document.location.href='/Ulogin';</script>`);
   }
 });
 
