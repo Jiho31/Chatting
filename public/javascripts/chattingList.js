@@ -1,4 +1,3 @@
-
 $('.ui.dropdown').dropdown();
 
 /*상단바 왼쪽*/
@@ -11,7 +10,7 @@ $(document).ready(function () {
         $('.ui .item').removeClass('active');
         $(this).addClass('active');
     });
-    getroomInfo(0);
+    getroomInfo('ALL');
 });
 
 var scrollCnt = 0;
@@ -66,7 +65,8 @@ function submit() {
             else {
                 //closeModal();
                 roomId = JSON.parse(xhr.responseText).roomId;
-                /* 대화방 */
+                /* 대화방 열기*/
+                document.location.href=`javascript:void(window.open('http://52.79.233.145:3000/chattingRoom?roomId=${roomId}','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))`;
                 //document.location.href = "/roomChatting";
                 getroomInfo('ALL');
             }
@@ -111,6 +111,8 @@ function getroomInfoForId(no) {
             alert("error");
         })
 }
+
+
 
 function makeChatRoomList(data) {
     console.log(data);
@@ -189,15 +191,17 @@ function makeChatRoomList(data) {
     `);
 
     for (var i = 0; i < data.length; i++) {
+        var roomId = data[i].roomNo;
         var category = data[i].category;
         var title = data[i].roomName;
         var roomType = data[i].roomType;
 
         var html = "";
         var bodyWrap = 'body';
+        var method = `javascript:void(window.open('http://52.79.233.145:3000/chattingRoom?roomId=${roomId}','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))`;
 
-        $('.box').eq(i + scrollCnt * 6).html(
-            `<div class="box1">
+        $('.box').eq(i).html(
+            `<div class="box1" onclick="${method}">
                     <div style="margin: 51.5px auto 0 auto">
                         <div class="room-info">
                             <div class="title" id="title1"><span>[${category}]</span>${title}</div>
@@ -210,10 +214,44 @@ function makeChatRoomList(data) {
     }
     console.log(html);
 }
-// open the modal 
-roomBtn.onclick = function () {
-    roomModal.style.display = "block";
-}
+
+
+        // open the modal 
+        roomBtn.onclick = function () {
+            roomModal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        roomSpan.onclick = function () {
+            roomModal.style.display = "none";
+        }
+
+        //채팅 방식 선택할 때 뒤에 네모 박스
+        $(document).ready(function () {
+            $('.button.selector').on('click', function () {
+                $('.button.selector').removeClass('selected');
+                $(this).addClass('selected');
+            });
+
+        });
+
+        
+
+        // 카테고리 선택지 나열
+
+        //submit 버튼 누르면 모달 닫힘
+        submitBtn.onclick = function () {
+            roomModal.style.display = "none";
+            submit();
+        }
+
+        //cancel 버튼 누르면 모달 닫힘
+        cancelBtn.onclick = function () {
+            roomModal.style.display = "none";
+        }
+
+        // Get the modal
+        var accountModal = document.getElementById('account_Modal');
 
 // When the user clicks on <span> (x), close the modal
 roomSpan.onclick = function () {
@@ -240,3 +278,26 @@ submitBtn.onclick = function () {
 cancelBtn.onclick = function () {
     roomModal.style.display = "none";
 }
+        // 
+        window.onclick = function (event) {
+            if (event.target == accountModal) {
+                accountModal.style.display = "none";
+            }
+            else if (event.target == roomModal) {
+                roomModal.style.display = "none";
+            }
+        }
+
+        //게시판 글 내용 적는 곳
+        $(function(){
+            //기본값
+            $('#message_board_content').hide();
+            //숨기기
+            $('#chat_1').click(function(){
+                $('#message_board_content').hide();
+            });
+            //보이기
+            $('#chat_2').click(function(){
+                $('#message_board_content').show();
+            });
+        });

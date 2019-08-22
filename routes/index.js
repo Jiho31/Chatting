@@ -19,8 +19,26 @@ var socket_io = require('socket.io');
 var io = socket_io();
 router.io = io;
 
-//socket 통신 소스
+router.use(session({
+  secret: '1234DSFS@!',
+  resave: false,
+  saveUninitialized: true
+}));
 
+router.post('/getCurrentUserId', function(req, res) {
+  var id = 'testIds';
+  if(req.session.userId) id = req.session.userId;
+  res.send(id);
+});
+
+router.post('/getChatHistory', function(req, res) {
+  var roomId = req.body.roomId;
+  var sql = `SELECT * from chatdata WHERE chatroomID=${roomId}`;
+  var result = connectDB.query(sql);
+  res.send(result);
+});
+
+//socket 통신 소스
 router.io.on('connection', socket => {
 
     socket.emit('connection', {
@@ -44,7 +62,15 @@ router.io.on('connection', socket => {
             socket.broadcast.to(data.room).emit('system', {
                 message : `${data.name} is connected`
             });
+            
         }
+        else{
+          socket.leave(data.room).emit('system', {
+            message : `${data.name} is leaved`
+          })
+
+    
+        };
 
     });
 
@@ -55,6 +81,12 @@ router.io.on('connection', socket => {
         // });
 
         var room = socket.room;
+        console.log(data);
+
+        var chatsql = `INSERT INTO chatdata(userID, chatroomId, chatcontent) VALUES('${data.name}', ${data.roomId}, '${data.message}')`;
+        var chatidx = connectDB.query(chatsql).insertId;
+
+        console.log(chatidx);
 
         if(room) {
             socket.broadcast.to(room).emit('message', data);
@@ -63,11 +95,10 @@ router.io.on('connection', socket => {
 
 });
 
-router.use(session({
-  secret: '1234DSFS@!',
-  resave: false,
-  saveUninitialized: true
-}));
+
+
+
+
 
 // localhost:3000/login/kakao로 들어오면(get으로 들어오면) passport.authenticate를 실행(여기서는 임의로 login-kakao로 이름을 줌)
 // router.use(passport.initialize());
@@ -109,8 +140,6 @@ router.use(session({
 // }));
 
 // connection.connect();
-var mysql = require('sync-mysql');
-var dbinfo = require('../database.js');
 var multer = require('multer');
 var path = require('path');
 var upload = multer({
@@ -132,7 +161,6 @@ var upload = multer({
   }),
 });
 
-var connectDB = new mysql(dbinfo.getDBInfo());
 var resultQNA = null; // q&a 글 내용 전역변수
 var resultPostNum = null;
 
@@ -386,8 +414,10 @@ router.post('/addroomInfo', function (req, res) {
   
   var sql = `INSERT INTO room (roomType, roomName, category, participationNo) VALUES('${roomType}','${title}','${category}', 1)`;
   //var roomNo = req.body.roomNo;
-
   var id = connectDB.query(sql)['insertId'];
+  
+  var addPartis = `INSERT INTO roomParticipants (roomNo, userId, lastIdx, isPart) VALUES(${id}, '${req.session.userId}', 0, 1)`;
+  connectDB.query(addPartis);
   
   res.send({roomId: id});
 });
@@ -395,9 +425,12 @@ router.post('/addroomInfo', function (req, res) {
 router.post('/getroomInfo',function(req, res){
   var step = req.body.step;
   var sql;
-  step = step*6;
-  sql = `SELECT room.roomType, room.roomName, room.category from room LIMIT 6 OFFSET ${step}`;
-
+  if (roomNo === 'ALL') {
+    sql = `SELECT * from room`;
+  }
+  else {
+    sql = `SELECT * from room where roomNo=${roomNo}`;
+  }
   
 /*sql의 별점은 추가*/ 
 
@@ -483,6 +516,7 @@ router.get('/maketable', function (req, res) {
       report INT,
       list INT,
       email VARCHAR(30),
+      pwSalt TEXT,
       PRIMARY KEY(id)
     )
   `
