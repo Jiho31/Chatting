@@ -65,7 +65,8 @@ router.io.on('connection', socket => {
             
         }
         else{
-          socket.leave(data.room).emit('system', {
+          socket.leave(data.room);
+          socket.emit('system', {
             message : `${data.name} is leaved`
           })
 
@@ -423,7 +424,7 @@ router.post('/addroomInfo', function (req, res) {
 });
 
 router.post('/getroomInfo',function(req, res){
-  var step = req.body.step;
+  var roomNo = req.body.step;
   var sql;
   if (roomNo === 'ALL') {
     sql = `SELECT * from room`;
