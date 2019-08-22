@@ -81,9 +81,13 @@ function writeMessage(type, name, message, time) {
 
   $(html).appendTo('.chat-message');
   $('body').stop();
-  $('body').animate({ scrollTop: $('body').height() }, 500);
-
+  //$(document).animate({ scrollTop: $(document).height() }, 500);
+  var chatAreaHeight = $("body").height();
+  var maxScroll = $(".chat-box").height() - chatAreaHeight + 128;
+  $(document).scrollTop(maxScroll);
 }
+
+
 
 function sender(text) {
 
@@ -176,4 +180,18 @@ $('.rating')
     maxRating: 5
   })
   ;
+
+  //상단바 고정
+  // $( document ).ready( function() {
+  //   var roomMenu = $( '.ui grey fixed inverted massive menu' ).offset();
+  //   $( window ).scroll( function() {
+  //     if ( $( document ).scrollTop() > roomMenu.top ) {
+  //       $('.ui grey fixed inverted massive menu').addClass( 'fixed' );
+  //     }
+  //     else {
+  //       $('.ui grey fixed inverted massive menu').removeClass( 'fixed' );
+  //     }
+  //   });
+  // } );
+  
 

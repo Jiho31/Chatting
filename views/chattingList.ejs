@@ -124,8 +124,8 @@
         </a>
     </div>
 
-     
-    <div class="ui top attached menu" id = "sidebar">
+
+    <div class="ui top attached menu" id="sidebar">
         <div class="ui dropdown icon item ignored" style="background-image: url(../images/menu.png);
         background-size: cover;
         background-repeat: no-repeat;
@@ -173,8 +173,8 @@
     <div id="btns">
         <button class="btn1">바로 입장</button>
         <button id="room_btn" class="btn2">방 만들기</button>
-        <form action="/addroomInfo" id="room_modal" class="r-modal" method = "POST">
-            <input id="roomType" type = "hidden" name = "room" value = "0">
+        <form action="/addroomInfo" id="room_modal" class="r-modal" method="POST">
+            <input id="roomType" type="hidden" name="room" value="0">
             <!-- Modal content -->
             <div class="modal-content">
 
@@ -185,14 +185,14 @@
                 <!-- 채팅 방식 선택하는 아이콘 -->
                 <div class="room-icon">
 
-                    <button type="button" class="button selector selected" onclick="roomMode(0)">
+                    <button type="button" class="button selector selected" id="chat_1" onclick="roomMode(0)">
                         <div class="room-images">
                             <img class="room-image" src="images/conversation-1.png">
                             <p class="room-choice">1대1 채팅</p>
                         </div>
                     </button>
 
-                    <button type="button" class ="button selector" onclick="roomMode(1)">
+                    <button type="button" class="button selector" id="chat_2"  onclick="roomMode(1)">
                         <div class="room-images">
                             <img class="room-image" src='images/conversation.png'>
                             <p class="room-choice">게시판 글</p>
@@ -220,12 +220,19 @@
                         <option value="WI">성희</option>
                     </select>
                 </div>
+                <!-- 게시판 글 내용 -->
+                <div class="ui form" id ="message_board_content">
+                    <div class="field">
+                        <label>Content</label>
+                        <textarea></textarea>
+                    </div>
+                </div>
 
                 <!-- 확인 또는 취소 버튼 -->
                 <div class="sub-or-can">
                     <button type="button" class="ui secondary submit button">
                         Submit
-                    </button>                    
+                    </button>
                     <button class="ui grey button">
                         Cancel
                     </button>
@@ -239,7 +246,7 @@
     <div>
         <div id="body">
             <div class="line" style="margin-top: 30px;">
-                <div class="box" style = "margin-right: 30px">
+                <div class="box" style="margin-right: 30px">
                     <div style="margin: 51.5px auto 0 auto">
                         <div class="room-info">
                             <div class="category" id="category1"></div>
@@ -255,7 +262,7 @@
             </div>
 
             <div class="line">
-                <div class="box" style = "margin-right: 30px">
+                <div class="box" style="margin-right: 30px">
 
                 </div>
 
@@ -266,7 +273,7 @@
 
 
             <div class="line">
-                <div class="box" style = "margin-right: 30px">
+                <div class="box" style="margin-right: 30px">
 
                 </div>
 

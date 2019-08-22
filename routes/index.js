@@ -58,7 +58,15 @@ router.io.on('connection', socket => {
             socket.broadcast.to(data.room).emit('system', {
                 message : `${data.name} is connected`
             });
+            
         }
+        else{
+          socket.leave(data.room).emit('system', {
+            message : `${data.name} is leaved`
+          })
+
+    
+        };
 
     });
 
@@ -82,6 +90,11 @@ router.io.on('connection', socket => {
     });
 
 });
+
+
+
+
+
 
 // localhost:3000/login/kakao로 들어오면(get으로 들어오면) passport.authenticate를 실행(여기서는 임의로 login-kakao로 이름을 줌)
 // router.use(passport.initialize());
@@ -294,8 +307,10 @@ router.post('/addroomInfo', function (req, res) {
   
   var sql = `INSERT INTO room (roomType, roomName, category, participationNo) VALUES('${roomType}','${title}','${category}', 1)`;
   //var roomNo = req.body.roomNo;
-
   var id = connectDB.query(sql)['insertId'];
+  
+  var addPartis = `INSERT INTO roomParticipants (roomNo, userId, lastIdx, isPart) VALUES(${id}, '${req.session.userId}', 0, 1)`;
+  connectDB.query(addPartis);
   
   res.send({roomId: id});
 });

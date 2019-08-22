@@ -86,6 +86,8 @@ function getroomInfo(no) {
         })
 }
 
+
+
 function makeChatRoomList(data) {
     console.log(data);
     for (var i = 0; i < data.length; i++) {
@@ -112,6 +114,8 @@ function makeChatRoomList(data) {
     }
     console.log(html);
 }
+
+
         // open the modal 
         roomBtn.onclick = function () {
             roomModal.style.display = "block";
@@ -128,7 +132,10 @@ function makeChatRoomList(data) {
                 $('.button.selector').removeClass('selected');
                 $(this).addClass('selected');
             });
+
         });
+
+        
 
         // 카테고리 선택지 나열
 
@@ -171,3 +178,17 @@ function makeChatRoomList(data) {
                 roomModal.style.display = "none";
             }
         }
+
+        //게시판 글 내용 적는 곳
+        $(function(){
+            //기본값
+            $('#message_board_content').hide();
+            //숨기기
+            $('#chat_1').click(function(){
+                $('#message_board_content').hide();
+            });
+            //보이기
+            $('#chat_2').click(function(){
+                $('#message_board_content').show();
+            });
+        });

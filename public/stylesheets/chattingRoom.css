@@ -1,5 +1,8 @@
 .chat-message {
     margin-bottom:50px;
+    font-size: 18px;
+    margin-top: 52px;
+  
 }
 .chat-footer {
     margin-right: 2%;
@@ -15,9 +18,7 @@ table {
 .chat-box{
     margin:2%;
 }
-.chat-message{
-    font-size: 15px;
-}
+
 .time{
     font-size: 12px;
     color: darkgray;
