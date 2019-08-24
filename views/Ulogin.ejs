@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <form class="ui placeholder segment" action="/Ulogin" method="POST" id="user">
+    <form class="ui placeholder segment" action="/Ulogin" method="POST" id="user" name="userlogin" onsubmit="return check(form)">
         <div class="ui two column very relaxed stackable grid">
             <div class="column">
                 <div class="ui form">
@@ -35,7 +35,7 @@
                             <i class="lock icon"></i>
                         </div>
                     </div>
-                    <div class="ui blue submit button" id = "user_login" onclick="userlogin()">Login</div>
+                    <button class="ui blue submit button" type="submit" id="user_login" onclick="userlogin()">Login</button>
                 </div>
             </div>
             <div class="middle aligned column">
