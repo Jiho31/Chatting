@@ -1,0 +1,13 @@
+body{
+    font-family: 'Nanum-Gothic', sans-serif;
+}
+#main_container{
+    border: 1px solid grey;
+    border-radius: 5px;
+    height: 500px;
+    margin: 60px;
+}
+.left_cont{
+    margin: 15px;
+    font-weight: bold;
+}

@@ -167,8 +167,6 @@ var resultPostNum = null;
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date DATETIME, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-
   res.render('index', { title: 'Express' });
 });
 
@@ -519,7 +517,7 @@ router.get('/maketable', function (req, res) {
       email VARCHAR(30),
       pwSalt TEXT,
       PRIMARY KEY(id)
-    )
+    ) default character set utf8 collate utf8_general_ci;
   `
   sql[1] = `
     CREATE TABLE IF NOT EXISTS manager(
@@ -528,7 +526,7 @@ router.get('/maketable', function (req, res) {
       name VARCHAR(48),
       phone TEXT,
       PRIMARY KEY(id)
-    )
+    ) default character set utf8 collate utf8_general_ci;
   `
 
   sql[2] = `
@@ -539,14 +537,17 @@ router.get('/maketable', function (req, res) {
       roomType INT,
       participationNo INT,
       PRIMARY KEY(roomNo)
-    )
+    ) default character set utf8 collate utf8_general_ci;
   `
 
   sql[3] = `
-    CREATE TABLE IF NOT EXISTS roomInfo(
+    CREATE TABLE IF NOT EXISTS roomParticipants(
       roomNo INT,
-      userId VARCHAR(48)
-    )
+      userId VARCHAR(48),
+      lastIdx INT,
+      isPart INT
+      PRIMARY KEY(roomNo)
+    ) default character set utf8 collate utf8_general_ci;
   `
 
   connectDB.query(sql[0]);
@@ -615,6 +616,16 @@ router.post('/reply_qna', function(req, res){
   connectDB.query(sql);
 
   res.redirect('qna');
+});
+router.get('/mypage/information', function(req, res){
+  res.render('mp_personal');
+});
+
+router.get('/mypage/ratings', function(req, res){
+  res.render('mp_rate');
+});
+router.get('/mypage/chatlist', function(req, res){
+  res.render('mp_chat_record');
 });
 
 module.exports = router;

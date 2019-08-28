@@ -23,7 +23,7 @@ function accountModalFunction(){
     html += '</div>';
 
     html += '<div class="account-button">';
-    html += '<button class="ui basic button">';
+    html += '<button class="ui basic button" onclick="location='+"'/mypage/information'"+'">';
     html += '<i class="icon user"></i>';
     html += 'My page';
     html += '</button>';
