@@ -1,61 +1,68 @@
-$('.ui.dropdown').dropdown();
+var makeChatRoomList = function (data) {
+    var html = '';
 
-var listCont = $('#listbody');
-
-var getData = function () {
-  $.post('/getroomInfo', {
-    step: window.scrollStep
-  }, function (data) {
-    makeList(data);
-    if (!window.isScrolled && $(window).height() >= $(document).height()) {
-      window.scrollStep++;
-      getData(window.scrollStep)
-    }
-    console.log(data);
-  }, 'json')
-}
-
-var makeList = function (data) {
-  var html = '';
-
-  for (var i = 0; i < data.length; i++) {
-    html += `
+    for (var i = 0; i < data.length; i++) {
+        html += `
                 <div class="column">
                     <div class="ui segment">
                         <p>제목: ${data[i].roomName}</p>
                         <p>카테고리: ${data[i].category}</p>
-                        <p>평점: ${data[i].rating}</p>
+                        <p>평점: </p>
                     </div>
                 </div>
             `;
-  }
-  listCont.append(html);
-}
-
-var actionScroll = function () {
-  window.scrollStep = 0;
-  window.isScrolled = false;
-
-  $(window).scroll(function () {
-    window.isScrolled = true;
-
-    let $window = $(this);
-    let scrollTop = $window.scrollTop();
-    let windowHeight = $window.height();
-    let docHeight = $(document).height();
-
-    if (scrollTop + windowHeight + 1 > docHeight) {
-      window.scrollStep++;
-      getData(window.scrollStep);
     }
-  });
-  getData(window.scrollStep);
+    listCont.prepend(html);
 }
 
+var listCont = $('#listbody');
+
+$(document).ready(function(){
+    makeChatRoomList(data); b
+})
+
+$('.ui.dropdown').dropdown();
+
+/*상단바 왼쪽*/
 $(document).ready(function () {
-  actionScroll();
+    $('.ui .item').on('click', function () {
+        // ignored 클래스 가지면 무시
+        if ($(this).hasClass('ignored')) {
+            return;
+        }
+        $('.ui .item').removeClass('active');
+        $(this).addClass('active');
+    });
+    getroomInfo(0);
 });
 
+function getroomInfo(cnt) {
+    $.post("/getroomInfo", {
+        step: cnt,
+    }, function (data) {
+        console.log(data);
+        makeChatRoomList(data);
+        cnt++;
+    }, 'json')
+        .done(function (data) {
+        })
+        .fail(function (data) {
+            alert("error");
+        })
+}
+
+var cnt = 0;
+
+/*스크롤 할때 발생되는 함수*/
+$(document).scroll(function () {
+    var maxHeight = $(document).height();
+    var currentScroll = $(window).scrollTop() + $(window).height();
+
+        if (maxHeight <= currentScroll + 100) {
+            getroomInfo(cnt);
+        }
+  
+})
 
 var roomModal = document.getElementById('room_modal');
 
@@ -80,61 +87,16 @@ function roomMode(arg) {
     else {
         roomType = 1;
     }
-
     document.getElementById('roomType').value = roomType;
-    //console.log(type);
 }
 
-function submit() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/addroomInfo', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            if (xhr.responseText.includes("error: ")) {
-                alert("The error occurred while inserting.");
-            }
-            else {
-                //closeModal();
-                roomId = JSON.parse(xhr.responseText).roomId;
-                /* 대화방 */
-                //document.location.href = "/roomChatting";
-                $('#listbody').empty();
-                actionScroll();
-                
-                }
-        }
-    }
-
-    console.log(document.getElementById('title').value);
-    console.log($("#category option:selected").val());
-    console.log(roomType);
-
-    xhr.send(JSON.stringify({
-        title: document.getElementById('title').value,
-        category: $("#category option:selected").val(),
-        type: roomType
-    }));
-}
-
-function getroomInfo(cnt) {
-    $.post("/getroomInfo", {
-        step: cnt,
-    }, function (data) {
-    
-    }, 'json')
-        .done(function (data) {
-        })
-        .fail(function (data) {
-            alert("error");
-        })
-}
 
 function getroomInfoForId(no) {
     $.post("/getroomInfoForId", {
         roomNo: no,
     }, function (data) {
-
+        console.log(data);
+        makeChatRoomList(data);
     }, 'json')
         .done(function (data) {
         })
@@ -143,7 +105,6 @@ function getroomInfoForId(no) {
         })
 }
 
-// open the modal 
 roomBtn.onclick = function () {
     roomModal.style.display = "block";
 }
@@ -162,6 +123,38 @@ $(document).ready(function () {
 });
 
 // 카테고리 선택지 나열
+
+function submit() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/addroomInfo', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            if (xhr.responseText.includes("error: ")) {
+                alert("The error occurred while inserting.");
+            }
+            else {
+                //closeModal();
+                roomId = JSON.parse(xhr.responseText).roomId;
+                /* 대화방 */
+                //document.location.href = "/roomChatting";
+                scrollCnt = 0;
+                $('#body').empty();
+                getroomInfo(0);
+            }
+        }
+    }
+
+    console.log(document.getElementById('title').value);
+    console.log($("#category option:selected").val());
+    console.log(roomType);
+
+    xhr.send(JSON.stringify({
+        title: document.getElementById('title').value,
+        category: $("#category option:selected").val(),
+        type: roomType
+    }));
+}
 
 //submit 버튼 누르면 모달 닫힘
 submitBtn.onclick = function () {
@@ -202,3 +195,5 @@ window.onclick = function (event) {
         roomModal.style.display = "none";
     }
 }
+
+

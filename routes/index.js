@@ -139,10 +139,6 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/c',function(req, res){
-  res.render('c');
-});
-
 router.get('/Usignup', function (req, res) {
   res.render('Usignup');
 });
@@ -281,7 +277,7 @@ router.post('/addroomInfo', function (req, res) {
   var title = req.body.title;
   var category = req.body.category;
   
-  console.log(roomType, title, category);
+  console.log(roomType);
   
   var sql = `INSERT INTO room (roomType, roomName, category, participationNo) VALUES('${roomType}','${title}','${category}', 1)`;
   //var roomNo = req.body.roomNo;
@@ -291,15 +287,10 @@ router.post('/addroomInfo', function (req, res) {
   res.send({roomId: id});
 });
 
-router.post('/getroomInfo',function(req, res){
+router.post('/getroomInfo', function(req, res, next) {
   var step = req.body.step;
-  var sql;
-  step = step*6;
-  sql = `SELECT room.roomType, room.roomName, room.category from room LIMIT 6 OFFSET ${step}`;
-
-  
-/*sql의 별점은 추가*/ 
-
+  step = step * 6;
+  var sql = `SELECT * FROM room LIMIT 6 OFFSET ${step}`;
   var result = connectDB.query(sql);
   res.send(result);
 });
@@ -421,7 +412,6 @@ router.get('/maketable', function (req, res) {
   connectDB.query(sql[0]);
   connectDB.query(sql[1]);
   connectDB.query(sql[2]);
-  connectDB.query(sql[3]);
 
   res.redirect('/');
 });
@@ -467,6 +457,7 @@ router.get('/showpost', function(req, res){
     pSecret: postResult[0].secretOrNot
   });
 });
+
 module.exports = router;
 
 
