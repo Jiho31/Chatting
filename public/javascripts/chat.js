@@ -97,8 +97,7 @@ function submit() {
             else {
                 //closeModal();
                 roomId = JSON.parse(xhr.responseText).roomId;
-                /* 대화방 열기*/
-                document.location.href=`javascript:void(window.open('http://52.79.233.145:3000/chattingRoom?roomId=${roomId}','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))`;
+                /* 대화방 */
                 //document.location.href = "/roomChatting";
                 $('#listbody').empty();
                 actionScroll();
@@ -170,33 +169,36 @@ submitBtn.onclick = function () {
     submit();
 }
 
-var accountModal = document.getElementById('account_Modal');
-
 //cancel 버튼 누르면 모달 닫힘
 cancelBtn.onclick = function () {
     roomModal.style.display = "none";
 }
-        // 
-        window.onclick = function (event) {
-            if (event.target == accountModal) {
-                accountModal.style.display = "none";
-            }
-            else if (event.target == roomModal) {
-                roomModal.style.display = "none";
-            }
-        }
 
-        //게시판 글 내용 적는 곳
-        $(function(){
-            //기본값
-            $('#message_board_content').hide();
-            //숨기기
-            $('#chat_1').click(function(){
-                $('#message_board_content').hide();
-            });
-            //보이기
-            $('#chat_2').click(function(){
-                $('#message_board_content').show();
-            });
-        });
-  
+// Get the modal
+var accountModal = document.getElementById('account_Modal');
+
+// Get the button that opens the modal
+var accountBtn = document.getElementById("account_Btn");
+
+// Get the <span> element that closes the modal
+var accountSpan = document.getElementsByClassName("account-close")[0];
+
+// When the user clicks on the button, open the modal 
+accountBtn.onclick = function () {
+    accountModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+accountSpan.onclick = function () {
+    accountModal.style.display = "none";
+}
+
+// 
+window.onclick = function (event) {
+    if (event.target == accountModal) {
+        accountModal.style.display = "none";
+    }
+    else if (event.target == roomModal) {
+        roomModal.style.display = "none";
+    }
+}
