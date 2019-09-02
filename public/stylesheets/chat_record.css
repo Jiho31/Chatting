@@ -2,12 +2,33 @@ body{
     font-family: 'Nanum-Gothic', sans-serif;
 }
 #main_container{
+    max-width: 800px !important;
     border: 1px solid grey;
     border-radius: 5px;
     height: 500px;
     margin: 60px;
+    display: flex;
+    flex-direction: column;
 }
-.left_cont{
+#main_content{
+    height: 500px;
+    overflow-y: scroll;
+    margin: 0;
+}
+.left_menu{
     margin: 15px;
     font-weight: bold;
+    height: 100%;
+}
+#cont_wrapper{
+    width: -webkit-calc(800px - 15rem);
+    padding: 0;
+}
+.column.chat_card{
+    width: 270px !important;
+    margin-top: 15px;
+    margin-bottom: -10px;
+}
+.marked{
+    color: red;
 }

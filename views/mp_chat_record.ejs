@@ -36,13 +36,61 @@
         마이페이지
     </h3>
     <div class="ui container grid" id="main_container">
-        <div class="ui secondary vertical pointing menu" style="padding: 0">
+        <div class="ui secondary vertical pointing menu left_menu" style="padding: 0">
             <a class="item" id="item_personal" href="/mypage/information">개인 정보 수정</a>
             <a class="active item" id="item_chat_record" href="/mypage/chatlist">채팅방 기록</a>
             <a class="item" id="item_rate" href="/mypage/ratings">내 평점 확인</a>
         </div>
-        <div id="cont">
-            hello
+        <div id="cont_wrapper">
+            <div class="ui three column centered grid" id="main_content">
+                <% if (roomData == undefined) { %>
+                    <div class="column chat_card">
+                        <div class="ui fluid card">
+                            <div class="content">
+                                <div class="header">방 제목</div>
+                                <div class="meta">카테고리</div>
+                                <div class="description">
+                                    대화 내용<br>
+                                    대화내용 샬라샬라<br>
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <span class="left floated like">
+                                    <i class="like icon" id="bookmark"></i>
+                                    Like
+                                </span>
+                                <span class="right floated">
+                                    대화 날짜
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <% for (var i = 0; i < roomData.length; i++) {%>
+                        <div class="column chat_card">
+                            <div class="ui fluid card">
+                                <div class="content">
+                                    <div class="header"><%=chatData[i].roomName%></div>
+                                    <div class="meta"><%=chatData[i].category%></div>
+                                    <div class="description">
+                                        대화 내용<br>
+                                        대화내용 샬라샬라<br>
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    <span class="left floated like">
+                                        <i class="like icon"></i>
+                                        Like
+                                    </span>
+                                    <span class="right floated">
+                                        <%=chatTime%>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
         </div>
     </div>
 </body>

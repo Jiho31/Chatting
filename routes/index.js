@@ -612,7 +612,30 @@ router.get('/mypage/ratings', function(req, res){
   res.render('mp_rate');
 });
 router.get('/mypage/chatlist', function(req, res){
-  res.render('mp_chat_record');
+  if (!req.session.userId) {
+    res.redirect('/Ulogin');
+  }
+  else {
+    var sql = `SELECT roomNo FROM roomParticipants WHERE userId='${req.session.userId}';`;
+    var roomData = connectDB.query(sql);
+    var sql3 = `SELECT MAX(chattime) FROM chatdata WHERE userId='${req.session.userId}';`;
+    var chatTime = connectDB.query(sql3);
+
+    if(roomData[0] == undefined){
+      roomData = undefined;
+      chatTime = undefined;
+      var chatData = undefined;
+    } else {
+      var sql2 = `SELECT * FROM room WHERE roomNo='${roomData[0].roomNo}';`;
+      var chatData = connectDB.query(sql2);
+      // console.log(chatData);
+    }
+    res.render('mp_chat_record', {
+      roomData: roomData,
+      chatData: chatData,
+      chatTime: chatTime
+    });
+  }
 });
 
 module.exports = router;
