@@ -144,14 +144,6 @@ router.io.on('connection', socket => {
 var multer = require('multer');
 var path = require('path');
 var upload = multer({
-  //storage: multer.diskStorage({
-  //   destination: function (req, file, cb) {
-  //     cb(null, 'uploads/');
-  //   },
-  //   filename: function (req, file, cb) {
-  //     cb(null, new Date().valueOf() + path.extname(file.originalname));
-  //   }
-  // }),
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads/');
@@ -419,8 +411,9 @@ router.post('/addroomInfo', function (req, res) {
 
 router.post('/getroomInfo', function(req, res, next) {
   var step = req.body.step;
+  var category = req.body.category;
   step = step * 6;
-  var sql = `SELECT * FROM room LIMIT 6 OFFSET ${step}`;
+  var sql = `SELECT * FROM room WHERE category=${category} LIMIT 6 OFFSET ${step}`;
   var result = connectDB.query(sql);
   res.send(result);
 });

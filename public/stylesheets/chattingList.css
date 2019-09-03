@@ -174,7 +174,10 @@ i.icon::before { /* semantic 이미지 삭제 */
        display: none;
    }
    #sidebar{
-       display: block;
+       display: flex;
+   }
+   .ui.menu .item:before{
+        right: -10px;
    }
 }
 

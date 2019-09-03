@@ -2,24 +2,26 @@ $('.ui.dropdown').dropdown();
 
 var listCont = $('#listbody');
 
-var getData = function () {
-  $.post('/getroomInfo', {
-    step: window.scrollStep
+var getData = function (cat) {
+    console.log(cat);
+    $.post('/getroomInfo', {
+        step: window.scrollStep,
+        category: cat
   }, function (data) {
-    makeList(data);
-    if (!window.isScrolled && $(window).height() >= $(document).height()) {
-      window.scrollStep++;
-      getData(window.scrollStep)
-    }
-    console.log(data);
-  }, 'json')
+            makeList(data);
+            if (!window.isScrolled && $(window).height() >= $(document).height()) {
+                window.scrollStep++;
+                getData(cat)
+            }
+            console.log(data);
+        }, 'json')
 }
 
 var makeList = function (data) {
-  var html = '';
+    var html = '';
 
-  for (var i = 0; i < data.length; i++) {
-    html += `
+    for (var i = 0; i < data.length; i++) {
+        html += `
                 <div class="column">
                     <div class="ui segment">
                         <p>제목: ${data[i].roomName}</p>
@@ -28,32 +30,37 @@ var makeList = function (data) {
                     </div>
                 </div>
             `;
-  }
-  listCont.append(html);
+    }
+    listCont.append(html);
 }
 
-var actionScroll = function () {
-  window.scrollStep = 0;
-  window.isScrolled = false;
+var actionScroll = function (cat) {
+    window.scrollStep = 0;
+    window.isScrolled = false;
 
-  $(window).scroll(function () {
-    window.isScrolled = true;
+    $(window).scroll(function () {
+        window.isScrolled = true;
 
-    let $window = $(this);
-    let scrollTop = $window.scrollTop();
-    let windowHeight = $window.height();
-    let docHeight = $(document).height();
+        let $window = $(this);
+        let scrollTop = $window.scrollTop();
+        let windowHeight = $window.height();
+        let docHeight = $(document).height();
 
-    if (scrollTop + windowHeight + 1 > docHeight) {
-      window.scrollStep++;
-      getData(window.scrollStep);
-    }
-  });
-  getData(window.scrollStep);
+        if (scrollTop + windowHeight + 1 > docHeight) {
+            window.scrollStep++;
+            getData(cat);
+        }
+    });
+    getData(cat);
 }
 
 $(document).ready(function () {
-  actionScroll();
+    window.selectedCategory = 0;
+    actionScroll(window.selectedCategory);
+    $('.button.selector').on('click', function () {
+        $('.button.selector').removeClass('selected');
+        $(this).addClass('selected');
+    });
 });
 
 
@@ -98,12 +105,12 @@ function submit() {
                 //closeModal();
                 roomId = JSON.parse(xhr.responseText).roomId;
                 /* 대화방 열기*/
-                document.location.href=`javascript:void(window.open('http://52.79.233.145:3000/chattingRoom?roomId=${roomId}','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))`;
+                document.location.href = `javascript:void(window.open('http://52.79.233.145:3000/chattingRoom?roomId=${roomId}','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))`;
                 //document.location.href = "/roomChatting";
                 $('#listbody').empty();
                 actionScroll();
-                
-                }
+
+            }
         }
     }
 
@@ -113,7 +120,7 @@ function submit() {
 
     xhr.send(JSON.stringify({
         title: document.getElementById('title').value,
-        category: $("#category option:selected").val(),
+        category: window.selectedCategory,
         type: roomType
     }));
 }
@@ -122,7 +129,7 @@ function getroomInfo(cnt) {
     $.post("/getroomInfo", {
         step: cnt,
     }, function (data) {
-    
+
     }, 'json')
         .done(function (data) {
         })
@@ -155,12 +162,6 @@ roomSpan.onclick = function () {
 }
 
 //채팅 방식 선택할 때 뒤에 네모 박스
-$(document).ready(function () {
-    $('.button.selector').on('click', function () {
-        $('.button.selector').removeClass('selected');
-        $(this).addClass('selected');
-    });
-});
 
 // 카테고리 선택지 나열
 
@@ -176,27 +177,31 @@ var accountModal = document.getElementById('account_Modal');
 cancelBtn.onclick = function () {
     roomModal.style.display = "none";
 }
-        // 
-        window.onclick = function (event) {
-            if (event.target == accountModal) {
-                accountModal.style.display = "none";
-            }
-            else if (event.target == roomModal) {
-                roomModal.style.display = "none";
-            }
-        }
+// 
+window.onclick = function (event) {
+    if (event.target == accountModal) {
+        accountModal.style.display = "none";
+    }
+    else if (event.target == roomModal) {
+        roomModal.style.display = "none";
+    }
+}
 
-        //게시판 글 내용 적는 곳
-        $(function(){
-            //기본값
-            $('#message_board_content').hide();
-            //숨기기
-            $('#chat_1').click(function(){
-                $('#message_board_content').hide();
-            });
-            //보이기
-            $('#chat_2').click(function(){
-                $('#message_board_content').show();
-            });
-        });
-  
+//게시판 글 내용 적는 곳
+$(function () {
+    //기본값
+    $('#message_board_content').hide();
+    //숨기기
+    $('#chat_1').click(function () {
+        $('#message_board_content').hide();
+    });
+    //보이기
+    $('#chat_2').click(function () {
+        $('#message_board_content').show();
+    });
+});
+
+var selectCategory = function(arg) {
+    window.selectedCategory = arg;
+    actionScroll(arg);
+}
