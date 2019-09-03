@@ -2,14 +2,15 @@ $('.ui.dropdown').dropdown();
 
 var listCont = $('#listbody');
 
-var getData = function () {
+var getData = function (cat) {
   $.post('/getroomInfo', {
-    step: window.scrollStep
+    step: window.scrollStep,
+    category: cat
   }, function (data) {
     makeList(data);
-    if (!window.isScrolled && $(window).height() >= $(document).height()) {
+    if (data > 0 && !window.isScrolled && $(window).height() >= $(document).height()) {
       window.scrollStep++;
-      getData(window.scrollStep)
+      getData(cat)
     }
     console.log(data);
   }, 'json')
@@ -32,7 +33,7 @@ var makeList = function (data) {
   listCont.append(html);
 }
 
-var actionScroll = function () {
+var actionScroll = function (cat) {
   window.scrollStep = 0;
   window.isScrolled = false;
 
@@ -46,14 +47,19 @@ var actionScroll = function () {
 
     if (scrollTop + windowHeight + 1 > docHeight) {
       window.scrollStep++;
-      getData(window.scrollStep);
+      getData(cat);
     }
   });
-  getData(window.scrollStep);
+  getData(cat);
 }
 
 $(document).ready(function () {
-  actionScroll();
+    window.selectedCategory = 0;
+    actionScroll(window.selectedCategory);
+    $('.button.selector').on('click', function () {
+        $('.button.selector').removeClass('selected');
+        $(this).addClass('selected');
+    });
 });
 
 
@@ -100,7 +106,7 @@ function submit() {
                 /* 대화방 */
                 //document.location.href = "/roomChatting";
                 $('#listbody').empty();
-                actionScroll();
+                actionScroll(window.selectedCategory);
                 
                 }
         }
@@ -112,7 +118,7 @@ function submit() {
 
     xhr.send(JSON.stringify({
         title: document.getElementById('title').value,
-        category: $("#category option:selected").val(),
+        category: window.selectedCategory,
         type: roomType
     }));
 }
@@ -154,12 +160,6 @@ roomSpan.onclick = function () {
 }
 
 //채팅 방식 선택할 때 뒤에 네모 박스
-$(document).ready(function () {
-    $('.button.selector').on('click', function () {
-        $('.button.selector').removeClass('selected');
-        $(this).addClass('selected');
-    });
-});
 
 // 카테고리 선택지 나열
 
@@ -201,4 +201,10 @@ window.onclick = function (event) {
     else if (event.target == roomModal) {
         roomModal.style.display = "none";
     }
+}
+
+var selectCategory = function(arg) {
+    window.selectedCategory = arg;
+    $('#listbody').empty();
+    actionScroll(arg);
 }

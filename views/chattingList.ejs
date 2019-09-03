@@ -11,8 +11,8 @@
     <link rel="stylesheet" type="text/css" href="dist/semantic.css">
     <script src="dist/semantic.js"></script>
 
-    
-    <link rel="stylesheet" href="/stylesheets/c.css">
+
+    <link rel="stylesheet" href="/stylesheets/chattingList.css">
     <title>Document</title>
 </head>
 
@@ -34,197 +34,248 @@
                     Account
                 </button>
             </a>
+
+            <div id="account_Modal" class="account-modal">
+
+                <!-- Modal content -->
+                <div class="account-modal-content">
+
+                    <span class="account-close">&times;</span>
+
+                    <div class="ui tag label">
+                        <a class="my-email">abc123@gmail.com</a>
+                    </div>
+
+                    <div class="account-button">
+                        <button class="ui basic button">
+                            <i class="icon user"></i>
+                            My page
+                        </button>
+
+                        <button class="ui basic button">
+                            <i class="icon sign-out"></i>
+                            Logout
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </div>
 
     <div class="ui labeled icon menu" id="icon_menu" style="width: fit-content; margin-left: auto; margin-right: auto;">
-            <a class="item" href="/free">
-                <i class="gamepad icon" style="background-image: url(../images/free.png);
+        <a class="item" onclick="selectCategory(0)">
+            <i class="gamepad icon" style="background-image: url(../images/free.png);
                 background-size: cover;
                 background-repeat: no-repeat;
                 height: 24px;
                 width: 24px;"></i>
-                free
-            </a>
-    
-            <a class="item" href="/academic">
-                <i class="gamepad icon" style="background-image: url(../images/academic.png);
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    height: 24px;
-                    width: 24px;"></i>
-                academic
-            </a>
-    
-            <a class="item" href="/hobby">
-                <i class="gamepad icon" style="background-image: url(../images/hobby.png);
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    height: 24px;
-                    width: 24px;"></i>
-                hobby
-            </a>
-    
-            <a class="item" href="/date">
-                <i class="gamepad icon" style="background-image: url(../images/date.png);
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    height: 24px;
-                    width: 24px;"></i>
-                date
-            </a>
-    
-            <a class="item" href="/company">
-                <i class="gamepad icon" style="background-image: url(../images/company.png);
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    height: 24px;
-                    width: 24px;"></i>
-                company
-            </a>
-            <a class="item" href="relationship">
-                <i class="gamepad icon" style="background-image: url(../images/relationship.png);
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    height: 24px;
-                    width: 24px;"></i>
-                relationship
-            </a>
-            <a class="item" href="/beauty">
-                <i class="gamepad icon" style="background-image: url(../images/beauty.png);
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    height: 24px;
-                    width: 24px;"></i>
-                beauty&style
-            </a>
-        </div>
+            free
+        </a>
 
-        <div class="ui top attached menu" id = "sidebar">
-                <div class="ui dropdown icon item ignored" style="background-image: url(../images/menu.png);
+        <a class="item" onclick="selectCategory(1)">
+            <i class="gamepad icon" style="background-image: url(../images/academic.png);
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    height: 24px;
+                    width: 24px;"></i>
+            academic
+        </a>
+
+        <a class="item" onclick="selectCategory(2)">
+            <i class="gamepad icon" style="background-image: url(../images/hobby.png);
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    height: 24px;
+                    width: 24px;"></i>
+            hobby
+        </a>
+
+        <a class="item" onclick="selectCategory(3)">
+            <i class="gamepad icon" style="background-image: url(../images/date.png);
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    height: 24px;
+                    width: 24px;"></i>
+            date
+        </a>
+
+        <a class="item" onclick="selectCategory(4)">
+            <i class="gamepad icon" style="background-image: url(../images/company.png);
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    height: 24px;
+                    width: 24px;"></i>
+            company
+        </a>
+        <a class="item" onclick="selectCategory(5)">
+            <i class="gamepad icon" style="background-image: url(../images/relationship.png);
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    height: 24px;
+                    width: 24px;"></i>
+            relationship
+        </a>
+        <a class="item" onclick="selectCategory(6)">
+            <i class="gamepad icon" style="background-image: url(../images/beauty.png);
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    height: 24px;
+                    width: 24px;"></i>
+            beauty&style
+        </a>
+    </div>
+
+    <div class="ui top attached menu" id="sidebar">
+        <div class="ui dropdown icon item ignored" style="background-image: url(../images/menu.png);
                 background-size: cover;
                 background-repeat: no-repeat;
                 height: 32px;
                 width: 24px;
-                margin: 3px 0px 3px 5px">
-                    <i class="wrench icon"></i>
-                    <div class="menu" style="margin: 3px 0px 0px -6px;">
-                        <div class="item">
-                            <i class="dropdown icon"></i>
-                            <span class="text">Home</span>
-                            <div class="menu">
-                                <div class="item">free</div>
-                                <div class="item">academic</div>
-                                <div class="item">hobby</div>
-                                <div class="item">date</div>
-                                <div class="item">company</div>
-                                <div class="item">relationship</div>
-                                <div class="item">beauty&style</div>
-                            </div>
-                        </div>
-                        <div class="divider"></div>
-                        <div class="item">
-                            Q&A
-                        </div>
-                        <div class="divider"></div>
-                        <div class="item">
-                            About
-                        </div>
-                        <div class="divider"></div>
-                        <div class="item">
-                            <i class="dropdown icon"></i>
-                            <span class="text">Account</span>
-                            <div class="menu">
-                                <div class="item">My page</div>
-                                <div class="item">Logout</div>
-                            </div>
-                        </div>
+                margin: 7px">
+            <i class="wrench icon"></i>
+            <div class="menu" style="margin: 3px 0px 0px -6px;">
+                <div class="item">
+                    <i class="dropdown icon"></i>
+                    <span class="text">Home</span>
+                    <div class="menu">
+                        <div class="item">free</div>
+                        <div class="item">academic</div>
+                        <div class="item">hobby</div>
+                        <div class="item">date</div>
+                        <div class="item">company</div>
+                        <div class="item">relationship</div>
+                        <div class="item">beauty&style</div>
                     </div>
                 </div>
+                <div class="divider"></div>
+                <div class="item">
+                    Q&A
+                </div>
+                <div class="divider"></div>
+                <div class="item">
+                    About
+                </div>
             </div>
-            <div class="ui bottom attached segment" id=bottom_line>
-            </div>
-        
-            <div id="btns">
-                <button class="btn1">바로 입장</button>
-                <button id="room_btn" class="btn2">방 만들기</button>
-                <form action="/addroomInfo" id="room_modal" class="r-modal" method = "POST">
-                    <input id="roomType" type = "hidden" name = "room" value = "0">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-        
-                        <span class="room-close">&times;</span>
-        
-                        <p>Making room </p>
-        
-                        <!-- 채팅 방식 선택하는 아이콘 -->
-                        <div class="room-icon">
-        
-                            <button type="button" class="button selector selected" onclick="roomMode(0)">
-                                <div class="room-images">
-                                    <img class="room-image" src="images/conversation-1.png">
-                                    <p class="room-choice">1대1 채팅</p>
-                                </div>
-                            </button>
-        
-                            <button type="button" class ="button selector" onclick="roomMode(1)">
-                                <div class="room-images">
-                                    <img class="room-image" src='images/conversation.png'>
-                                    <p class="room-choice">게시판 글</p>
-                                </div>
-                            </button>
-                        </div>
-        
-                        <!-- 채팅방 제목 입력 박스-->
-                        <div class="ui form">
-                            <div class="field">
-                                <label>Title</label>
-                                <input type="text" id="title" placeholder="Title">
-                            </div>
-                        </div>
-        
-                        <!-- 채팅방 카테고리 선택 박스-->
-                        <div class="field">
-                            <label>Category</label>
-                            <select class="ui fluid dropdown" id="category">
-                                <option value="">Category</option>
-        
-                                <option value="VA">세인</option>
-                                <option value="WA">지호</option>
-                                <option value="WV">선혜</option>
-                                <option value="WI">성희</option>
-                            </select>
-                        </div>
-        
-                        <!-- 확인 또는 취소 버튼 -->
-                        <div class="sub-or-can">
-                            <button type="button" class="ui secondary submit button">
-                                Submit
-                            </button>                    
-                            <button class="ui grey button">
-                                Cancel
-                            </button>
-                        </div>
-        
+        </div>
+        <div  style="margin-left: auto">
+            <a class="right item ignored">
+                <button id="account_Btn" class="ui black basic button">
+                    Account
+                </button>
+            </a>
+
+            <div id="account_Modal" class="account-modal">
+
+                <!-- Modal content -->
+                <div class="account-modal-content">
+
+                    <span class="account-close">&times;</span>
+
+                    <div class="ui tag label">
+                        <a class="my-email">abc123@gmail.com</a>
                     </div>
-                </form>
-        
+
+                    <div class="account-button">
+                        <button class="ui basic button">
+                            <i class="icon user"></i>
+                            My page
+                        </button>
+
+                        <button class="ui basic button">
+                            <i class="icon sign-out"></i>
+                            Logout
+                        </button>
+                    </div>
+
+                </div>
+
             </div>
+
+        </div>
+    </div>
+    <div class="ui bottom attached segment" id=bottom_line>
+    </div>
+
+    <div id="btns">
+        <button class="btn1">바로 입장</button>
+        <button id="room_btn" class="btn2">방 만들기</button>
+        <form action="/addroomInfo" id="room_modal" class="r-modal" method="POST">
+            <input id="roomType" type="hidden" name="room" value="0">
+            <!-- Modal content -->
+            <div class="modal-content">
+
+                <span class="room-close">&times;</span>
+
+                <p>Making room </p>
+
+                <!-- 채팅 방식 선택하는 아이콘 -->
+                <div class="room-icon">
+
+                    <button type="button" class="button selector selected" onclick="roomMode(0)">
+                        <div class="room-images">
+                            <img class="room-image" src="images/conversation-1.png">
+                            <p class="room-choice">1대1 채팅</p>
+                        </div>
+                    </button>
+
+                    <button type="button" class="button selector" onclick="roomMode(1)">
+                        <div class="room-images">
+                            <img class="room-image" src='images/conversation.png'>
+                            <p class="room-choice">게시판 글</p>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- 채팅방 제목 입력 박스-->
+                <div class="ui form">
+                    <div class="field">
+                        <label>Title</label>
+                        <input type="text" id="title" placeholder="Title">
+                    </div>
+                </div>
+
+                <!-- 채팅방 카테고리 선택 박스-->
+                <div class="field">
+                    <label>Category</label>
+                    <select class="ui fluid dropdown" id="category">
+                        <option value="">Category</option>
+
+                        <option value="VA">세인</option>
+                        <option value="WA">지호</option>
+                        <option value="WV">선혜</option>
+                        <option value="WI">성희</option>
+                    </select>
+                </div>
+
+                <!-- 확인 또는 취소 버튼 -->
+                <div class="sub-or-can">
+                    <button type="button" class="ui secondary submit button">
+                        Submit
+                    </button>
+                    <button class="ui grey button">
+                        Cancel
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
 
     <div id="body">
         <div id="listbody" class="ui three column doubling stackable grid">
             <div class="column">
                 <div class="ui segment">
                     <p> title: "방제목1" </p>
-                    <p> category: 1 </p>
-                    <p> rating: 5 </p>                
+                    <p> rating: 5 </p>
                 </div>
             </div>
 
             <div class="column">
-                <div class="ui segment">        
+                <div class="ui segment">
                     <p> title: "방제목2" </p>
-                    <p> category: 2 </p>
                     <p> rating: 5 </p>
                 </div>
             </div>
@@ -232,17 +283,13 @@
             <div class="column">
                 <div class="ui segment">
                     <p> title: "방제목3" </p>
-                    <p> category: 3 </p>
                     <p> rating: 5 </p>
                 </div>
-            </div>       
-            
+            </div>
+
         </div>
     </div>
     <script src="/javascripts/chat.js"></script>
-
-    <script src="/javascripts/chattingList.js"></script>
-    <script src="/javascripts/commons.js"></script>
 
 </body>
 
