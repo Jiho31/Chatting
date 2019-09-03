@@ -2,6 +2,24 @@
 var socket = io();
 var roomId = parseInt(window.location.search.replace('?roomId=', ''));
 
+$.post('/getRoomInfo', {
+  step: roomId
+}, function(data) {
+  var roomType = data[0].roomType;
+  console.log(roomType);
+  $.post('/getChatUsers', {
+    mode: 'all',
+    roomId: roomId
+  },
+   function(data) {
+     window.chatUsers = data;
+    //  if(roomType === 0 && data.length >= 2) {
+    //    alert("더 이상 접속하실 수 없는 대화방 입니다.");
+    //    window.close();
+    //  }
+   });
+});
+
 socket.on('news', function (data) {
   console.log(data);
   socket.emit('my oher event', { my: 'data' });
@@ -108,20 +126,7 @@ function sender(text) {
 }
 
 $(document).ready(function () {
-
-  //ajax로 이전 채팅 내용 불러들이기(방 번호 전달해서)
-  $.post("/getChatHistory", {
-    roomId: roomId,
-  }, function (data) {
-    console.log(data);
-    for(var i = 0; i < data.length; i++)
-    writeMessage('me', data[i].userID, data[i].chatcontent, data[i].chattime);
-  }, 'json')
-    .done(function (data) {
-    })
-    .fail(function (data) {
-      alert("error");
-    })
+ 
 
   // 연결
   socket.on('connection', function (data) {
@@ -138,6 +143,19 @@ $(document).ready(function () {
   });
 
   socket.on('system', function (data) {
+    //ajax로 이전 채팅 내용 불러들이기(방 번호 전달해서)
+    $.post("/getChatHistory", {
+      roomId: roomId,
+      }, function (data) {
+        console.log(data);
+        for (var i = 0; i < data.length; i++) {
+          writeMessage('me', data[i].userID, data[i].chatcontent, data[i].chattime);
+        }
+      }, 'json')
+      .done(function (data) {})
+      .fail(function (data) {
+        alert("error");
+      });
     writeMessage('system', 'system', data.message, getTimeStamp());
   });
 
@@ -154,8 +172,6 @@ $(document).ready(function () {
     sender(msg);
     $input.val('');
     $input.focus();
-
-
   });
 
   $('#message-input').on('keypress', function (e) {

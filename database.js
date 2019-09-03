@@ -1,7 +1,7 @@
 exports.getDBInfo = function() {
     var data = {
         user:'MOON',
-        password:'20000429',
+        password:'Skyskt0!',
         database:'PROJECT1',
         multipleStatements:true
     }
