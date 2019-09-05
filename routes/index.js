@@ -146,7 +146,7 @@ var path = require('path');
 var upload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/');
+      cb(null, 'public/uploads/');
     },
     filename: function (req, file, cb) {
       cb(null, new Date().valueOf() + file.originalname); // 타임스탬프 + 원래파일명으로 저장 (파일명이 중복되는 경우를 위해)
@@ -397,14 +397,14 @@ router.post('/addroomInfo', function (req, res) {
   var title = req.body.title;
   var category = req.body.category;
   
-  console.log(roomType);
+  console.log(roomType, title, category);
   
-  var sql = `INSERT INTO room (roomType, roomName, category, participationNo) VALUES('${roomType}','${title}','${category}', 1)`;
+  var sql = `INSERT INTO room (roomType, roomName, category, isActive) VALUES('${roomType}','${title}','${category}', 1)`;
   //var roomNo = req.body.roomNo;
   var id = connectDB.query(sql)['insertId'];
   
-  var addPartis = `INSERT INTO roomParticipants (roomNo, userId, lastIdx, isPart) VALUES(${id}, '${req.session.userId}', 0, 1)`;
-  connectDB.query(addPartis);
+  //var addPartis = `INSERT INTO roomParticipants (roomNo, userId, lastIdx, isPart) VALUES(${id}, '${req.session.userId}', 0, 1)`;
+  //connectDB.query(addPartis);
   
   res.send({roomId: id});
 });
@@ -546,9 +546,9 @@ router.post('/new_qna2', upload.array('img', 5), function(req, res){
   var len = req.files.length; // 등록한 첨부 파일 갯수
   var filePaths;
   if (len > 0) {
-    filePaths = req.files[0].path;
+    filePaths = req.files[0].path.substring(6, req.files[0].path.length);
     for (i = 1; i < len; i++) {
-      filePaths = filePaths + ', ' + req.files[i].path;
+      filePaths = filePaths + ', ' + req.files[i].path.substring(6, req.files[i].path.length);
     }
   }
 
@@ -572,6 +572,9 @@ router.get('/showpost', function(req, res){
   var content = postResult[0].content;
   var reply = postResult[0].response;
 
+  var filePath = postResult[0].filePaths.split(", ");
+  console.log(filePath);
+
   content = content.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
   if (reply != null)
     reply = reply.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
@@ -583,6 +586,7 @@ router.get('/showpost', function(req, res){
     pContent: content,
     pDate: postResult[0].date,
     pSecret: postResult[0].secretOrNot,
+    pFilepath: filePath,
     pReply: reply,
     pFlag: postResult[0].repFlag
   });

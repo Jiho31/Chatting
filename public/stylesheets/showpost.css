@@ -37,7 +37,7 @@
   left: -16px;
   top: 16px;
 }
-#post_cat, #post_id, #post_title, #post_cont, #post_date{
+#post_cat, #post_id, #post_title, #post_cont, #post_date, #post_file{
   margin: 18px;
 }
 #post_id{
@@ -48,6 +48,9 @@
   font-size: 20px;
 }
 #post_date{
+  font-size: 12px;
+}
+#post_file{
   font-size: 12px;
 }
 #reply_button{

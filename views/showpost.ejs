@@ -43,6 +43,11 @@
             <div id="post_cont">
                 <%- pContent %>
             </div>
+            <div id="post_file">
+                <% for (var i=0; i < pFilepath.length; i++){ %>
+                    <a href="<%=pFilepath[i]%>" download>첨부파일<%=i+1%></a>
+                <% } %>
+            </div>
             <div id="post_date">
                 게시일: <%= pDate %>
             </div>
