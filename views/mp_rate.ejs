@@ -12,6 +12,7 @@
         <script src="/dist/semantic.js"></script>
         <script src="/javascripts/ratings.js"></script>
         <script src="/javascripts/commons.js"></script>
+        <script src="/javascripts/starating.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
         <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     </head>
@@ -46,7 +47,7 @@
         <div class="cont_wrapper">
             <div id="cont1">
                 <div style="padding: 10px">나의 평점은</div>
-                <div class="ui huge star rating" data-rating="4" data-max-rating="5" style="padding: 10px"></div>
+                <div class="star-ratings"></div>
             </div>
             <div id="cont2">
                 <canvas id="myChart" width="350" height="200"></canvas>
@@ -54,4 +55,15 @@
         </div>
     </div>
 </body>
+<script>
+        $('.star-ratings').initstars({
+            backgroundColor: '#ccc',
+            color: '#ffd900',
+            glowColor: '#ffd900',
+            size: 32,
+            spacing: 8,
+            value: 50,
+        });
+        $('.star-ratings').setvalue(70); // setvalue 안의 값 바꿔주면 됨
+    </script>
 </html>
