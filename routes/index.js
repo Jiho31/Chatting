@@ -74,7 +74,6 @@ router.io.on('connection', socket => {
       if (check < 1 && userNum < 2) {
         // 대화방에 참여중인 사용자 목록에 사용자 추가(단 1대1인 경우 그 사용자는 추가 안 함)
         connectDB.query(`INSERT INTO roomParticipants(roomNo, userId, isPart) VALUES (${socket.room}, '${data.name}', 1)`);
-
         // 이전 대화 수 불러오기
         var lastIdx = connectDB.query(`SELECT COUNT(*) FROM chatdata WHERE chatroomID=${socket.room}`)[0]['COUNT(*)'];
 
@@ -90,8 +89,9 @@ router.io.on('connection', socket => {
       socket.emit('system', {
         message: '더 이상 접속하실 수 없는 대화방 입니다.'
       });
-      console.log("can't enter")
-    }
+      alert("더 이상 접속하실 수 없는 대화방 입니다.");
+      
+    }console.log("can't enter")
 
     // 사용자가 접속을 일시로 끊은(자리를 비우는 등) 상태 
     socket.on('disconnect', function () {

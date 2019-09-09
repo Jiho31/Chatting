@@ -74,7 +74,7 @@ function submit() {
 
 function getroomInfo(no) {
     $.post("/getroomInfo", {
-        roomNo: no,
+        step: no,
     }, function (data) {
         console.log(data);
         makeChatRoomList(data);
