@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/commons.css" />
     <link href="https://fonts.googleapis.com/css?family=Gothic+A1|Nanum+Gothic|Nanum+Myeongjo&display=swap" rel="stylesheet">    
     <script src="dist/semantic.js"></script>
+    <script src="/javascripts/showpost.js"></script>
     <script src="/javascripts/commons.js"></script>
 </head>
 <body>
@@ -31,6 +32,7 @@
             </a>
         </div>
     </div>
+    <script>accountModalFunction('<%=userEmail%>');</script>
     <div style="margin-top: 50px; margin-left: 200px; margin-right: 200px">
         <div id="post">
             <div id="post_cat">
@@ -80,5 +82,4 @@
         </div>
     <% } %>
 </body>
-<script src="/javascripts/showpost.js"></script>
 </html>

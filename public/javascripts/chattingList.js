@@ -189,3 +189,9 @@ cancelBtn.onclick = function () {
             });
         });
   
+
+window.onclick = function (event) {
+    if (event.target == roomModal) {
+        roomModal.style.display = "none";
+    }
+}
