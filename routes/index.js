@@ -34,16 +34,14 @@ router.post('/getCurrentUserId', function (req, res) {
 router.post('/getChatHistory', function (req, res) {
   var roomId = req.body.roomId;
   var uid = !req.session.userId ? "testIds" : req.session.userId;
-  var lastIdx = connectDB.query(`SELECT lastIdx FROM roomParticipants WHERE roomNo=${roomId} AND userId='${uid}'`);
+  var lastIdx = connectDB.query(`SELECT lastIdx FROM roomParticipants WHERE roomNo=${roomId} AND userId='${uid}'`)[0]['lastIdx'];
 
-  console.log(roomId, uid, lastIdx);
+  var sql = `SELECT * from chatdata WHERE chatroomID=${roomId}`;
 
-  // var sql = `SELECT * from chatdata WHERE chatroomID=${roomId}`;
-
-  // console.log(lastIdx, req.session.userId);
-  // var result = connectDB.query(sql);
-  // result.splice(0, lastIdx);
-  // res.send(result);
+  console.log(lastIdx, req.session.userId);
+  var result = connectDB.query(sql);
+  result.splice(0, lastIdx);
+  res.send(result);
 });
 
 router.io.on('disconnect', socket => {
@@ -519,6 +517,21 @@ router.post('/addroomInfo', function (req, res) {
   var sql = `INSERT INTO room (roomType, roomName, category, isActive) VALUES('${roomType}','${title}','${category}', 1)`;
   //var roomNo = req.body.roomNo;
   var id = connectDB.query(sql)['insertId'];
+
+  res.send({ roomId: id });
+});
+
+router.post('/getroomInfo', function (req, res) {
+  var roomNo = req.body.step;
+  var sql;
+  if (roomNo === 'ALL') {
+    sql = `SELECT * from room`;
+  }
+  else {
+    sql = `SELECT * from room where roomNo=${roomNo}`;
+  }
+
+  /*sql의 별점은 추가*/
 
   res.send({ roomId: id });
 });

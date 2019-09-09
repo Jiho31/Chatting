@@ -2,28 +2,6 @@
 var socket = io();
 var roomId = parseInt(window.location.search.replace('?roomId=', ''));
 
-$.post('/getRoomInfo', {
-  step: roomId
-}, function(data) {
-  var roomType = data[0].roomType;
-  console.log(roomType);
-  $.post('/getChatUsers', {
-    mode: 'all',
-    roomId: roomId
-  },
-   function(data) {
-     window.chatUsers = data;
-    //  if(roomType === 0 && data.length >= 2) {
-    //    alert("더 이상 접속하실 수 없는 대화방 입니다.");
-    //    window.close();
-    //  }
-   });
-});
-
-socket.on('news', function (data) {
-  console.log(data);
-  socket.emit('my oher event', { my: 'data' });
-});
 
 var name = 'me';
 var room = '100';
@@ -188,6 +166,35 @@ $(document).ready(function () {
   });
 
 });
+
+// 1대1채팅 인원 제한하기
+$.post('/getRoomInfo', {
+  step: roomId,
+}, function(data) {
+  var roomType = data[0].roomType;
+  console.log(roomType);
+  
+  $.post('/getChatUsers', {
+    mode: 'all',
+    roomId: roomId 
+  },function(data) {
+     window.chatUsers = data;
+
+     if(roomType === 0 && data.length >= 2) {
+      
+       alert("더 이상 접속하실 수 없는 대화방 입니다.");
+       window.close();
+     }
+   });
+});
+
+
+socket.on('news', function (data) {
+  console.log(data);
+  socket.emit('my oher event', { my: 'data' });
+});
+
+
 
 //별점
 $('.rating')
