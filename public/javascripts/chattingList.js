@@ -8,7 +8,7 @@ var getData = function (cat) {
     category: cat
   }, function (data) {
     makeList(data);
-    if (data > 0 && !window.isScrolled && $(window).height() >= $(document).height()) {
+    if (data.length > 0 && !window.isScrolled && $(window).height() >= $(document).height()) {
       window.scrollStep++;
       getData(cat)
     }
@@ -25,8 +25,8 @@ var makeList = function (data) {
                 <div class="column">
                     <div class="ui segment" onclick="${method}">
                         <p>제목: ${data[i].roomName}</p>
-                        <p>카테고리: ${data[i].category}</p>
                         <p>평점: ${data[i].rating}</p>
+                        <p>모드: ${data[i].roomType === 0 ? '1대1채팅' : '게시판 글'}</p>
                     </div>
                 </div>
             `;
@@ -124,33 +124,6 @@ function submit() {
         type: roomType
     }));
 }
-
-function getroomInfo(cnt) {
-    $.post("/getroomInfo", {
-        step: cnt,
-    }, function (data) {
-    
-    }, 'json')
-        .done(function (data) {
-        })
-        .fail(function (data) {
-            alert("error");
-        })
-}
-
-function getroomInfoForId(no) {
-    $.post("/getroomInfoForId", {
-        roomNo: no,
-    }, function (data) {
-
-    }, 'json')
-        .done(function (data) {
-        })
-        .fail(function (data) {
-            alert("error");
-        })
-}
-
 // open the modal 
 roomBtn.onclick = function () {
     roomModal.style.display = "block";

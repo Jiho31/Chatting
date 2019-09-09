@@ -487,11 +487,6 @@ router.get('/Mlogin', function (req, res) {
 
 });
 
-router.get('/logout', function (req, res) {
-  delete req.session.userId;
-  res.redirect('/Ulogin');
-});
-
 router.get('/chattingList', function (req, res) {
 
   if (!req.session.userId) {
@@ -519,21 +514,6 @@ router.post('/addroomInfo', function (req, res) {
   //connectDB.query(addPartis);
   
   res.send({roomId: id});
-});
-
-router.post('/getroomInfo', function (req, res) {
-  var roomNo = req.body.step;
-  var sql;
-  if (roomNo === 'ALL') {
-    sql = `SELECT * from room`;
-  }
-  else {
-    sql = `SELECT * from room where roomNo=${roomNo}`;
-  }
-
-  /*sql의 별점은 추가*/
-
-  res.send({ roomId: id });
 });
 
 router.post('/getroomInfo', function (req, res) {
