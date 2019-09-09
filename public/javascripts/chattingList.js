@@ -153,4 +153,23 @@ var selectCategory = function(arg) {
     $('#listbody').empty();
     $('.ui.dropdown').eq(1).dropdown('set selected', arg + "");
     actionScroll(arg);
+        //게시판 글 내용 적는 곳
+        $(function(){
+            //기본값
+            $('#message_board_content').hide();
+            //숨기기
+            $('#chat_1').click(function(){
+                $('#message_board_content').hide();
+            });
+            //보이기
+            $('#chat_2').click(function(){
+                $('#message_board_content').show();
+            });
+        });
+  
+
+window.onclick = function (event) {
+    if (event.target == roomModal) {
+        roomModal.style.display = "none";
+    }
 }

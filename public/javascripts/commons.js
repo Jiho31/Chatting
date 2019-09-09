@@ -6,12 +6,10 @@ $(document).ready(function () {
         }
         $('.ui .item').removeClass('active');
         $(this).addClass('active');
-    });
-
-    accountModalFunction();
+    });       
 });
 
-function accountModalFunction() {
+function accountModalFunction(userEmail){
     var html = '';
 
     html += '<div id="account_Modal" class="account-modal">';
@@ -19,7 +17,7 @@ function accountModalFunction() {
     html += '<div class="account-modal-content">';
     html += '<span class="account-close">&times;</span>';
     html += '<div class="ui tag label">';
-    html += '<a class="my-email">abc123@gmail.com</a>';
+    html += '<a class="my-email">'+userEmail+'</a>';
     html += '</div>';
 
     html += '<div class="account-button">';
@@ -69,9 +67,6 @@ function accountModalFunction() {
     window.onclick = function (event) {
         if (event.target == accountModal) {
             accountModal.style.display = "none";
-        }
-        else if (event.target == roomModal) {
-            roomModal.style.display = "none";
         }
     }
 }

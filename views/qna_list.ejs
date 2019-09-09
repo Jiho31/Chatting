@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/commons.css" />
     <link href="https://fonts.googleapis.com/css?family=Gothic+A1|Nanum+Gothic|Nanum+Myeongjo&display=swap" rel="stylesheet">
     <script src="dist/semantic.js"></script>
+    <script src="/javascripts/qna_list.js"></script>
+    <script src="/javascripts/commons.js"></script>
 
 </head>
 
@@ -27,13 +29,13 @@
                 About
             </a>
             <a class="right item ignored">
-                <button id="account_Btn" class="ui inverted black basic button">
+                <button id="account_Btn" class="ui inverted black basic button" >
                     Account
                 </button>
             </a>
         </div>
     </div>
-
+    <script>accountModalFunction('<%=userEmail%>');</script>
 
     <div id="table1">
         <div>
@@ -67,7 +69,5 @@
         </div>
     </div>
 </body>
-<script src="/javascripts/qna_list.js"></script>
-<script src="/javascripts/commons.js"></script>
 
 </html>

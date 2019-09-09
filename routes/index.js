@@ -433,6 +433,10 @@ router.post('/Ulogin', function (req, res) {
       console.log('hiii');
       req.session.userId = id;
       req.session.userType = "user";
+
+      var getemail = `SELECT email FROM user WHERE id='${req.session.userId}';`;
+      req.session.userEmail = connectDB.query(getemail);
+
       res.send('<script>document.location.href="/chattingList"</script>');
     }
     else {
@@ -487,14 +491,21 @@ router.get('/Mlogin', function (req, res) {
 
 });
 
+router.get('/logout', function (req, res) {
+  delete req.session.userId;
+  delete req.session.userEmail;
+  res.redirect('/Ulogin');
+});
+
 router.get('/chattingList', function (req, res) {
 
   if (!req.session.userId) {
     res.redirect('/Ulogin');
   }
   else {
-    res.render('chattingList');
-
+    res.render('chattingList', {
+      userEmail: req.session.userEmail[0].email
+    });
   }
 });
 
@@ -535,14 +546,17 @@ router.get('/qna', function (req, res) {
     resultPostNum = Math.ceil(resultQNA[key1] / 10);
 
     res.render('qna_list', {
-      pageNum: resultPostNum
+      pageNum: resultPostNum,
+      userEmail: req.session.userEmail[0].email
     });
   }
 });
 
 router.get('/writepost', function (req, res) {
-  connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot BOOLEAN, filePaths TEXT, date TEXT, response TEXT, repFlage INT, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-  res.render('writepost');
+  connectDB.query("CREATE TABLE IF NOT EXISTS QNALIST(postIndex INT NOT NULL AUTO_INCREMENT, userId CHAR(30), category TEXT, title TEXT, content TEXT, secretOrNot TEXT, filePaths TEXT, date TEXT, response TEXT, repFlage INT, PRIMARY KEY(postIndex)) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+  res.render('writepost', {
+    userEmail: req.session.userEmail[0].email
+  });
 });
 
 router.post('/qna_data', function (req, res) {
@@ -579,15 +593,25 @@ router.get('/mainMenu', function (req, res) {
 });
 
 router.get('/qna', function (req, res) {
-  res.render('qna_list');
+  if (!req.session.userId)
+    res.redirect('/Ulogin');
+  else {
+    res.render('qna_list', {
+      userEmail: req.session.userEmail[0].email
+    });
+  }
 });
 
 router.get('/writepost', function (req, res) {
-  res.render('writepost');
+  res.render('writepost', {
+    userEmail: req.session.userEmail[0].email
+  });
 });
 
 router.get('/chattingRoom', function (req, res) {
-  res.render('chattingRoom');
+  res.render('chattingRoom', {
+    userEmail: req.session.userEmail[0].email
+  });
 });
 
 router.get('/maketable', function (req, res) {
@@ -681,32 +705,37 @@ router.post('/new_qna2', upload.array('img', 5), function (req, res) {
   res.send(true);
 });
 router.get('/showpost', function (req, res) {
-  var pi = req.query.postIndex;
+  if (!req.session.userId)
+    res.redirect('/Ulogin');
+  else {
+    var pi = req.query.postIndex;
 
-  var postResult = connectDB.query("SELECT * FROM QNALIST WHERE postIndex=" + pi);
-  // console.log(postResult);
+    var postResult = connectDB.query("SELECT * FROM QNALIST WHERE postIndex=" + pi);
+    // console.log(postResult);
 
-  var content = postResult[0].content;
-  var reply = postResult[0].response;
+    var content = postResult[0].content;
+    var reply = postResult[0].response;
 
-  var filePath = postResult[0].filePaths.split(", ");
-  console.log(filePath);
+    var filePath = postResult[0].filePaths.split(", ");
+    console.log(filePath);
 
-  content = content.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
-  if (reply != null)
-    reply = reply.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
+    content = content.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
+    if (reply != null)
+      reply = reply.replace(/(?:\\[rn]|[\r\n]+)+/g, "<br>");
 
-  res.render('showpost', {
-    userId: postResult[0].userId,
-    pCategory: postResult[0].category,
-    pTitle: postResult[0].title,
-    pContent: content,
-    pDate: postResult[0].date,
-    pSecret: postResult[0].secretOrNot,
-    pFilepath: filePath,
-    pReply: reply,
-    pFlag: postResult[0].repFlag
-  });
+    res.render('showpost', {
+      userId: postResult[0].userId,
+      pCategory: postResult[0].category,
+      pTitle: postResult[0].title,
+      pContent: content,
+      pDate: postResult[0].date,
+      pSecret: postResult[0].secretOrNot,
+      pFilepath: filePath,
+      pReply: reply,
+      pFlag: postResult[0].repFlag,
+      userEmail: req.session.userEmail[0].email
+    });
+  }
 });
 
 router.post('/reply_qna', function (req, res) {
@@ -718,6 +747,55 @@ router.post('/reply_qna', function (req, res) {
   connectDB.query(sql);
 
   res.redirect('qna');
+});
+
+router.get('/mypage/information', function(req, res){
+  if (!req.session.userId) {
+    res.redirect('/Ulogin');
+  }
+  else {
+    res.render('mp_personal', {
+      userEmail: req.session.userEmail[0].email
+    });
+  }
+});
+
+router.get('/mypage/ratings', function(req, res){
+  if (!req.session.userId) {
+    res.redirect('/Ulogin');
+  }
+  else {
+    res.render('mp_rate', {
+      userEmail: req.session.userEmail[0].email
+    });
+  }
+});
+router.get('/mypage/chatlist', function(req, res){
+  if (!req.session.userId) {
+    res.redirect('/Ulogin');
+  }
+  else {
+    var sql = `SELECT roomNo FROM roomParticipants WHERE userId='${req.session.userId}';`;
+    var roomData = connectDB.query(sql);
+    var sql3 = `SELECT MAX(chattime) FROM chatdata WHERE userId='${req.session.userId}';`;
+    var chatTime = connectDB.query(sql3);
+
+    if(roomData[0] == undefined){
+      roomData = undefined;
+      chatTime = undefined;
+      var chatData = undefined;
+    } else {
+      var sql2 = `SELECT * FROM room WHERE roomNo='${roomData[0].roomNo}';`;
+      var chatData = connectDB.query(sql2);
+      // console.log(chatData);
+    }
+    res.render('mp_chat_record', {
+      roomData: roomData,
+      chatData: chatData,
+      chatTime: chatTime,
+      userEmail: req.session.userEmail[0].email
+    });
+  }
 });
 
 module.exports = router;
