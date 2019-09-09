@@ -2,14 +2,15 @@ $('.ui.dropdown').dropdown();
 
 var listCont = $('#listbody');
 
-var getData = function () {
+var getData = function (cat) {
   $.post('/getroomInfo', {
-    step: window.scrollStep
+    step: window.scrollStep,
+    category: cat
   }, function (data) {
     makeList(data);
-    if (!window.isScrolled && $(window).height() >= $(document).height()) {
+    if (data > 0 && !window.isScrolled && $(window).height() >= $(document).height()) {
       window.scrollStep++;
-      getData(window.scrollStep)
+      getData(cat)
     }
     console.log(data);
   }, 'json')
@@ -19,9 +20,10 @@ var makeList = function (data) {
   var html = '';
 
   for (var i = 0; i < data.length; i++) {
+    var method = `javascript:void(window.open('http://13.124.188.203:3000/chattingRoom?roomId=${data[i].roomNo}','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))`;
     html += `
                 <div class="column">
-                    <div class="ui segment">
+                    <div class="ui segment" onclick="${method}">
                         <p>제목: ${data[i].roomName}</p>
                         <p>카테고리: ${data[i].category}</p>
                         <p>평점: ${data[i].rating}</p>
@@ -32,7 +34,7 @@ var makeList = function (data) {
   listCont.append(html);
 }
 
-var actionScroll = function () {
+var actionScroll = function (cat) {
   window.scrollStep = 0;
   window.isScrolled = false;
 
@@ -46,14 +48,19 @@ var actionScroll = function () {
 
     if (scrollTop + windowHeight + 1 > docHeight) {
       window.scrollStep++;
-      getData(window.scrollStep);
+      getData(cat);
     }
   });
-  getData(window.scrollStep);
+  getData(cat);
 }
 
 $(document).ready(function () {
-  actionScroll();
+    window.selectedCategory = 0;
+    actionScroll(window.selectedCategory);
+    $('.button.selector').on('click', function () {
+        $('.button.selector').removeClass('selected');
+        $(this).addClass('selected');
+    });
 });
 
 
@@ -99,8 +106,9 @@ function submit() {
                 roomId = JSON.parse(xhr.responseText).roomId;
                 /* 대화방 */
                 //document.location.href = "/roomChatting";
+                document.location.href=`javascript:void(window.open('http://13.124.188.203:3000/chattingRoom?roomId=${roomId}','win0', 'left='+(screen.availWidth-521)/2+',top='+(screen.availHeight-768)/2+', width=521px,height=768px'))`;
                 $('#listbody').empty();
-                actionScroll();
+                actionScroll(window.selectedCategory);
                 
                 }
         }
@@ -112,7 +120,7 @@ function submit() {
 
     xhr.send(JSON.stringify({
         title: document.getElementById('title').value,
-        category: $("#category option:selected").val(),
+        category: window.selectedCategory,
         type: roomType
     }));
 }
@@ -153,19 +161,14 @@ roomSpan.onclick = function () {
     roomModal.style.display = "none";
 }
 
-//채팅 방식 선택할 때 뒤에 네모 박스
-$(document).ready(function () {
-    $('.button.selector').on('click', function () {
-        $('.button.selector').removeClass('selected');
-        $(this).addClass('selected');
-    });
-});
+
 
 // 카테고리 선택지 나열
 
 //submit 버튼 누르면 모달 닫힘
 submitBtn.onclick = function () {
     roomModal.style.display = "none";
+    console.log("asdfasdfasdf");
     submit();
 }
 
@@ -174,31 +177,9 @@ cancelBtn.onclick = function () {
     roomModal.style.display = "none";
 }
 
-// Get the modal
-var accountModal = document.getElementById('account_Modal');
-
-// Get the button that opens the modal
-var accountBtn = document.getElementById("account_Btn");
-
-// Get the <span> element that closes the modal
-var accountSpan = document.getElementsByClassName("account-close")[0];
-
-// When the user clicks on the button, open the modal 
-accountBtn.onclick = function () {
-    accountModal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-accountSpan.onclick = function () {
-    accountModal.style.display = "none";
-}
-
-// 
-window.onclick = function (event) {
-    if (event.target == accountModal) {
-        accountModal.style.display = "none";
-    }
-    else if (event.target == roomModal) {
-        roomModal.style.display = "none";
-    }
+var selectCategory = function(arg) {
+    window.selectedCategory = arg;
+    $('#listbody').empty();
+    $('.ui.dropdown').eq(1).dropdown('set selected', arg + "");
+    actionScroll(arg);
 }

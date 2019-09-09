@@ -170,21 +170,10 @@ submitBtn.onclick = function () {
     submit();
 }
 
-var accountModal = document.getElementById('account_Modal');
-
 //cancel 버튼 누르면 모달 닫힘
 cancelBtn.onclick = function () {
     roomModal.style.display = "none";
 }
-        // 
-        window.onclick = function (event) {
-            if (event.target == accountModal) {
-                accountModal.style.display = "none";
-            }
-            else if (event.target == roomModal) {
-                roomModal.style.display = "none";
-            }
-        }
 
         //게시판 글 내용 적는 곳
         $(function(){
