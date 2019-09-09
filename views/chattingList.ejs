@@ -12,6 +12,7 @@
     <script src="dist/semantic.js"></script>
 
 
+    <link rel="stylesheet" href="/stylesheets/commons.css">
     <link rel="stylesheet" href="/stylesheets/chattingList.css">
     <title>Document</title>
 </head>
@@ -240,12 +241,13 @@
                 <div class="field">
                     <label>Category</label>
                     <select class="ui fluid dropdown" id="category">
-                        <option value="">Category</option>
-
-                        <option value="VA">세인</option>
-                        <option value="WA">지호</option>
-                        <option value="WV">선혜</option>
-                        <option value="WI">성희</option>
+                        <option value="0">free</option>
+                        <option value="1">academic</option>
+                        <option value="2">hobby</option>
+                        <option value="3">date</option>
+                        <option value="4">company</option>
+                        <option value="5">relationship</option>
+                        <option value="6">beauty&style</option>
                     </select>
                 </div>
 
@@ -254,42 +256,24 @@
                     <button type="button" class="ui secondary submit button">
                         Submit
                     </button>
-                    <button class="ui grey button">
+                    <button type="button" class="ui grey button">
                         Cancel
                     </button>
                 </div>
 
             </div>
+        
         </form>
 
     </div>
 
     <div id="body">
         <div id="listbody" class="ui three column doubling stackable grid">
-            <div class="column">
-                <div class="ui segment">
-                    <p> title: "방제목1" </p>
-                    <p> rating: 5 </p>
-                </div>
-            </div>
-
-            <div class="column">
-                <div class="ui segment">
-                    <p> title: "방제목2" </p>
-                    <p> rating: 5 </p>
-                </div>
-            </div>
-
-            <div class="column">
-                <div class="ui segment">
-                    <p> title: "방제목3" </p>
-                    <p> rating: 5 </p>
-                </div>
-            </div>
-
+            
         </div>
     </div>
     <script src="/javascripts/chat.js"></script>
+    <script src="/javascripts/commons.js"></script>
 
 </body>
 
