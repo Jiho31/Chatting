@@ -12,55 +12,83 @@
     background-color: rgba(0,0,0,0.4); Black w/ opacity */
   }
   
-/* Modal Content/Box */
-.account-modal-content {
-background-color: #fefefe;
-margin-top:78px;
-margin-left:auto; 
+  /* Modal Content/Box */
+  .account-modal-content {
+    background-color: #fefefe;
+    margin-top:78px;
+    margin-left:auto; 
+    
+    padding: 20px;
+    border: 1px solid #888;
+    width: 360px;                         
+  }
 
-padding: 20px;
-border: 1px solid #888;
-width: 290px;                         
-}
-/* The Close Button */
-.account-close {
-color: #aaa;
-float: right;
-font-size: 28px;
-font-weight: bold;
-}
-.close:hover,
-.close:focus {
-color: black;
-text-decoration: none;
-cursor: pointer;
-}
+  /* The Close Button */
+  .account-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-.account-button{
-display: flex;
-flex-direction: row;
-justify-content: center;
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .account-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  
+  }
 
-}
-.ui.basic.button{
-margin: 4%;
-}
+  .ui.basic.button{
+    margin: 4%;
+  }
+  
+  .ui.tag.label{
+    margin:2% auto;
+    margin-left: 7%;
+  }
 
-.ui.tag.label{
-margin:2% auto;
-margin-left: 7%;
-}
-.account-modal-content{
-min-width: 250px;
-}
-
-@media screen and (max-width: 414px){
+  .account-modal-content{
+    min-width: 250px;
+  }
+  
+  @media screen and (max-width: 414px){
     .account-modal-content {
-        margin: 21% auto ;
-        width: 240px;
+      margin: 21% auto ;
+      width: 240px;
     }
-
+  
     .ui.tag.label{
-        justify-content: center;
+      justify-content: center;
+    }
+  
+  }
+
+@media only screen and (min-width: 769px){
+    #sidebar{
+        display: none;
     }
 }
+
+@media only screen and (max-width: 768px){
+   .room-info{
+        display: flex;
+        flex-direction: column;
+   }
+   #top_menu{
+       display: none;
+   }
+   #icon_menu{
+       display: none;
+   }
+   #sidebar{
+       display: inline-flex;
+   }
+}
+

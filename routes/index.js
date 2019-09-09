@@ -709,6 +709,7 @@ router.get('/showpost', function (req, res) {
     pFlag: postResult[0].repFlag
   });
 });
+
 router.post('/reply_qna', function (req, res) {
   var replyContent = req.body.replyContent;
   var pi = req.body.postIndex;
